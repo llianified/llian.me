@@ -30,8 +30,19 @@
   --font-code: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
 
   --measure: 52rem;
+
+  /* Ritme jarak. Cuma tiga angka ini yang boleh dipakai buat padding band:
+     --gutter  kiri-kanan, sama di semua band
+     --band-y  atas-bawah band konten (hero, tiap section, kontak)
+     --chrome-y atas-bawah header dan footer
+     Selalu simetris. Kalau butuh angka lain, berarti tokennya yang salah. */
   --gutter: clamp(1.25rem, 4vw, 2.5rem);
-  --section-gap: clamp(2.75rem, 5vw, 4.25rem);
+  --band-y: clamp(2.75rem, 5vw, 4.25rem);
+  --chrome-y: 1.15rem;
+
+  /* Inset baris yang bisa di-hover, dibatalin lagi pakai margin negatif
+     supaya teksnya tetap lurus sama tepi kolom. */
+  --row-x: 0.75rem;
 }
 
 *,
