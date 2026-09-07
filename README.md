@@ -24,10 +24,40 @@ Link yang masih `"#"` berarti belum diisi:
 
 ```bash
 npm install
-npm run dev     # http://localhost:3000
-npm run build
-npm start
+npm run dev       # http://localhost:3000
+npm run build     # hasilnya ke folder out/
+npm run preview   # build lalu sajikan lewat runtime Cloudflare lokal
 ```
+
+## Deploy
+
+Situs ini di-export jadi HTML statis (`output: "export"` di `next.config.ts`) dan
+disajikan sebagai Cloudflare Worker tanpa `main` — tidak ada kode yang jalan per
+request, Cloudflare cuma menyajikan file dari `out/`.
+
+Sekali di awal:
+
+```bash
+npx wrangler login
+```
+
+Tiap mau naik:
+
+```bash
+npm run deploy
+```
+
+Deploy pertama dapat alamat `llian-me.<subdomain>.workers.dev`. Buat pasang domain
+sendiri, DNS `llian.me` harus dipegang Cloudflare, lalu tambahkan lewat dashboard:
+**Workers & Pages → llian-me → Settings → Domains & Routes**.
+
+Semua yang bikin Next butuh server tidak dipakai di sini — tidak ada route handler,
+server action, `next/image`, atau ISR — jadi export statisnya cukup. Kalau nanti ada
+yang butuh server (misal form kontak yang benar-benar mengirim email), `output:
+"export"` harus dilepas dan hostingnya ikut berubah.
+
+Catatan: `next start` tidak berlaku lagi kalau `output: "export"` aktif. Pakai
+`npm run preview` untuk mengecek hasil build secara lokal.
 
 ## Sistem visual
 

@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "llian-me",
+  "compatibility_date": "2026-09-07",
+
+  // Worker tanpa "main": Cloudflare cuma menyajikan file statis dari ./out.
+  // Tidak ada kode yang jalan per request, jadi tidak makan kuota Worker.
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}
