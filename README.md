@@ -29,6 +29,14 @@ npm run build
 npm start
 ```
 
+## Sistem visual
+
+Palet, hierarki, dan grid-nya mengikuti [The Component Gallery](https://component.gallery):
+
+- **Warna** — latar kertas hangat (`#f4f2ed`), bukan putih. Aksen satu-satunya merah (`#d63a2a`), dipakai buat titik penanda bagian aktif di nav dan titik di eyebrow.
+- **Hierarki** — Instrument Serif buat semua nama dan judul, sans kapital berjarak buat label bagian, sans biasa buat sisanya, mono cuma buat tanggal dan jam.
+- **Grid** — kolom konten dibingkai dua garis vertikal yang jalan dari header sampai footer, tiap bagian dipisah garis horizontal yang mepet ke bingkai itu. Hero duduk di atas kertas milimeter 40px.
+
 ## Catatan
 
 Light mode-nya dikunci: `color-scheme: light` di `:root` dan tidak ada satu pun blok `prefers-color-scheme` di project ini. Kalau nanti mau nambah dark mode, berarti nambah blok baru, bukan nimpa yang lama.

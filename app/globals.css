@@ -6,18 +6,23 @@
 :root {
   color-scheme: light;
 
-  --bg: #fcfbf8;
-  --bg-raised: #ffffff;
-  --bg-wash: #f5f2ec;
+  /* Kertas hangat, bukan putih. */
+  --bg: #f4f2ed;
+  --bg-raised: #fbfaf7;
+  --bg-wash: #eceae3;
 
-  --ink: #1b1917;
-  --ink-2: #57534e;
-  --ink-3: #8a857d;
-  --ink-4: #b4afa6;
+  --ink: #1a1a17;
+  --ink-2: #4b4a44;
+  --ink-3: #7d7b72;
+  --ink-4: #a9a69b;
 
-  --line: #e8e3da;
-  --line-soft: #f1ede5;
+  /* Garis struktural: bingkai kolom & pemisah bagian. */
+  --line: #dcd8ce;
+  --line-soft: #e5e2d9;
+  /* Kertas milimeter di belakang hero. */
+  --grid: #e2dfd5;
 
+  --accent: #d63a2a;
   --positive: #4c7a50;
 
   --font-display: var(--font-serif), "Instrument Serif", Georgia, serif;
@@ -25,7 +30,7 @@
   --font-code: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
 
   --measure: 52rem;
-  --gutter: clamp(1.5rem, 5vw, 3rem);
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
   --section-gap: clamp(2.75rem, 5vw, 4.25rem);
 }
 
@@ -83,7 +88,7 @@ svg {
 }
 
 ::selection {
-  background: #e6dfd0;
+  background: #e0d9c8;
   color: var(--ink);
 }
 

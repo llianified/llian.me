@@ -1,5 +1,6 @@
 import styles from "./page.module.css";
 import { LocalTime } from "./components/local-time";
+import { Nav } from "./components/nav";
 import {
   contacts,
   contributions,
@@ -11,13 +12,6 @@ import {
   site,
   stack,
 } from "@/lib/content";
-
-const nav = [
-  { label: "Pengalaman", href: "#pengalaman" },
-  { label: "Kontribusi", href: "#kontribusi" },
-  { label: "Proyek", href: "#proyek" },
-  { label: "Kontak", href: "#kontak" },
-];
 
 type ListSection = {
   title: string;
@@ -81,17 +75,16 @@ export default function Home() {
   return (
     <div className={styles.shell}>
       <header className={styles.header}>
-        <a href="#top" className={styles.wordmark}>
-          {site.wordmark}
-          <span>{site.domain}</span>
-        </a>
-        <nav className={styles.nav} aria-label="Bagian halaman">
-          {nav.map((item) => (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
+        <div className={styles.masthead}>
+          <a href="#top" className={styles.wordmark}>
+            {site.wordmark}
+            <span>{site.domain}</span>
+          </a>
+          <span className={styles.mastheadMeta}>
+            {site.city} · <LocalTime />
+          </span>
+        </div>
+        <Nav />
       </header>
 
       <main id="top">
@@ -142,13 +135,6 @@ export default function Home() {
             </a>
             .
           </p>
-
-          <ul className={styles.facts}>
-            <li>{site.role}</li>
-            <li>
-              {site.city} · <LocalTime />
-            </li>
-          </ul>
         </section>
 
         {/* -------------------------------------------------- stack */}
