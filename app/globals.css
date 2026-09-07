@@ -24,9 +24,9 @@
   --font-body: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-code: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
 
-  --measure: 46rem;
+  --measure: 52rem;
   --gutter: clamp(1.5rem, 5vw, 3rem);
-  --section-gap: clamp(3.75rem, 7vw, 5.75rem);
+  --section-gap: clamp(2.75rem, 5vw, 4.25rem);
 }
 
 *,

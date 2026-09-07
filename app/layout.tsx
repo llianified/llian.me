@@ -25,13 +25,13 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: `${site.name} — ${site.role}`,
-  description: `${site.name} is a ${site.role.toLowerCase()} based in ${site.location}.`,
+  description: `${site.name}, front-end developer asal Bandung yang sekarang tinggal di ${site.city}. Ngulik React dan TypeScript, nulis konten buat proyek Web3.`,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="id"
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
     >
       <body>{children}</body>

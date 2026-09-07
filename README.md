@@ -1,20 +1,26 @@
 # llian.me
 
-A single-page personal portfolio. Light mode only, by design.
+Situs portofolio satu halaman punya Yoga Aprilliansyah N. Light mode saja, memang disengaja.
 
-**Type:** [Instrument Serif](https://fonts.google.com/specimen/Instrument+Serif) for display, [Geist](https://fonts.google.com/specimen/Geist) + Geist Mono for everything else — both loaded and self-hosted through `next/font/google`.
+**Font:** [Instrument Serif](https://fonts.google.com/specimen/Instrument+Serif) buat display, [Geist](https://fonts.google.com/specimen/Geist) + Geist Mono buat sisanya. Dua-duanya di-self-host lewat `next/font/google`.
 
 ## Stack
 
 - Next.js 16 (App Router, Turbopack)
 - React 19 + TypeScript
-- Plain CSS — design tokens in `app/globals.css`, page styles in `app/page.module.css`. No CSS framework.
+- CSS biasa — token di `app/globals.css`, style halaman di `app/page.module.css`. Tanpa framework CSS.
 
-## Content
+## Isi situs
 
-All copy is placeholder. It lives in one file — [`lib/content.ts`](lib/content.ts) — so swapping in the real thing means editing that file and nothing else.
+Semua teks dan data ada di satu file: [`lib/content.ts`](lib/content.ts). Mau ganti apa pun, cukup edit file itu.
 
-## Develop
+Link yang masih `"#"` berarti belum diisi:
+
+- `contacts` — Instagram, X, WhatsApp, email, CV
+- `contributions` — tujuh link "Visit" ke proyek Web3
+- `projects` — URL live `barcode-gen`
+
+## Jalanin
 
 ```bash
 npm install
@@ -23,6 +29,8 @@ npm run build
 npm start
 ```
 
-## Notes
+## Catatan
 
-The site is deliberately light-only: `color-scheme: light` is fixed in `:root` and there is no `prefers-color-scheme` block anywhere in the project. Adding dark mode means adding one — not overriding anything.
+Light mode-nya dikunci: `color-scheme: light` di `:root` dan tidak ada satu pun blok `prefers-color-scheme` di project ini. Kalau nanti mau nambah dark mode, berarti nambah blok baru, bukan nimpa yang lama.
+
+Jam di hero diambil dari `Asia/Jakarta` dan diisi setelah mount (`app/components/local-time.tsx`), jadi tidak ada hydration mismatch.
