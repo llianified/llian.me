@@ -1,39 +1,42 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
-import { site } from "@/lib/content";
+import { Geist_Mono, Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-sans",
+const inter = Inter({
+  variable: "--inter-font",
   subsets: ["latin"],
   display: "swap",
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-mono",
+  variable: "--geist-mono-font",
   subsets: ["latin"],
   display: "swap",
 });
 
 const instrumentSerif = Instrument_Serif({
-  variable: "--font-serif",
-  subsets: ["latin"],
+  variable: "--instrument-serif-font",
   weight: "400",
-  style: ["normal", "italic"],
+  subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: `${site.name} — ${site.role}`,
-  description: `${site.name}, front-end developer asal Bandung yang sekarang tinggal di ${site.city}. Ngulik React dan TypeScript, nulis konten buat proyek Web3.`,
+  title: "YAN",
+  description: "Portfolio Yoga Aprilliansyah N — Front-End Developer berbasis di Bandung, Indonesia.",
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: true,
+    nosnippet: true,
+    noimageindex: true,
+  },
+  icons: { icon: { url: "/favicon-light.png", type: "image/png" } },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="id"
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
-    >
+    <html lang="id" className={`${inter.variable} ${geistMono.variable} ${instrumentSerif.variable}`}>
       <body>{children}</body>
     </html>
   );
