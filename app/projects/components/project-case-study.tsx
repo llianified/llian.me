@@ -65,11 +65,10 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
   return (
     <div className={styles.shell}>
       <SocialRail />
-      <div className={styles.articleTheme}><ThemeToggle /></div>
       <main id="main-content" tabIndex={-1} className={styles.page}>
         <nav className={styles.backNav} aria-label="Navigasi studi kasus">
           <Link href="/#projects"><BackIcon /> Kembali ke proyek</Link>
-          <Link href="/" className={styles.wordmark}>llian.me</Link>
+          <ThemeToggle />
         </nav>
 
         <article>

@@ -9,13 +9,6 @@
   animation: article-in 420ms ease-out both;
 }
 
-.articleTheme {
-  position: fixed;
-  z-index: 4;
-  bottom: 40px;
-  left: 36px;
-}
-
 .backNav {
   display: flex;
   align-items: center;
@@ -44,12 +37,6 @@
 .footer > a svg {
   width: 14px;
   height: 14px;
-}
-
-.wordmark {
-  color: var(--foreground) !important;
-  font-weight: 600;
-  letter-spacing: -.035em;
 }
 
 .header {
@@ -282,32 +269,12 @@
     width: 100%;
     margin-left: 0;
   }
-
-  .articleTheme {
-    position: absolute;
-    top: 44px;
-    right: 24px;
-    bottom: auto;
-    left: auto;
-  }
-
-  .backNav { padding-right: 52px; }
 }
 
 @media (max-width: 720px) {
   .shell { padding: 20px 18px 42px; }
 
-  .articleTheme {
-    top: 22px;
-    right: 18px;
-  }
-
-  .backNav {
-    margin-bottom: 42px;
-    padding-right: 48px;
-  }
-
-  .wordmark { display: none !important; }
+  .backNav { margin-bottom: 42px; }
 
   .header h1 { font-size: 42px; }
 
