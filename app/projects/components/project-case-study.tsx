@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import type {
   ProjectAction,
   ProjectCaseStudy as ProjectCaseStudyData,
+  ProjectImage,
 } from "@/lib/project-case-studies";
 import { ArrowIcon, BackIcon, GitHubIcon } from "@/app/components/icons";
 import { Reveal } from "@/app/components/reveal";
@@ -31,6 +32,37 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
       </h2>
       {children}
     </Reveal>
+  );
+}
+
+function Figure({
+  image,
+  className,
+  priority,
+  index = 0,
+}: {
+  image: ProjectImage;
+  className?: string;
+  priority?: boolean;
+  index?: number;
+}) {
+  return (
+    <figure
+      className={`${styles.figure} ${image.portrait ? styles.portrait : ""} ${className ?? ""}`}
+      style={stagger(index)}
+    >
+      <div className={styles.figureFrame}>
+        <img
+          src={image.src}
+          width={image.width}
+          height={image.height}
+          alt={image.alt}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+        />
+      </div>
+      <figcaption>{image.caption}</figcaption>
+    </figure>
   );
 }
 
@@ -71,6 +103,10 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
             </div>
           </header>
 
+          {project.hero && (
+            <Figure image={project.hero} className={`${styles.heroFigure} rv-load`} priority index={6} />
+          )}
+
           <Section title="Overview">
             <div className={`${styles.prose} rv`} style={stagger(1)}>
               {project.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
@@ -97,6 +133,16 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
           <Section title="Behind the build">
             <FeatureList items={project.decisions} />
           </Section>
+
+          {project.gallery && project.gallery.length > 0 && (
+            <Section title="Screens">
+              <div className={styles.gallery}>
+                {project.gallery.map((image, index) => (
+                  <Figure image={image} className="rv" index={index + 1} key={image.src} />
+                ))}
+              </div>
+            </Section>
+          )}
 
           <Section title="Stack">
             <ul className={`${styles.stack} rv`} style={stagger(1)}>

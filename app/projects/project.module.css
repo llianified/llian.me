@@ -114,6 +114,59 @@
   transform: translate(1px, -1px);
 }
 
+.figure {
+  min-width: 0;
+}
+
+.heroFigure {
+  margin-top: 44px;
+}
+
+.figureFrame {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 4px var(--background);
+}
+
+.figureFrame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.portrait .figureFrame {
+  aspect-ratio: 4 / 5;
+}
+
+.portrait .figureFrame img {
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.figure figcaption {
+  margin-top: 10px;
+  color: var(--faint);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  padding-top: 20px;
+}
+
+@media (min-width: 721px) {
+  .gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
 .section { margin-top: 54px; }
 
 .section > h2 {

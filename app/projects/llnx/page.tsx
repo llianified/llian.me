@@ -3,7 +3,7 @@ import { ProjectCaseStudy } from "../components/project-case-study";
 import { llnxCaseStudy } from "@/lib/project-case-studies";
 
 export const metadata: Metadata = {
-  title: "llnx — Project case study",
+  title: "llnx case study",
   description: llnxCaseStudy.summary,
 };
 

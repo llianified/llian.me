@@ -132,6 +132,52 @@
   line-height: 1.5;
 }
 
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  color: var(--foreground);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.statusDot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.status[data-open] .statusDot {
+  background: var(--signal);
+}
+
+.status[data-open] .statusDot::after {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  content: "";
+  background: inherit;
+  animation: pulse 2.4s var(--ease-out) infinite;
+}
+
+@keyframes pulse {
+  from { opacity: .6; transform: scale(1); }
+  to { opacity: 0; transform: scale(2.6); }
+}
+
+.statusDetail {
+  color: var(--muted);
+}
+
+.statusDetail::before {
+  margin-right: 8px;
+  content: "·";
+}
+
 .heroGrid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -370,11 +416,41 @@
   transition: transform 320ms var(--ease-out), color var(--duration-fast) ease;
 }
 
+.projectCopy {
+  display: flex;
+  flex-direction: column;
+}
+
 .projectCopy > p {
   margin-top: 8px;
   color: var(--muted);
   font-size: 14px;
   line-height: 1.6;
+}
+
+.projectFoot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 16px;
+  font-size: 12px;
+}
+
+.projectStack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  list-style: none;
+  color: var(--faint);
+}
+
+.projectKind {
+  flex: 0 0 auto;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: color var(--duration-fast) ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -390,6 +466,10 @@
   .projectPanel:hover .projectArrow {
     color: var(--foreground);
     transform: translate(2px, -2px);
+  }
+
+  .projectPanel:hover .projectKind {
+    color: var(--foreground);
   }
 }
 
@@ -640,6 +720,15 @@
 
   .bio {
     font-size: 16px;
+  }
+
+  .statusDetail {
+    flex-basis: 100%;
+    padding-left: 16px;
+  }
+
+  .statusDetail::before {
+    content: none;
   }
 
   .main {
