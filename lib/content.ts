@@ -274,6 +274,13 @@ const projectsId: Project[] = [
     detailHref: "/projects/llian-dev",
     action: { label: "Kunjungi", href: "https://llian.dev", kind: "live" },
   },
+  {
+    name: "llian.me",
+    badge: "live",
+    desc: "Portfolio pribadi yang dibangun dengan Next.js, React, dan TypeScript.",
+    detailHref: null,
+    action: { label: "Kunjungi", href: "https://llian.me", kind: "live" },
+  },
 ];
 
 const projectsEn: Project[] = [
@@ -305,6 +312,13 @@ const projectsEn: Project[] = [
     desc: "A local-first collection of browser tools and technical notes.",
     detailHref: "/projects/llian-dev",
     action: { label: "Visit", href: "https://llian.dev", kind: "live" },
+  },
+  {
+    name: "llian.me",
+    badge: "live",
+    desc: "My personal portfolio, built with Next.js, React, and TypeScript.",
+    detailHref: null,
+    action: { label: "Visit", href: "https://llian.me", kind: "live" },
   },
 ];
 
