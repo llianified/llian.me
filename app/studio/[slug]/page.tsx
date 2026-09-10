@@ -335,7 +335,7 @@ function DevOverview({ theme }: { theme: string }) {
       <div className={s.devCats}>
         {devCategories.map(([label, desc, count]) => (
           <div key={label}>
-            {label} <span className={s.muted}>· {count}</span>
+            <strong>{label} <em>· {count}</em></strong>
             <span>{desc}</span>
           </div>
         ))}
@@ -568,7 +568,7 @@ function LlnxStrategy() {
 function LlnxTermux() {
   return (
     <TuiShell time="03:29:16" compact>
-      <TuiLog rows={logRows.slice(3, 15)} compact />
+      <TuiLog rows={logRows} compact />
       <TuiTabs active="market" compact />
       <div className={s.tuiForm}>
         one market at a time
@@ -578,7 +578,7 @@ function LlnxTermux() {
           <TuiField label="candle size" value="1m" select wide />
         </div>
       </div>
-      <div className={s.tuiHelp}>what you trade: a pair on an exchange, or one token on a chain.</div>
+      <div className={s.tuiHelp}>what you trade: a pair, or one token.</div>
       <TuiFooter compact />
     </TuiShell>
   );

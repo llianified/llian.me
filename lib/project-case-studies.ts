@@ -173,10 +173,11 @@ export const llnxCaseStudy = {
   ],
   hero: {
     src: "/projects/llnx/tui-overview.png",
-    width: 1800,
-    height: 1187,
-    alt: "The llnx TUI showing trading status, logs, and settings",
-    caption: "Desktop TUI: status, per-poll logs, and settings remain in three consistent bands.",
+    width: 1600,
+    height: 1000,
+    alt: "The llnx TUI in paper mode showing the status band, per-poll trade logs, and the market settings tab",
+    caption:
+      "Desktop TUI: status, per-poll logs, and settings stay in three consistent bands. Rendered for this case study with a sample paper session.",
   },
   overview: [
     "llnx watches the market, runs a strategy, applies stop-loss and take-profit rules, checks every guardrail, and then passes the decision to a broker and venue.",
@@ -251,24 +252,24 @@ export const llnxCaseStudy = {
   gallery: [
     {
       src: "/projects/llnx/tui-strategy.png",
-      width: 1800,
-      height: 1187,
-      alt: "The llnx strategy panel showing parameters for the selected strategy",
+      width: 1600,
+      height: 1000,
+      alt: "The llnx strategy tab showing EMA fast, slow, and trend-filter parameters while unrelated strategy settings stay hidden",
       caption: "The strategy screen hides irrelevant parameters instead of merely disabling them.",
     },
     {
       src: "/projects/llnx/tui-live-confirm.png",
-      width: 1800,
-      height: 1187,
-      alt: "The live-mode confirmation dialog in the llnx TUI",
+      width: 1600,
+      height: 1000,
+      alt: "The live-mode confirmation dialog in the llnx TUI asking for a typed phrase before real orders are sent",
       caption: "Live mode requires a confirmation phrase before any real order can be sent.",
     },
     {
       src: "/projects/llnx/tui-termux.png",
-      width: 1800,
-      height: 4420,
-      alt: "The llnx TUI in portrait orientation inside a Termux terminal",
-      caption: "The Termux portrait layout compacts status and makes settings scrollable without wrapping the logs.",
+      width: 720,
+      height: 1440,
+      alt: "The llnx TUI in portrait orientation with a compact status band, wrapped tabs, and stacked settings",
+      caption: "The Termux portrait layout compacts status and reflows tabs and settings around the narrow terminal.",
       portrait: true,
     },
   ],
@@ -295,10 +296,11 @@ export const llianDevCaseStudy = {
   ],
   hero: {
     src: "/projects/llian-dev/overview.png",
-    width: 1200,
-    height: 630,
-    alt: "The llian.dev banner reading “Small tools for real tasks. No account. No upload. No noise.”",
-    caption: "The pitch in one line: open a task, finish it on the same device, close the tab.",
+    width: 1600,
+    height: 900,
+    alt: "The llian.dev home page reading “Small tools for real tasks. No account. No upload. No noise.” above six tool categories",
+    caption:
+      "The pitch in one line: open a task, finish it on the same device, close the tab. Rendered for this case study.",
   },
   overview: [
     "Tools for images, PDFs, developer work, text, everyday tasks, and finance each have a dedicated static page with a shareable URL.",
@@ -345,6 +347,16 @@ export const llianDevCaseStudy = {
     "pdf-lib",
     "pdfjs-dist",
     "Cloudflare Workers",
+  ],
+  gallery: [
+    {
+      src: "/projects/llian-dev/tools.png",
+      width: 1600,
+      height: 900,
+      alt: "The llian.dev tools index with a search field and a grid of tool cards grouped by category",
+      caption:
+        "The tools index: every tool has its own page, and Indonesian-specific calculators sit beside universal ones. Rendered for this case study.",
+    },
   ],
   note: {
     label: "Privacy boundary",
