@@ -18,13 +18,8 @@ function ActionLink({ action }: { action: ProjectAction }) {
   );
 }
 
-function SectionIntro({ number, title }: { number: string; title: string }) {
-  return (
-    <div className={styles.sectionIntro}>
-      <span>{number}</span>
-      <h2>{title}</h2>
-    </div>
-  );
+function SectionIntro({ title }: { title: string }) {
+  return <div className={styles.sectionIntro}><h2 className="font-serif">{title}</h2></div>;
 }
 
 function ProjectFigure({
@@ -42,7 +37,7 @@ function ProjectFigure({
           src={image.src}
           width={image.width}
           height={image.height}
-          sizes={hero ? "(max-width: 1120px) 100vw, 1056px" : "(max-width: 720px) 100vw, 50vw"}
+          sizes={hero ? "(max-width: 1008px) calc(100vw - 48px), 960px" : image.portrait ? "(max-width: 440px) calc(100vw - 40px), 400px" : "(max-width: 680px) calc(100vw - 40px), (max-width: 1008px) calc(50vw - 36px), 468px"}
           alt={image.alt}
           unoptimized
         />
@@ -67,9 +62,10 @@ function FeatureGrid({ items }: { items: ProjectCaseStudyData["features"] }) {
 
 export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData }) {
   return (
-    <main className={styles.page}>
+    <main id="main-content" tabIndex={-1} className={styles.page}>
       <nav className={styles.backNav} aria-label="Case study navigation">
         <Link href="/#projects"><BackIcon />Kembali ke proyek</Link>
+        <Link href="/" className={styles.wordmark}>llian.me</Link>
       </nav>
 
       <header className={styles.header}>
@@ -85,7 +81,7 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
       {project.hero && <ProjectFigure image={project.hero} hero />}
 
       <section className={styles.section}>
-        <SectionIntro number="01" title="Overview" />
+        <SectionIntro title="Overview" />
         <div className={styles.prose}>
           {project.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </div>
@@ -93,7 +89,7 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
 
       {project.flow && (
         <section className={styles.section}>
-          <SectionIntro number="02" title="Alur produk" />
+          <SectionIntro title="Alur produk" />
           <ol className={styles.flow}>
             {project.flow.map((step, index) => (
               <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><p>{step}</p></li>
@@ -103,17 +99,17 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
       )}
 
       <section className={styles.section}>
-        <SectionIntro number={project.flow ? "03" : "02"} title="Yang dibangun" />
+        <SectionIntro title="Yang dibangun" />
         <FeatureGrid items={project.features} />
       </section>
 
       <section className={styles.section}>
-        <SectionIntro number={project.flow ? "04" : "03"} title="Keputusan teknis" />
+        <SectionIntro title="Keputusan teknis" />
         <FeatureGrid items={project.decisions} />
       </section>
 
       <section className={styles.section}>
-        <SectionIntro number={project.flow ? "05" : "04"} title="Stack" />
+        <SectionIntro title="Stack" />
         <ul className={styles.stack}>
           {project.stack.map((item) => <li key={item}>{item}</li>)}
         </ul>
@@ -121,7 +117,7 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
 
       {project.gallery && (
         <section className={styles.section}>
-          <SectionIntro number={project.flow ? "06" : "05"} title="Gallery" />
+          <SectionIntro title="Gallery" />
           <div className={styles.gallery}>
             {project.gallery.map((image) => <ProjectFigure image={image} key={image.src} />)}
           </div>
