@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Instrument_Serif, Inter } from "next/font/google";
+import { site } from "@/lib/content";
 import "./globals.css";
 
 const inter = Inter({
@@ -17,7 +18,7 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: "Yoga Aprilliansyah N — Portfolio",
-  description: "Portfolio Yoga Aprilliansyah N — Front-End Developer berbasis di Bandung, Indonesia. Proyek, pengalaman, dan kontribusi digital.",
+  description: `Portfolio ${site.name} — Front-End Developer berbasis di ${site.location}. Proyek, pengalaman, dan kontribusi digital.`,
   robots: {
     index: false,
     follow: false,
@@ -25,14 +26,17 @@ export const metadata: Metadata = {
     nosnippet: true,
     noimageindex: true,
   },
-  icons: { icon: { url: "/favicon-light.png", type: "image/png" } },
+  icons: { icon: { url: "/favicon-dark.png", type: "image/png" } },
 };
 
-export const viewport: Viewport = { themeColor: "#fdfdfc", colorScheme: "light" };
+export const viewport: Viewport = { themeColor: "#111111", colorScheme: "dark light", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="id" className={`bg-background ${inter.variable} ${instrumentSerif.variable}`}>
+    <html lang="id" data-theme="dark" suppressHydrationWarning className={`bg-background ${inter.variable} ${instrumentSerif.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `try{document.documentElement.dataset.theme=localStorage.getItem("llian-theme")==="light"?"light":"dark"}catch{}` }} />
+      </head>
       <body className="font-sans">
         <a className="skip-link" href="#main-content">Lewati ke konten</a>
         {children}
