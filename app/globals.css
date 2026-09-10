@@ -5,8 +5,11 @@
   --line: #e4e4e1;
   --foreground: #1d1d1b;
   --muted: #70706c;
-  --faint: color-mix(in srgb, var(--muted) 68%, transparent);
-  --accent: #52524e;
+  --faint: var(--muted);
+  --accent: var(--muted);
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --duration-fast: 180ms;
+  --duration-reveal: 520ms;
   --font-sans: var(--google-sans-flex), Arial, sans-serif;
   --font-serif: var(--instrument-serif), Georgia, serif;
 }
@@ -18,7 +21,7 @@
   --line: #30302d;
   --foreground: #eeeeea;
   --muted: #9a9a94;
-  --accent: #c4c4bd;
+  --accent: var(--muted);
 }
 
 *,
@@ -64,6 +67,7 @@ body {
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
 }
 
 .font-sans { font-family: var(--font-sans); }
@@ -72,6 +76,7 @@ body {
 a {
   color: inherit;
   text-underline-offset: 3px;
+  transition: color var(--duration-fast) ease, text-decoration-color var(--duration-fast) ease;
 }
 
 button {
@@ -149,13 +154,19 @@ html[lang="en"] .skip-link [lang="id"] { display: none; }
   color: var(--foreground);
 }
 
+.theme-toggle::before {
+  position: absolute;
+  inset: -12px 0;
+  content: "";
+}
+
 .theme-toggle::after {
   width: 14px;
   height: 14px;
   border-radius: 50%;
   background: var(--foreground);
   content: "";
-  transition: transform 180ms ease;
+  transition: transform 260ms var(--ease-out), background-color var(--duration-fast) ease;
 }
 
 [data-theme="dark"] .theme-toggle::after {
