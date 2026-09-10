@@ -115,7 +115,7 @@ export const content = {
     bio: {
       line1Prefix: "Saya adalah",
       line1LinkLabel: "Front-End Developer",
-      line1Suffix: "berusia 26 tahun yang berbasis di Bandung, Indonesia.",
+      line1Suffix: `berusia 26 tahun yang berbasis di ${site.location}.`,
       line2Prefix: "Kamu bisa menghubungi saya lewat",
       line2Instagram: "Instagram",
       line2Twitter: "Twitter / X",
@@ -131,13 +131,13 @@ export const content = {
     education: { title: "Pendidikan", sub: "Tempat semuanya dimulai.", entries: [{ co: "SMK Pasundan 1 Cianjur", date: "jul 2015 – mei 2018", role: "Teknik Komputer & Jaringan" }] as Entry[] },
     contributions: { title: "Kontribusi Digital", sub: "Kontribusi saya di berbagai komunitas dan media.", entries: contributionsId },
     projects: { title: "Proyek", sub: "Beberapa hal yang sudah dan sedang saya bangun.", items: projectsId },
-    footer: { creditPrefix: "Designed & Developed by", creditName: "Yoga", copyright: "© 2026 All rights reserved.", visitorsLabel: "Visitor", onlineLabel: "Online", location: "Cianjur, Indonesia" },
+    footer: { creditPrefix: "Designed & Developed by", creditName: "Yoga", copyright: "© 2026 All rights reserved.", visitorsLabel: "Visitor", onlineLabel: "Online", location: site.location },
   },
   en: {
     bio: {
       line1Prefix: "I'm a",
       line1LinkLabel: "Front-End Developer",
-      line1Suffix: "based in Bandung, Indonesia.",
+      line1Suffix: `based in ${site.location}.`,
       line2Prefix: "You can reach me on",
       line2Instagram: "Instagram",
       line2Twitter: "Twitter / X",
@@ -153,6 +153,6 @@ export const content = {
     education: { title: "Education", sub: "Where it all started.", entries: [{ co: "SMK Pasundan 1 Cianjur", date: "july 2015 – may 2018", role: "Computer & Network Engineering" }] as Entry[] },
     contributions: { title: "Digital Contributions", sub: "My work across different communities and media.", entries: contributionsEn },
     projects: { title: "Projects", sub: "A few things I've built and am currently working on.", items: projectsEn },
-    footer: { creditPrefix: "Designed & Developed by", creditName: "Yoga", copyright: "© 2026 All rights reserved.", visitorsLabel: "Visitors", onlineLabel: "Online", location: "Cianjur, Indonesia" },
+    footer: { creditPrefix: "Designed & Developed by", creditName: "Yoga", copyright: "© 2026 All rights reserved.", visitorsLabel: "Visitors", onlineLabel: "Online", location: site.location },
   },
 } as const;

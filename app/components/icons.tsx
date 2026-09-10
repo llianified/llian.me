@@ -42,6 +42,26 @@ export function BackIcon(props: IconProps) {
   return <IconBase {...props}><path d="m15 18-6-6 6-6" /></IconBase>;
 }
 
+export function SunIcon(props: IconProps) {
+  return <IconBase {...props}><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5" /></IconBase>;
+}
+
+export function MoonIcon(props: IconProps) {
+  return <IconBase {...props}><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z" /></IconBase>;
+}
+
+export function GlobeIcon(props: IconProps) {
+  return <IconBase {...props}><circle cx="12" cy="12" r="9" /><ellipse cx="12" cy="12" rx="4" ry="9" /><path d="M3 12h18" /></IconBase>;
+}
+
+export function CodeIcon(props: IconProps) {
+  return <IconBase {...props}><path d="m7 7-5 5 5 5m10-10 5 5-5 5M14 4l-4 16" /></IconBase>;
+}
+
+export function StackIcon(props: IconProps) {
+  return <IconBase {...props}><path d="m12 3 10 5-10 5L2 8l10-5ZM2 12l10 5 10-5M2 16l10 5 10-5" /></IconBase>;
+}
+
 export function VerifiedIcon(props: IconProps) {
   return <svg viewBox="0 0 24 24" width="1em" height="1em" aria-label="Verified" {...props}><path fill="#1d9bf0" d="M22.25 12c0-1.43-1.23-2.44-1.67-3.62-.46-1.22-.12-2.77-1.03-3.68-.92-.92-2.47-.58-3.69-1.04C14.69 3.22 13.68 2 12.25 2S9.81 3.22 8.63 3.66c-1.22.46-2.77.12-3.68 1.04-.92.91-.58 2.46-1.04 3.68C3.47 9.56 2.25 10.57 2.25 12s1.22 2.44 1.66 3.62c.46 1.22.12 2.77 1.04 3.68.91.92 2.46.58 3.68 1.04C9.81 20.78 10.82 22 12.25 22s2.44-1.22 3.61-1.66c1.22-.46 2.77-.12 3.69-1.04.91-.91.57-2.46 1.03-3.68.44-1.18 1.67-2.19 1.67-3.62Z" /><path fill="#fff" d="m10.7 15.8-3-3 1.35-1.35 1.65 1.64 4.75-4.74 1.35 1.35-6.1 6.1Z" /></svg>;
 }
