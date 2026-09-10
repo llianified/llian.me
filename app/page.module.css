@@ -34,9 +34,16 @@
   font-weight: 400;
 }
 .navigation {
+  order: 1;
   display: flex;
   align-items: center;
   gap: 4px;
+}
+.menuToggle {
+  display: none;
+}
+.navigation a:not(:last-child) svg {
+  display: none;
 }
 @supports ((backdrop-filter: blur(18px)) or (-webkit-backdrop-filter: blur(18px))) {
   .topbar {
@@ -77,6 +84,7 @@
   height: 16px;
 }
 .controls {
+  order: 2;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -925,31 +933,105 @@ a.entryCompany:hover {
 }
 @media (max-width: 680px) {
   .topbar {
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-    padding: 12px;
-    border-radius: 28px;
+    min-height: 58px;
+    margin-bottom: 16px;
+    padding: 6px 6px 6px 18px;
+    border-radius: 999px;
   }
   .main,
   .main [id] {
-    scroll-margin-top: 128px;
+    scroll-margin-top: 80px;
   }
   .wordmark {
-    padding-inline: 8px;
-    font-size: 24px;
-  }
-  .navigation {
-    order: 3;
-    flex-basis: 100%;
-    margin-top: 8px;
-  }
-  .navigation a {
-    flex: 1;
-    justify-content: center;
-    padding-inline: 8px;
+    flex-shrink: 0;
+    font-size: 23px;
   }
   .controls {
-    gap: 8px;
+    gap: 2px;
+  }
+  .controls > button {
+    width: 44px;
+    height: 44px;
+    border-color: transparent;
+  }
+  .controls .languageToggle {
+    font-size: 14px;
+  }
+  .controls > .menuToggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: auto;
+    padding-inline: 14px;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--text) 6%, var(--surface));
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  .menuToggle:hover,
+  .menuToggle[aria-expanded="true"] {
+    background: var(--border);
+    border-color: var(--text-muted);
+    color: var(--text);
+  }
+  .menuChevron {
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 0.2s;
+  }
+  .menuToggle[aria-expanded="true"] .menuChevron {
+    transform: translateY(2px) rotate(225deg);
+  }
+  .navigation {
+    position: absolute;
+    inset: calc(100% + 8px) 0 auto;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 16px 32px color-mix(in srgb, var(--bg) 28%, transparent);
+    max-height: calc(100dvh - 100px);
+    overflow-y: auto;
+  }
+  .navigation[data-open="true"] {
+    display: flex;
+    animation: enter 0.18s ease-out both;
+  }
+  .navigation a {
+    justify-content: space-between;
+    min-height: 48px;
+    padding-inline: 16px;
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 15px;
+  }
+  .navigation a svg,
+  .navigation a:not(:last-child) svg {
+    display: block;
+    color: var(--text-muted);
+  }
+  .navigation a:last-child {
+    background: color-mix(in srgb, var(--text) 5%, var(--surface));
+    color: var(--text);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .navigation[data-open="true"] {
+      animation: none;
+    }
+    .menuChevron {
+      transition: none;
+    }
   }
   .introGrid,
   .projects,

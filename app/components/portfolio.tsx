@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "../page.module.css";
 import {
   content,
@@ -57,27 +57,99 @@ function Topbar({
   onChange,
 }: LocalizedProps & { onChange: (language: Language) => void }) {
   const ui = uiCopy[language];
+  const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    function dismissOutside(event: PointerEvent) {
+      if (!headerRef.current?.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+    function dismissOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    }
+    const desktop = window.matchMedia("(min-width: 681px)");
+    function dismissOnDesktop() {
+      if (desktop.matches) setMenuOpen(false);
+    }
+
+    document.addEventListener("pointerdown", dismissOutside);
+    document.addEventListener("keydown", dismissOnEscape);
+    desktop.addEventListener("change", dismissOnDesktop);
+    return () => {
+      document.removeEventListener("pointerdown", dismissOutside);
+      document.removeEventListener("keydown", dismissOnEscape);
+      desktop.removeEventListener("change", dismissOnDesktop);
+    };
+  }, [menuOpen]);
+
+  function navigateToSection(id: string) {
+    if (!menuOpen) return;
+    setMenuOpen(false);
+    const section = document.getElementById(id);
+    if (section) {
+      section.tabIndex = -1;
+      section.focus({ preventScroll: true });
+    }
+  }
+
   return (
-    <header className={styles.topbar}>
+    <header
+      ref={headerRef}
+      className={styles.topbar}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setMenuOpen(false);
+        }
+      }}
+    >
       <a
         className={styles.wordmark}
         href="#main-content"
         aria-label={`llian.me — ${ui.home}`}
+        onClick={() => navigateToSection("main-content")}
       >
         llian<span>.me</span>
       </a>
-      <nav className={styles.navigation} aria-label={ui.navigation}>
-        <a href="#projects">{ui.work}</a>
-        <a href="#about">{ui.about}</a>
-        <a href="#contact">
-          {ui.contact}
-          <ArrowIcon />
-        </a>
-      </nav>
       <div className={styles.controls}>
         <LanguageToggle language={language} onChange={onChange} />
         <ThemeToggle language={language} />
+        <button
+          ref={menuButtonRef}
+          type="button"
+          className={styles.menuToggle}
+          aria-expanded={menuOpen}
+          aria-controls="portfolio-navigation"
+          aria-label={language === "id" ? "Menu navigasi" : "Navigation menu"}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          Menu
+          <span className={styles.menuChevron} aria-hidden="true" />
+        </button>
       </div>
+      <nav
+        id="portfolio-navigation"
+        className={styles.navigation}
+        aria-label={ui.navigation}
+        data-open={menuOpen}
+      >
+        <a href="#projects" onClick={() => navigateToSection("projects")}>
+          {ui.work}<ArrowIcon />
+        </a>
+        <a href="#about" onClick={() => navigateToSection("about")}>
+          {ui.about}<ArrowIcon />
+        </a>
+        <a href="#contact" onClick={() => navigateToSection("contact")}>
+          {ui.contact}<ArrowIcon />
+        </a>
+      </nav>
     </header>
   );
 }
