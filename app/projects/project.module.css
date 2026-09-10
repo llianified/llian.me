@@ -9,7 +9,9 @@
   justify-content: space-between;
   gap: 16px;
   min-height: 64px;
+  margin-inline: calc(var(--page-px) * -1);
   padding-bottom: 20px;
+  padding-inline: var(--page-px);
   border-bottom: 1px solid var(--border);
 }
 .backNav a,
@@ -150,7 +152,9 @@
   margin-top: var(--section-gap);
 }
 .sectionIntro {
+  margin-inline: calc(var(--page-px) * -1);
   padding-bottom: 16px;
+  padding-inline: var(--page-px);
   border-bottom: 1px solid var(--border);
 }
 .sectionIntro h2 {
@@ -172,6 +176,7 @@
   margin-top: 16px;
 }
 .flow {
+  margin-inline: calc(var(--page-px) * -1);
   list-style: none;
 }
 .flow li {
@@ -179,6 +184,7 @@
   align-items: baseline;
   gap: 20px;
   padding-block: 20px;
+  padding-inline: var(--page-px);
   border-bottom: 1px solid var(--border);
 }
 .flow li span {
@@ -267,7 +273,9 @@
   justify-content: space-between;
   gap: 24px;
   margin-top: var(--section-gap);
+  margin-inline: calc(var(--page-px) * -1);
   padding-top: 24px;
+  padding-inline: var(--page-px);
   border-top: 1px solid var(--border);
 }
 @keyframes enter {
