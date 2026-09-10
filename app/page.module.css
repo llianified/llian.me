@@ -300,19 +300,16 @@
 }
 
 .contribution {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
   min-width: 0;
   padding-block: 18px;
   border-bottom: 1px solid var(--line);
 }
 
-.contribution > p:first-child {
-  color: var(--faint);
-  font-size: 14px;
-  font-variant-numeric: tabular-nums;
-}
-
 .contribution h3 {
-  margin-top: 8px;
   font-size: 16px;
   font-weight: 500;
 }
@@ -325,10 +322,18 @@
   text-decoration: underline;
 }
 
-.contribution > p:nth-child(3) {
+.contribution div p {
   margin-top: 4px;
   color: var(--muted);
   font-size: 14px;
+}
+
+.contribution time {
+  flex: 0 0 auto;
+  color: var(--faint);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
 }
 
 .stackList {
@@ -522,7 +527,14 @@
   }
 
   .contribution {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
     padding-block: 15px;
+  }
+
+  .contribution time {
+    text-align: left;
   }
 
   .footer {

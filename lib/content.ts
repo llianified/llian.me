@@ -91,10 +91,6 @@ export const technologyGroups = [
     label: "Workflow",
     items: ["Git", "GitHub", "npm", "pnpm", "Environment configuration", "Figma", "Canva"],
   },
-  {
-    label: "AI-assisted",
-    items: ["Claude Code", "v0", "Gemini CLI", "AI coding agents", "Third-party AI APIs"],
-  },
 ] as const;
 
 export const capabilities = [
@@ -102,11 +98,6 @@ export const capabilities = [
     title: "Full-stack delivery",
     description:
       "Building interfaces, integrating APIs, working with PostgreSQL, handling migrations and seed/reset workflows, and shipping to cloud environments.",
-  },
-  {
-    title: "AI-assisted engineering",
-    description:
-      "Using coding agents as engineering tools for implementation, debugging, refactoring, codebase exploration, infrastructure setup, and UI iteration.",
   },
   {
     title: "Product development",
@@ -219,7 +210,7 @@ export const content = {
     line1LinkLabel: "Full-Stack Developer and Product Builder",
     line1Suffix: `based in ${site.location}. I build web applications, automation tools, and consumer-facing digital products from interface to deployment.`,
     detail:
-      "I work across frontend, backend integration, databases, cloud deployment, troubleshooting, and product iteration—with AI coding agents as part of my everyday engineering workflow.",
+      "I work across frontend, backend integration, databases, cloud deployment, troubleshooting, and product iteration.",
   },
   experience: {
     title: "Experience",

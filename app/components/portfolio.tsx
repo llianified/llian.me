@@ -137,9 +137,11 @@ function Contributions() {
       <div className={styles.contributionGrid}>
         {section.entries.map((entry) => (
           <article className={styles.contribution} key={`${entry.co}-${entry.date}`}>
-            <p>{entry.date}</p>
-            <h3>{entry.href ? <a href={entry.href} {...externalProps}>{entry.co}</a> : entry.co}</h3>
-            <p>{entry.role}</p>
+            <div>
+              <h3>{entry.href ? <a href={entry.href} {...externalProps}>{entry.co}</a> : entry.co}</h3>
+              <p>{entry.role}</p>
+            </div>
+            <time>{entry.date}</time>
           </article>
         ))}
       </div>
