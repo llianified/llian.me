@@ -14,6 +14,8 @@
   --font-serif: var(--font-sans);
   --radius: 24px;
   --radius-control: 999px;
+  --radius-thumbnail: 8px;
+  --radius-media: 18px;
   --control-size: 44px;
   --card-padding: 28px;
   --layout-gap: 16px;
@@ -26,15 +28,15 @@
 }
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #f4f3f1;
-  --surface: #fcfcfc;
-  --border: rgb(19 18 17 / 10%);
-  --text: #131211;
-  --text-muted: #686662;
-  --accent: #1766db;
+  --bg: #f9f8f7;
+  --surface: #ffffff;
+  --border: #e6e5e3;
+  --text: #050505;
+  --text-muted: #636363;
+  --accent: #0890ff;
   --inverse-bg: var(--text);
-  --inverse-text: var(--surface);
-  --inverse-muted: #d3d1cd;
+  --inverse-text: #fcfcfc;
+  --inverse-muted: #b3b3b3;
   --status-live: var(--accent);
 }
 *,
