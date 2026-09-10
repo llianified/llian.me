@@ -284,11 +284,19 @@
 }
 
 .projectPanel {
+  display: block;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 15px;
   background: var(--surface);
+  color: var(--foreground);
+  text-decoration: none;
   box-shadow: inset 0 0 0 4px var(--background), 0 0 0 1px var(--surface);
+}
+
+.projectPanel:hover h3 {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .projectVisual {
@@ -331,14 +339,6 @@
   font-weight: 600;
 }
 
-.projectNameLine h3 a {
-  text-decoration: none;
-}
-
-.projectNameLine h3 a:hover {
-  text-decoration: underline;
-}
-
 .liveBadge {
   display: inline-flex;
   align-items: center;
@@ -361,44 +361,6 @@
   line-height: 1.45;
 }
 
-.projectCategory {
-  margin-top: 9px;
-  color: var(--faint);
-  font-size: 10px;
-}
-
-.projectTags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 10px;
-  margin-top: 7px;
-  list-style: none;
-  color: var(--muted);
-  font-size: 10px;
-}
-
-.projectTags li + li::before {
-  content: "·";
-  margin-right: 10px;
-  color: var(--faint);
-}
-
-.projectActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 8px;
-  font-size: 12px;
-}
-
-.projectActions a {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  text-underline-offset: 3px;
-}
-
-.projectActions svg,
 .readLink svg {
   width: 12px;
   height: 12px;
@@ -527,6 +489,7 @@
 
 @media (max-width: 1199px) {
   .page {
+    position: relative;
     width: min(100%, 748px);
     margin-inline: auto;
     padding: 48px 24px 48px;
@@ -537,10 +500,12 @@
   }
 
   .floatingControls {
-    position: static;
+    position: absolute;
+    top: 48px;
+    right: 24px;
+    bottom: auto;
+    left: auto;
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 28px;
   }
 
   .shortcutHint {
@@ -550,6 +515,10 @@
   .profileColumn {
     position: static;
     width: 100%;
+  }
+
+  .profileHeader {
+    padding-right: 88px;
   }
 
   .inlineContacts {
@@ -573,7 +542,8 @@
   }
 
   .floatingControls {
-    margin-bottom: 20px;
+    top: 20px;
+    right: 18px;
   }
 
   .profileHeader h1 {
@@ -592,11 +562,11 @@
   }
 
   .main {
-    margin-top: 46px;
+    margin-top: 34px;
   }
 
   .contentSection + .contentSection {
-    margin-top: 46px;
+    margin-top: 38px;
   }
 
   .sectionTitle {
@@ -625,7 +595,7 @@
   }
 
   .projects {
-    gap: 26px;
+    gap: 14px;
   }
 
   .projectVisual {
