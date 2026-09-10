@@ -30,6 +30,28 @@ const externalProps = { target: "_blank", rel: "noreferrer" } as const;
 
 type LocalizedProps = { language: Language };
 
+function LanguageToggle({
+  language,
+  onChange,
+}: LocalizedProps & { onChange: (language: Language) => void }) {
+  const nextLanguage = language === "id" ? "en" : "id";
+  const label =
+    language === "id" ? "Switch to English" : "Ganti ke Bahasa Indonesia";
+
+  return (
+    <button
+      type="button"
+      className={styles.languageToggle}
+      lang={language}
+      aria-label={label}
+      title={label}
+      onClick={() => onChange(nextLanguage)}
+    >
+      {language.toUpperCase()}
+    </button>
+  );
+}
+
 function Topbar({
   language,
   onChange,
@@ -53,26 +75,7 @@ function Topbar({
         </a>
       </nav>
       <div className={styles.controls}>
-        <div className={styles.languages} role="group" aria-label={ui.language}>
-          <button
-            type="button"
-            lang="id"
-            aria-label="Bahasa Indonesia"
-            aria-pressed={language === "id"}
-            onClick={() => onChange("id")}
-          >
-            ID
-          </button>
-          <button
-            type="button"
-            lang="en"
-            aria-label="English"
-            aria-pressed={language === "en"}
-            onClick={() => onChange("en")}
-          >
-            EN
-          </button>
-        </div>
+        <LanguageToggle language={language} onChange={onChange} />
         <ThemeToggle language={language} />
       </div>
     </header>
