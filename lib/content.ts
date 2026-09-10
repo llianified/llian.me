@@ -139,61 +139,61 @@ export const technologies = [
 const experienceId: Entry[] = [
   {
     co: "Universitas Suryakancana",
-    date: "agu – nov 2017",
+    date: "Agu – Nov 2017",
     role: "Admin Magang",
   },
-  { co: "Zenius Store", date: "mar – sep 2021", role: "Digital Marketing" },
+  { co: "Zenius Store", date: "Mar – Sep 2021", role: "Digital Marketing" },
 ];
 
 const experienceEn: Entry[] = [
   {
     co: "Universitas Suryakancana",
-    date: "aug – nov 2017",
+    date: "Aug – Nov 2017",
     role: "Admin Intern",
   },
-  { co: "Zenius Store", date: "mar – sep 2021", role: "Digital Marketing" },
+  { co: "Zenius Store", date: "Mar – Sep 2021", role: "Digital Marketing" },
 ];
 
 const contributionsId: Entry[] = [
   {
     co: "Verso",
-    date: "mar 2018 – des 2019",
+    date: "Mar 2018 – Des 2019",
     role: "Community Manager",
     href: "https://verso.network",
   },
   {
     co: "Injective",
-    date: "jan 2024 – mar 2025",
+    date: "Jan 2024 – Mar 2025",
     role: "Brand Ambassador",
     href: "https://injective.com",
   },
   {
     co: "Nesa",
-    date: "mar 2024 – mei 2025",
+    date: "Mar 2024 – Mei 2025",
     role: "Brand Ambassador",
     href: "https://nesa.ai",
   },
   {
     co: "Story Protocol",
-    date: "jul 2024 – apr 2025",
+    date: "Jul 2024 – Apr 2025",
     role: "Content Writer",
     href: "https://storyprotocol.xyz",
   },
   {
     co: "Union",
-    date: "jul 2024 – apr 2025",
+    date: "Jul 2024 – Apr 2025",
     role: "Content Writer",
     href: "https://union.build",
   },
   {
     co: "Mitosis",
-    date: "jul 2024 – apr 2025",
+    date: "Jul 2024 – Apr 2025",
     role: "Content Writer",
     href: "https://mitosis.org",
   },
   {
     co: "Swisstronik",
-    date: "sep 2024 – jan 2025",
+    date: "Sep 2024 – Jan 2025",
     role: "Brand Ambassador",
     href: "https://swisstronik.com",
   },
@@ -202,43 +202,43 @@ const contributionsId: Entry[] = [
 const contributionsEn: Entry[] = [
   {
     co: "Verso",
-    date: "mar 2018 – dec 2019",
+    date: "Mar 2018 – Dec 2019",
     role: "Community Manager",
     href: "https://verso.network",
   },
   {
     co: "Injective",
-    date: "jan 2024 – mar 2025",
+    date: "Jan 2024 – Mar 2025",
     role: "Brand Ambassador",
     href: "https://injective.com",
   },
   {
     co: "Nesa",
-    date: "mar 2024 – may 2025",
+    date: "Mar 2024 – May 2025",
     role: "Brand Ambassador",
     href: "https://nesa.ai",
   },
   {
     co: "Story Protocol",
-    date: "jul 2024 – apr 2025",
+    date: "Jul 2024 – Apr 2025",
     role: "Content Writer",
     href: "https://storyprotocol.xyz",
   },
   {
     co: "Union",
-    date: "jul 2024 – apr 2025",
+    date: "Jul 2024 – Apr 2025",
     role: "Content Writer",
     href: "https://union.build",
   },
   {
     co: "Mitosis",
-    date: "jul 2024 – apr 2025",
+    date: "Jul 2024 – Apr 2025",
     role: "Content Writer",
     href: "https://mitosis.org",
   },
   {
     co: "Swisstronik",
-    date: "sep 2024 – jan 2025",
+    date: "Sep 2024 – Jan 2025",
     role: "Brand Ambassador",
     href: "https://swisstronik.com",
   },
@@ -340,7 +340,7 @@ export const content = {
       entries: [
         {
           co: "SMK Pasundan 1 Cianjur",
-          date: "jul 2015 – mei 2018",
+          date: "Jul 2015 – Mei 2018",
           role: "Teknik Komputer & Jaringan",
         },
       ] as Entry[],
@@ -378,7 +378,7 @@ export const content = {
       entries: [
         {
           co: "SMK Pasundan 1 Cianjur",
-          date: "july 2015 – may 2018",
+          date: "July 2015 – May 2018",
           role: "Computer & Network Engineering",
         },
       ] as Entry[],
