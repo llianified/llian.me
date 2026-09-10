@@ -104,10 +104,10 @@ function Biography({ language }: { language: Language }) {
   return (
     <div className={styles.biography}>
       <p className={styles.lead}>{bio.line1Prefix} <a href={contacts.github} {...externalProps}>{bio.line1LinkLabel}</a> {bio.line1Suffix}</p>
-      <p className={styles.bio}>
-        {bio.line2Prefix} <a href={contacts.instagram} {...externalProps}>{bio.line2Instagram}</a>, <a href={contacts.twitter} {...externalProps}>{bio.line2Twitter}</a>, <a href={contacts.whatsapp} {...externalProps}>WhatsApp</a> {bio.line2Or} <a href={contacts.email}>{bio.line2Email}</a>{bio.line2GitPrefix} <a href={contacts.github} {...externalProps}>{bio.line2GitLabel}</a>.
-      </p>
-      <p className={styles.cv}>{bio.cvPrefix}<a href={site.cvHref} {...externalProps}><FileIcon />{bio.cvLabel}<ArrowIcon /></a>{bio.cvSuffix}</p>
+      <div className={styles.introActions}>
+        <a className={styles.primaryAction} href="#projects">{language === "id" ? "Jelajahi proyek" : "Explore projects"}<ArrowIcon /></a>
+        <a className={styles.cv} href={site.cvHref} {...externalProps}><FileIcon />{language === "id" ? "Lihat CV" : "View CV"}</a>
+      </div>
     </div>
   );
 }
@@ -120,11 +120,11 @@ export function Portfolio() {
     <main id="main-content" tabIndex={-1} lang={language} className={styles.page}>
       <Profile language={language} onChange={setLanguage} />
       <Biography language={language} />
-      <TechnologyStack language={language} />
       <section id="projects" className={styles.section}>
         <SectionHeading title={copy.projects.title} sub={copy.projects.sub} />
         <Projects projects={copy.projects.items} language={language} />
       </section>
+      <TechnologyStack language={language} />
       <section className={styles.section}>
         <SectionHeading title={copy.experience.title} sub={copy.experience.sub} />
         <Entries entries={copy.experience.entries} />
@@ -137,10 +137,7 @@ export function Portfolio() {
         <SectionHeading title={copy.contributions.title} sub={copy.contributions.sub} />
         <Entries entries={copy.contributions.entries} />
       </section>
-      <footer className={styles.footer}>
-        <div><p>{copy.footer.creditPrefix} <strong>{copy.footer.creditName}</strong></p><p>{copy.footer.copyright}</p></div>
-        <p className={styles.footerLocation}>{copy.footer.location}<span><LocalTime /> WIB</span></p>
-      </footer>
+      <PortfolioFooter language={language} />
     </main>
   );
 }
