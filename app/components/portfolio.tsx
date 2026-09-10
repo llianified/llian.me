@@ -155,9 +155,6 @@ function Timeline({ entries }: { entries: readonly Entry[] }) {
     <ul className={styles.timeline}>
       {entries.map((entry) => (
         <li key={`${entry.co}-${entry.date}`}>
-          <span className={styles.timelineMark} aria-hidden="true">
-            {entry.co.slice(0, 1)}
-          </span>
           <div className={styles.timelineIdentity}>
             {entry.href ? (
               <a href={entry.href} {...externalProps}>{entry.co}</a>
