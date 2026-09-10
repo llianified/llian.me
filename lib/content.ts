@@ -53,7 +53,7 @@ export const uiCopy = {
 
 export const site = {
   name: "Yoga Aprilliansyah N",
-  shortName: "Yoga",
+  shortName: "llian.me",
   timezone: "Asia/Jakarta",
   location: "Cianjur, Indonesia",
   year: 2026,
