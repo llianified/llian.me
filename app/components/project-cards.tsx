@@ -46,6 +46,16 @@ function ProjectPanel({ project }: { project: Project }) {
           </span>
         </div>
         <p>{project.desc}</p>
+        <div className={styles.projectFoot}>
+          <ul className={styles.projectStack} aria-label="Built with">
+            {project.stack.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <span className={styles.projectKind}>
+            {project.detailHref ? "Case study" : project.action.label}
+          </span>
+        </div>
       </div>
     </>
   );

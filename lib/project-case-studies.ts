@@ -267,6 +267,13 @@ export const llianDevCaseStudy = {
       kind: "live",
     },
   ],
+  hero: {
+    src: "/projects/llian-dev/overview.png",
+    width: 1200,
+    height: 630,
+    alt: "The llian.dev banner reading “Small tools for real tasks. No account. No upload. No noise.”",
+    caption: "The pitch in one line: open a task, finish it on the same device, close the tab.",
+  },
   overview: [
     "Tools for images, PDFs, developer work, text, everyday tasks, and finance each have a dedicated static page with a shareable URL.",
     "The registry contains 45 dedicated tool routes. Several Indonesia-specific tasks have their own pages rather than hiding behind an automatic language switch.",

@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import styles from "../page.module.css";
 import {
+  availability,
   content,
   contacts,
   roles,
@@ -48,6 +49,15 @@ function Profile() {
         {site.name}
       </h1>
       <p className={`${styles.role} rv-load`} style={stagger(2)}>{roles[0]}</p>
+      <p
+        className={`${styles.status} rv-load`}
+        style={stagger(2)}
+        data-open={availability.open ? "" : undefined}
+      >
+        <span className={styles.statusDot} aria-hidden="true" />
+        <span>{availability.label}</span>
+        <span className={styles.statusDetail}>{availability.detail}</span>
+      </p>
 
       <div className={styles.heroGrid}>
         <div className={styles.heroLead}>
@@ -123,12 +133,7 @@ function Timeline({ entries }: { entries: readonly Entry[] }) {
 
 function TechnicalStack() {
   return (
-    <Section
-      id="stack"
-      title={uiCopy.technologies}
-      sub={uiCopy.technologiesDescription}
-      delay={360}
-    >
+    <Section id="stack" title={uiCopy.technologies} sub={uiCopy.technologiesDescription}>
       <dl className={styles.stackList}>
         {technologyGroups.map((group, index) => (
           <div className={`${styles.stackRow} rv`} key={group.label} style={stagger(index + 2)}>
@@ -187,7 +192,14 @@ export function Portfolio() {
       <Profile />
 
       <main id="main-content" tabIndex={-1} className={styles.main}>
-        <TechnicalStack />
+        <Section
+          id="projects"
+          title={content.projects.title}
+          sub={content.projects.sub}
+          delay={360}
+        >
+          <ProjectCards projects={content.projects.items} />
+        </Section>
 
         <Section id="experience" title={content.experience.title} sub={content.experience.sub}>
           <Timeline entries={content.experience.entries} />
@@ -195,9 +207,7 @@ export function Portfolio() {
 
         <Contributions />
 
-        <Section id="projects" title={content.projects.title}>
-          <ProjectCards projects={content.projects.items} />
-        </Section>
+        <TechnicalStack />
 
         <Capabilities />
 

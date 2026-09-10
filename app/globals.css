@@ -7,6 +7,7 @@
   --muted: #70706c;
   --faint: var(--muted);
   --accent: var(--muted);
+  --signal: #2f8f5b;
   --ease-out: cubic-bezier(.22, 1, .36, 1);
   --duration-fast: 180ms;
   --duration-theme: 260ms;
@@ -26,6 +27,7 @@
   --foreground: #eeeeea;
   --muted: #9a9a94;
   --accent: var(--muted);
+  --signal: #5fbf84;
 }
 
 *,

@@ -9,6 +9,7 @@ export type Project = {
   name: string;
   badge: "live" | null;
   desc: string;
+  stack: readonly string[];
   detailHref: string | null;
   action: {
     label: string;
@@ -54,6 +55,7 @@ export const uiCopy = {
 export const site = {
   name: "Yoga Aprilliansyah N",
   shortName: "llian.me",
+  url: "https://llian.me",
   timezone: "Asia/Jakarta",
   location: "Cianjur, Indonesia",
   year: 2026,
@@ -61,6 +63,12 @@ export const site = {
 };
 
 export const roles = ["Full-Stack Developer / Product Builder"] as const;
+
+export const availability = {
+  open: true,
+  label: "Open to freelance and full-time work",
+  detail: "Remote, or on-site around West Java.",
+} as const;
 
 export const contacts = {
   whatsapp: "https://wa.me/6285199273883",
@@ -122,18 +130,6 @@ const experience: Entry[] = [
 
 const contributions: Entry[] = [
   {
-    co: "Verso",
-    date: "Mar 2018 – Dec 2019",
-    role: "Community Manager",
-    href: "https://verso.network",
-  },
-  {
-    co: "Injective",
-    date: "Jan 2024 – Mar 2025",
-    role: "Brand Ambassador",
-    href: "https://injective.com",
-  },
-  {
     co: "Nesa",
     date: "Mar 2024 – May 2025",
     role: "Brand Ambassador",
@@ -158,10 +154,22 @@ const contributions: Entry[] = [
     href: "https://mitosis.org",
   },
   {
+    co: "Injective",
+    date: "Jan 2024 – Mar 2025",
+    role: "Brand Ambassador",
+    href: "https://injective.com",
+  },
+  {
     co: "Swisstronik",
     date: "Sep 2024 – Jan 2025",
     role: "Brand Ambassador",
     href: "https://swisstronik.com",
+  },
+  {
+    co: "Verso",
+    date: "Mar 2018 – Dec 2019",
+    role: "Community Manager",
+    href: "https://verso.network",
   },
 ];
 
@@ -170,6 +178,7 @@ const projects: Project[] = [
     name: "taksirin",
     badge: "live",
     desc: "An order and production system for custom businesses, from the first quote to final delivery.",
+    stack: ["Next.js", "PostgreSQL", "Prisma", "Playwright"],
     detailHref: "/projects/taksirin",
     action: {
       label: "Visit",
@@ -181,6 +190,7 @@ const projects: Project[] = [
     name: "llnx",
     badge: null,
     desc: "A Python crypto trading bot with paper, sandbox, and live modes, plus a TUI and built-in risk controls.",
+    stack: ["Python", "Textual", "ccxt", "Solana"],
     detailHref: "/projects/llnx",
     action: {
       label: "GitHub",
@@ -192,6 +202,7 @@ const projects: Project[] = [
     name: "llian.dev",
     badge: "live",
     desc: "A local-first collection of browser tools and practical technical notes.",
+    stack: ["Next.js", "Tailwind CSS", "pdf-lib", "Cloudflare"],
     detailHref: "/projects/llian-dev",
     action: { label: "Visit", href: "https://llian.dev", kind: "live" },
   },
@@ -199,6 +210,7 @@ const projects: Project[] = [
     name: "llian.me",
     badge: "live",
     desc: "My personal corner of the internet, built with Next.js, React, and TypeScript.",
+    stack: ["Next.js", "React", "CSS Modules", "Cloudflare"],
     detailHref: null,
     action: { label: "Visit", href: "https://llian.me", kind: "live" },
   },
@@ -235,8 +247,15 @@ export const content = {
   },
   projects: {
     title: "Projects",
-    sub: "A few things I’ve built and am still tinkering with.",
+    sub: "Things I’ve shipped and still maintain. Cards with a case study open a detailed write-up.",
     items: projects,
+  },
+  notFound: {
+    eyebrow: "404",
+    title: "This page doesn’t exist.",
+    body: "The link may be outdated, or the address was typed incorrectly.",
+    back: "Back to home",
+    projects: "See projects",
   },
   capabilities: {
     title: "How I work",

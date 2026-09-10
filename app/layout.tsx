@@ -17,9 +17,30 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
+const title = `${site.name} — Full-Stack Developer & Product Builder`;
+const description = `${site.name} is a Full-Stack Developer and Product Builder based in ${site.location}, working across frontend, backend, databases, deployment, and product development.`;
+
 export const metadata: Metadata = {
-  title: "Yoga Aprilliansyah N — Full-Stack Developer & Product Builder",
-  description: `${site.name} is a Full-Stack Developer and Product Builder based in ${site.location}, working across frontend, backend, databases, deployment, and product development.`,
+  metadataBase: new URL(site.url),
+  title: {
+    default: title,
+    template: `%s — ${site.shortName}`,
+  },
+  description,
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: site.shortName,
+    title,
+    description,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@llianified",
+    title,
+    description,
+  },
   robots: {
     index: false,
     follow: false,
@@ -27,7 +48,10 @@ export const metadata: Metadata = {
     nosnippet: true,
     noimageindex: true,
   },
-  icons: { icon: { url: "/favicon-light.png", type: "image/png" } },
+  icons: {
+    icon: { url: "/favicon-light.png", type: "image/png" },
+    apple: "/avatar.png",
+  },
 };
 
 export const viewport: Viewport = {

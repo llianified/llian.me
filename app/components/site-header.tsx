@@ -8,10 +8,10 @@ import { stagger } from "./reveal";
 import { ThemeToggle } from "./theme-toggle";
 
 const sections = [
-  { id: "stack", label: "Stack" },
+  { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "contributions", label: "Contributions" },
-  { id: "projects", label: "Projects" },
+  { id: "stack", label: "Stack" },
   { id: "capabilities", label: "How I work" },
   { id: "education", label: "Education" },
 ] as const;
