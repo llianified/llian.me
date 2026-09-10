@@ -88,16 +88,20 @@ function InlineContacts({ language }: LocalizedProps) {
 function FeaturedProject({
   href,
   image,
+  display,
   title,
 }: {
   href: string;
-  image: string;
   title: string;
-}) {
+} & ({ image: string; display?: never } | { image?: never; display: string })) {
   return (
     <Link className={styles.featuredProject} href={href}>
       <span className={styles.featuredImage}>
-        <Image src={image} alt="" fill sizes="280px" unoptimized />
+        {image ? (
+          <Image src={image} alt="" fill sizes="280px" unoptimized />
+        ) : (
+          <span className="font-serif" aria-hidden="true">{display}</span>
+        )}
       </span>
       <span>{title}</span>
     </Link>
@@ -166,7 +170,7 @@ function Profile({ language }: LocalizedProps) {
         </h2>
         <FeaturedProject
           href="/projects/llnx"
-          image="/projects/llnx/tui-overview.png"
+          display="llnx"
           title="llnx — crypto execution system"
         />
         <FeaturedProject

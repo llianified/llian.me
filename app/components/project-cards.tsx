@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/lib/content";
 import styles from "../page.module.css";
@@ -10,7 +9,7 @@ const presentations = {
   },
   llnx: {
     order: 1,
-    image: "/projects/llnx/tui-overview.png",
+    display: "llnx",
   },
   "llian.dev": {
     order: 2,
@@ -30,17 +29,7 @@ function ProjectPanel({ project }: { project: Project }) {
   const content = (
     <>
       <div className={styles.projectVisual}>
-        {"image" in presentation ? (
-          <Image
-            src={presentation.image}
-            alt=""
-            fill
-            sizes="(max-width: 720px) calc(100vw - 40px), 330px"
-            unoptimized
-          />
-        ) : (
-          <span className="font-serif">{presentation.display}</span>
-        )}
+        <span className="font-serif">{presentation.display}</span>
       </div>
       <div className={styles.projectCopy}>
         <div className={styles.projectNameLine}>
