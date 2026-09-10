@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import type { ReactNode } from "react";
 import styles from "../page.module.css";
 import {
@@ -45,29 +44,19 @@ function Profile() {
 
   return (
     <section className={styles.hero} aria-labelledby="profile-name">
-      <Image
-        src="/pfp.jpg"
-        alt={`${uiCopy.profileImage} ${site.name}`}
-        width={60}
-        height={60}
-        priority
-        unoptimized
-        className={`${styles.avatar} rv-load`}
-        style={stagger(1)}
-      />
-      <h1 id="profile-name" className={`${styles.heroName} font-serif rv-load`} style={stagger(2)}>
+      <h1 id="profile-name" className={`${styles.heroName} font-serif rv-load`} style={stagger(1)}>
         {site.name}
       </h1>
-      <p className={`${styles.role} rv-load`} style={stagger(3)}>{roles[0]}</p>
+      <p className={`${styles.role} rv-load`} style={stagger(2)}>{roles[0]}</p>
 
       <div className={styles.heroGrid}>
         <div className={styles.heroLead}>
-          <p className={`${styles.bio} rv-load`} style={stagger(4)}>
+          <p className={`${styles.bio} rv-load`} style={stagger(3)}>
             {bio.line1Prefix}{" "}
             <a href={contacts.github} {...externalProps}>{bio.line1LinkLabel}</a>{" "}
             {bio.line1Suffix}
           </p>
-          <p className={`${styles.profileDetail} rv-load`} style={stagger(5)}>{bio.detail}</p>
+          <p className={`${styles.profileDetail} rv-load`} style={stagger(4)}>{bio.detail}</p>
         </div>
         <InlineContacts />
       </div>
