@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { ReactNode } from "react";
 import styles from "../page.module.css";
 import {
   content,
@@ -13,24 +14,14 @@ import {
 } from "@/lib/content";
 import { PortfolioFooter } from "./portfolio-footer";
 import { ProjectCards } from "./project-cards";
-import { ThemeToggle } from "./theme-toggle";
+import { Reveal, stagger } from "./reveal";
+import { SiteHeader } from "./site-header";
 
 const externalProps = { target: "_blank", rel: "noreferrer" } as const;
 
-function FloatingControls() {
-  return (
-    <div className={styles.floatingControls} aria-label="Display settings">
-      <ThemeToggle />
-      <span className={styles.shortcutHint} aria-hidden="true">
-        press T
-      </span>
-    </div>
-  );
-}
-
 function InlineContacts() {
   return (
-    <div className={styles.inlineContacts}>
+    <div className={`${styles.inlineContacts} rv-load`} style={stagger(5)}>
       <p>
         Reach me by <a href={contacts.email}>email</a> or hop on{" "}
         <a href={contacts.whatsapp} {...externalProps}>
@@ -53,49 +44,79 @@ function Profile() {
   const bio = content.bio;
 
   return (
-    <aside className={styles.profileColumn} aria-labelledby="profile-name">
-      <header className={styles.profileHeader}>
-        <Image
-          src="/pfp.jpg"
-          alt={`${uiCopy.profileImage} ${site.name}`}
-          width={52}
-          height={52}
-          priority
-          unoptimized
-          className={styles.avatar}
-        />
-        <div>
-          <h1 id="profile-name" className="font-serif">{site.name}</h1>
-          <p className={styles.role}>{roles[0]}</p>
+    <section className={styles.hero} aria-labelledby="profile-name">
+      <Image
+        src="/pfp.jpg"
+        alt={`${uiCopy.profileImage} ${site.name}`}
+        width={60}
+        height={60}
+        priority
+        unoptimized
+        className={`${styles.avatar} rv-load`}
+        style={stagger(1)}
+      />
+      <h1 id="profile-name" className={`${styles.heroName} font-serif rv-load`} style={stagger(2)}>
+        {site.name}
+      </h1>
+      <p className={`${styles.role} rv-load`} style={stagger(3)}>{roles[0]}</p>
+
+      <div className={styles.heroGrid}>
+        <div className={styles.heroLead}>
+          <p className={`${styles.bio} rv-load`} style={stagger(4)}>
+            {bio.line1Prefix}{" "}
+            <a href={contacts.github} {...externalProps}>{bio.line1LinkLabel}</a>{" "}
+            {bio.line1Suffix}
+          </p>
+          <p className={`${styles.profileDetail} rv-load`} style={stagger(5)}>{bio.detail}</p>
         </div>
-      </header>
-
-      <p className={styles.bio}>
-        {bio.line1Prefix}{" "}
-        <a href={contacts.github} {...externalProps}>{bio.line1LinkLabel}</a>{" "}
-        {bio.line1Suffix}
-      </p>
-      <p className={styles.profileDetail}>{bio.detail}</p>
-
-      <InlineContacts />
-    </aside>
+        <InlineContacts />
+      </div>
+    </section>
   );
 }
 
-function SectionTitle({ id, children }: { id: string; children: React.ReactNode }) {
+function Section({
+  id,
+  title,
+  sub,
+  delay,
+  children,
+}: {
+  id: string;
+  title: string;
+  sub?: string;
+  delay?: number;
+  children: ReactNode;
+}) {
   return (
-    <h2 id={id} className={styles.sectionTitle}>
-      <span aria-hidden="true"># </span>
-      {children}
-    </h2>
+    <Reveal
+      as="section"
+      id={id}
+      className={styles.contentSection}
+      aria-labelledby={`${id}-title`}
+      delay={delay}
+    >
+      <div className={styles.sectionHeader}>
+        <h2 id={`${id}-title`} className={`${styles.sectionTitle} rv`} style={stagger(0)}>
+          <span aria-hidden="true"># </span>
+          {title}
+        </h2>
+        {sub && (
+          <p className={`${styles.sectionSubtitle} rv`} style={stagger(1)}>
+            {sub}
+          </p>
+        )}
+      </div>
+      <div className={styles.sectionBody}>{children}</div>
+    </Reveal>
   );
 }
 
 function Timeline({ entries }: { entries: readonly Entry[] }) {
   return (
     <ul className={styles.timeline}>
-      {entries.map((entry) => (
-        <li key={`${entry.co}-${entry.date}`}>
+      {entries.map((entry, index) => (
+        <li key={`${entry.co}-${entry.date}`} className="rv" style={stagger(index + 2)}>
           <div className={styles.timelineIdentity}>
             {entry.href ? (
               <a href={entry.href} {...externalProps}>{entry.co}</a>
@@ -113,30 +134,35 @@ function Timeline({ entries }: { entries: readonly Entry[] }) {
 
 function TechnicalStack() {
   return (
-    <section id="stack" className={styles.contentSection} aria-labelledby="stack-title">
-      <SectionTitle id="stack-title">{uiCopy.technologies}</SectionTitle>
-      <p className={styles.sectionSubtitle}>{uiCopy.technologiesDescription}</p>
+    <Section
+      id="stack"
+      title={uiCopy.technologies}
+      sub={uiCopy.technologiesDescription}
+      delay={360}
+    >
       <dl className={styles.stackList}>
-        {technologyGroups.map((group) => (
-          <div className={styles.stackRow} key={group.label}>
+        {technologyGroups.map((group, index) => (
+          <div className={`${styles.stackRow} rv`} key={group.label} style={stagger(index + 2)}>
             <dt>{group.label}</dt>
             <dd>{group.items.join(" · ")}</dd>
           </div>
         ))}
       </dl>
-    </section>
+    </Section>
   );
 }
 
 function Contributions() {
   const section = content.contributions;
   return (
-    <section id="contributions" className={styles.contentSection} aria-labelledby="contributions-title">
-      <SectionTitle id="contributions-title">{section.title}</SectionTitle>
-      <p className={styles.sectionSubtitle}>{section.sub}</p>
+    <Section id="contributions" title={section.title} sub={section.sub}>
       <div className={styles.contributionGrid}>
-        {section.entries.map((entry) => (
-          <article className={styles.contribution} key={`${entry.co}-${entry.date}`}>
+        {section.entries.map((entry, index) => (
+          <article
+            className={`${styles.contribution} rv`}
+            key={`${entry.co}-${entry.date}`}
+            style={stagger(index + 2)}
+          >
             <div>
               <h3>{entry.href ? <a href={entry.href} {...externalProps}>{entry.co}</a> : entry.co}</h3>
               <p>{entry.role}</p>
@@ -145,56 +171,50 @@ function Contributions() {
           </article>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
 function Capabilities() {
   const section = content.capabilities;
   return (
-    <section id="capabilities" className={styles.contentSection} aria-labelledby="capabilities-title">
-      <SectionTitle id="capabilities-title">{section.title}</SectionTitle>
-      <p className={styles.sectionSubtitle}>{section.sub}</p>
+    <Section id="capabilities" title={section.title} sub={section.sub}>
       <div className={styles.capabilityList}>
-        {section.items.map((item) => (
-          <article className={styles.capability} key={item.title}>
+        {section.items.map((item, index) => (
+          <article className={`${styles.capability} rv`} key={item.title} style={stagger(index + 2)}>
             <h3>{item.title}</h3>
             <p>{item.description}</p>
           </article>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
 export function Portfolio() {
   return (
     <div className={styles.page}>
-      <FloatingControls />
+      <SiteHeader />
       <Profile />
 
       <main id="main-content" tabIndex={-1} className={styles.main}>
         <TechnicalStack />
 
-        <section id="experience" className={styles.contentSection} aria-labelledby="experience-title">
-          <SectionTitle id="experience-title">{content.experience.title}</SectionTitle>
-          <p className={styles.sectionSubtitle}>{content.experience.sub}</p>
+        <Section id="experience" title={content.experience.title} sub={content.experience.sub}>
           <Timeline entries={content.experience.entries} />
-        </section>
+        </Section>
 
         <Contributions />
 
-        <section id="projects" className={styles.contentSection} aria-labelledby="projects-title">
-          <SectionTitle id="projects-title">{content.projects.title}</SectionTitle>
+        <Section id="projects" title={content.projects.title}>
           <ProjectCards projects={content.projects.items} />
-        </section>
+        </Section>
 
         <Capabilities />
 
-        <section id="education" className={styles.contentSection} aria-labelledby="education-title">
-          <SectionTitle id="education-title">{content.education.title}</SectionTitle>
+        <Section id="education" title={content.education.title}>
           <Timeline entries={content.education.entries} />
-        </section>
+        </Section>
 
         <PortfolioFooter />
       </main>
