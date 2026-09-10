@@ -276,7 +276,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  margin-inline: calc(var(--card-padding) * -1);
   padding-top: 16px;
+  padding-inline: var(--card-padding);
   border-top: 1px solid var(--border);
   font-size: 14px;
   color: var(--text-muted);
@@ -551,7 +553,9 @@
 }
 .featuredProject .projectActions {
   margin-top: 24px;
+  margin-inline: calc(var(--card-padding) * -1);
   padding-top: 12px;
+  padding-inline: var(--card-padding);
   border-top: 1px solid color-mix(in srgb, var(--inverse-text) 18%, transparent);
 }
 .terminalProject {
@@ -670,6 +674,7 @@
   margin-top: 6px;
 }
 .entries {
+  margin-inline: calc(var(--card-padding) * -1);
   list-style: none;
 }
 .entry {
@@ -678,6 +683,7 @@
   align-items: baseline;
   gap: 12px;
   padding-block: 18px;
+  padding-inline: var(--card-padding);
   border-top: 1px solid var(--border);
 }
 .entry:last-child {
@@ -891,9 +897,12 @@ a.entryCompany:hover {
   .navigation {
     order: 3;
     justify-content: space-around;
-    width: 100%;
-    border-top: 1px solid var(--border);
+    width: auto;
     margin-top: 12px;
+    margin-inline: calc(var(--page-px) * -1);
+    padding-inline: var(--page-px);
+    border-top: 1px solid var(--border);
+    flex-basis: calc(100% + (var(--page-px) * 2));
     gap: 16px;
   }
   .controls {
