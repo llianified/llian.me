@@ -246,13 +246,6 @@ const contributionsEn: Entry[] = [
 
 const projectsId: Project[] = [
   {
-    name: "llian.me",
-    badge: "live",
-    desc: "Portfolio pribadi yang dibangun dengan Next.js, React, dan TypeScript.",
-    detailHref: null,
-    action: { label: "Kunjungi", href: "https://llian.me", kind: "live" },
-  },
-  {
     name: "taksirin",
     badge: "live",
     desc: "Sistem order dan produksi untuk bisnis custom di Indonesia, mulai dari penawaran harga sampai pelacakan pesanan.",
@@ -284,13 +277,6 @@ const projectsId: Project[] = [
 ];
 
 const projectsEn: Project[] = [
-  {
-    name: "llian.me",
-    badge: "live",
-    desc: "My personal portfolio, built with Next.js, React, and TypeScript.",
-    detailHref: null,
-    action: { label: "Visit", href: "https://llian.me", kind: "live" },
-  },
   {
     name: "taksirin",
     badge: "live",
