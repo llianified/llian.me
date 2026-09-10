@@ -99,7 +99,7 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: var(--radius-control);
   background: transparent;
   color: var(--text-muted);
@@ -108,13 +108,17 @@
   letter-spacing: 0.04em;
   transition:
     color 0.2s,
-    border-color 0.2s,
     background-color 0.2s;
 }
 .languageToggle:hover {
-  border-color: var(--text-muted);
-  background: var(--surface);
+  background: color-mix(in srgb, var(--text) 8%, transparent);
   color: var(--text);
+}
+.languageToggle:focus-visible,
+.languageToggle:active {
+  outline: none;
+  background: var(--accent);
+  color: #fcfcfc;
 }
 .main {
   display: flex;
