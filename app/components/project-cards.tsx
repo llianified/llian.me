@@ -31,11 +31,6 @@ const presentations: Record<string, Presentation | undefined> = {
     order: 2,
     variant: "small",
     category: { id: "Local-first tools", en: "Local-first tools" },
-    preview: {
-      src: "/projects/llian-dev/overview.png",
-      width: 1200,
-      height: 630,
-    },
   },
   "llian.me": {
     order: 3,
@@ -142,8 +137,12 @@ function ProjectPreview({
   return (
     <div className={styles.personalPreview} aria-hidden="true">
       <span className="font-serif">{project.name}</span>
-      {project.name === "llian.me" && (
-        <span>{uiCopy[language].personalDescription}</span>
+      {(project.name === "llian.me" || project.name === "llian.dev") && (
+        <span>
+          {project.name === "llian.me"
+            ? uiCopy[language].personalDescription
+            : uiCopy[language].toolsDescription}
+        </span>
       )}
     </div>
   );
