@@ -263,13 +263,6 @@ export const llianDevCaseStudy = {
       kind: "live",
     },
   ],
-  hero: {
-    src: "/projects/llian-dev/overview.png",
-    width: 1200,
-    height: 630,
-    alt: "Kartu visual llian.dev dengan identitas situs local-first",
-    caption: "llian.dev adalah arsip tool yang bekerja langsung di browser, bukan katalog link ke layanan lain.",
-  },
   overview: [
     "Tool untuk image, PDF, developer work, text, kebutuhan sehari-hari, dan finance berada di route khusus yang statis dan deep-linkable.",
     "Registry project mencatat 45 dedicated tool routes. Beberapa kebutuhan Indonesia mempunyai halaman sendiri, bukan terjemahan otomatis di balik language switch.",
@@ -315,15 +308,6 @@ export const llianDevCaseStudy = {
     "pdf-lib",
     "pdfjs-dist",
     "Cloudflare Workers",
-  ],
-  gallery: [
-    {
-      src: "/projects/llian-dev/tools.png",
-      width: 1200,
-      height: 630,
-      alt: "Kartu visual indeks tools llian.dev",
-      caption: "Tool archive menyatukan tugas file, developer, text, everyday, dan finance dalam index yang konsisten.",
-    },
   ],
   note: {
     label: "Privacy boundary",
