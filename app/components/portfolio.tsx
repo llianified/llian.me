@@ -19,7 +19,6 @@ import {
   FileIcon,
   GitHubIcon,
   GlobeIcon,
-  StackIcon,
 } from "./icons";
 import { LocalTime } from "./local-time";
 import { PortfolioFooter } from "./portfolio-footer";
@@ -184,91 +183,64 @@ function Profile({ language }: LocalizedProps) {
   }, []);
 
   return (
-    <section
-      className={`${styles.card} ${styles.profile}`}
-      aria-labelledby="profile-name"
-    >
-      <div className={styles.profileTop}>
-        <Image
-          src="/pfp.jpg"
-          alt={`${ui.profileImage} ${site.name}`}
-          width={64}
-          height={64}
-          unoptimized
-          loading="eager"
-          className={styles.avatar}
-        />
-        <div className={styles.profileHandle}>
-          <span>{ui.greeting}</span>
-          <span>@llianified</span>
+    <section className={styles.profile} aria-labelledby="profile-name">
+      <div className={styles.profileMain}>
+        <div className={styles.profileTop}>
+          <Image
+            src="/pfp.jpg"
+            alt={`${ui.profileImage} ${site.name}`}
+            width={64}
+            height={64}
+            unoptimized
+            loading="eager"
+            className={styles.avatar}
+          />
+          <div className={styles.profileIdentity}>
+            <p className={styles.smallLabel}>{ui.greeting}</p>
+            <h1 id="profile-name" className={`${styles.name} font-sans`}>
+              {site.name}
+            </h1>
+          </div>
         </div>
-        <a
-          href={contacts.github}
-          {...externalProps}
-          className={styles.iconLink}
-          aria-label="GitHub — llianified"
-        >
-          <GitHubIcon />
-        </a>
-      </div>
-      <div className={styles.profileBody}>
-        <h1 id="profile-name" className={`${styles.name} font-serif`}>
-          {site.name}
-        </h1>
-        <div className={styles.roleWrap}>
-          <CodeIcon />
-          <p key={roleIndex} className={styles.role}>
-            {roles[roleIndex]}
+        <div className={styles.profileBody}>
+          <div className={styles.profileByline}>
+            <div className={styles.roleWrap}>
+              <CodeIcon />
+              <p key={roleIndex} className={styles.role}>{roles[roleIndex]}</p>
+            </div>
+            <a href={contacts.github} {...externalProps} className={styles.profileHandle}>
+              <GitHubIcon />
+              @llianified
+            </a>
+          </div>
+          <p className={styles.lead}>
+            {bio.line1Prefix}{" "}
+            <a href={contacts.github} {...externalProps}>{bio.line1LinkLabel}</a>{" "}
+            {bio.line1Suffix}
           </p>
         </div>
-        <p className={styles.lead}>
-          {bio.line1Prefix}{" "}
-          <a href={contacts.github} {...externalProps}>
-            {bio.line1LinkLabel}
-          </a>{" "}
-          {bio.line1Suffix}
-        </p>
+        <div className={styles.introActions}>
+          <a className={styles.primaryAction} href="#projects">
+            {ui.explore}<ArrowIcon />
+          </a>
+          <a className={styles.secondaryAction} href={site.cvHref} {...externalProps}>
+            <FileIcon />{ui.cv}
+          </a>
+        </div>
       </div>
-      <div className={styles.introActions}>
-        <a className={styles.primaryAction} href="#projects">
-          {ui.explore}
-          <ArrowIcon />
-        </a>
-        <a
-          className={styles.secondaryAction}
-          href={site.cvHref}
-          {...externalProps}
-        >
-          <FileIcon />
-          {ui.cv}
-        </a>
-      </div>
-    </section>
-  );
-}
-
-function LocationCard({ language }: LocalizedProps) {
-  const ui = uiCopy[language];
-  return (
-    <section
-      className={`${styles.card} ${styles.locationCard}`}
-      aria-label={site.location}
-    >
-      <div className={styles.cardLabel}>
-        <GlobeIcon />
-        <span>{ui.basedIn}</span>
-        <span className={styles.utc}>UTC +7</span>
-      </div>
-      <div className={styles.locationBody}>
-        <p className="font-serif">{site.location.split(",")[0]}.</p>
-        <span>Indonesia</span>
-      </div>
-      <div className={styles.locationBottom}>
-        <span>{ui.localTime}</span>
-        <span>
-          <LocalTime /> WIB
-        </span>
-      </div>
+      <aside className={styles.profileMeta} aria-label={ui.basedIn}>
+        <div className={styles.locationDetails}>
+          <p className={styles.locationLine}><GlobeIcon />{site.location}</p>
+          <p className={styles.localTime}>
+            <span className="sr-only">{ui.localTime}: </span>
+            <LocalTime /> WIB <span className={styles.timezone}>(UTC +7)</span>
+          </p>
+        </div>
+        <div className={styles.quickContact}>
+          <p className={styles.smallLabel}>{ui.idea}</p>
+          <a href={contacts.email}>{ui.connect}<ArrowIcon /></a>
+        </div>
+      </aside>
     </section>
   );
 }
@@ -276,15 +248,11 @@ function LocationCard({ language }: LocalizedProps) {
 function TechnologyStack({ language }: LocalizedProps) {
   const ui = uiCopy[language];
   return (
-    <section
-      className={`${styles.card} ${styles.technologyCard}`}
-      aria-labelledby="stack-title"
-    >
-      <div className={styles.cardLabel}>
-        <StackIcon />
+    <section className={styles.technologySection} aria-labelledby="stack-title">
+      <header className={styles.groupHeading}>
         <h3 id="stack-title">{ui.technologies}</h3>
-      </div>
-      <p className={styles.cardDescription}>{ui.technologiesDescription}</p>
+        <p>{ui.technologiesDescription}</p>
+      </header>
       <ul className={styles.technologies}>
         {technologies.map((technology) => (
           <li key={technology}>{technology}</li>
@@ -321,21 +289,16 @@ function Entries({ entries }: { entries: readonly Entry[] }) {
   );
 }
 
-function HistoryCard({
+function HistorySection({
   id,
   section,
-  contribution = false,
 }: {
   id: string;
   section: { title: string; sub: string; entries: readonly Entry[] };
-  contribution?: boolean;
 }) {
   return (
-    <section
-      className={`${styles.card} ${contribution ? styles.contributionCard : styles.historyCard}`}
-      aria-labelledby={id}
-    >
-      <header className={styles.cardHeading}>
+    <section className={styles.historySection} aria-labelledby={id}>
+      <header className={styles.groupHeading}>
         <h3 id={id}>{section.title}</h3>
         <p>{section.sub}</p>
       </header>
@@ -360,24 +323,7 @@ export function Portfolio() {
     <div lang={language} className={styles.page}>
       <Topbar language={language} onChange={setLanguage} />
       <main id="main-content" tabIndex={-1} className={styles.main}>
-        <div className={styles.introGrid}>
-          <Profile language={language} />
-          <div className={styles.introSidebar}>
-            <LocationCard language={language} />
-            <a
-              className={`${styles.card} ${styles.quickContact}`}
-              href={contacts.email}
-            >
-              <span>
-                <span className={styles.smallLabel}>{ui.idea}</span>
-                <strong>{ui.connect}</strong>
-              </span>
-              <span className={styles.roundArrow}>
-                <ArrowIcon />
-              </span>
-            </a>
-          </div>
-        </div>
+        <Profile language={language} />
         <section
           id="projects"
           className={styles.section}
@@ -413,17 +359,15 @@ export function Portfolio() {
             </div>
             <span className={styles.sectionAside}>{ui.learning}</span>
           </header>
-          <div className={styles.aboutGrid}>
-            <div className={styles.aboutLeft}>
-              <TechnologyStack language={language} />
-              <HistoryCard id="experience-title" section={copy.experience} />
-              <HistoryCard id="education-title" section={copy.education} />
+          <div className={styles.aboutContent}>
+            <TechnologyStack language={language} />
+            <div className={styles.aboutGrid}>
+              <div className={styles.aboutLeft}>
+                <HistorySection id="experience-title" section={copy.experience} />
+                <HistorySection id="education-title" section={copy.education} />
+              </div>
+              <HistorySection id="contributions-title" section={copy.contributions} />
             </div>
-            <HistoryCard
-              id="contributions-title"
-              section={copy.contributions}
-              contribution
-            />
           </div>
         </section>
         <PortfolioFooter language={language} />
