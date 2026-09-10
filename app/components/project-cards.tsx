@@ -4,35 +4,31 @@ import styles from "../page.module.css";
 import { ArrowIcon } from "./icons";
 import { stagger } from "./reveal";
 
-const presentations = {
-  taksirin: {
-    order: 0,
-    display: "taksirin",
-  },
-  llnx: {
-    order: 1,
-    display: "llnx",
-  },
-  "llian.dev": {
-    order: 2,
-    display: "llian.dev",
-  },
-  "llian.me": {
-    order: 3,
-    display: "llian.me",
-  },
-} as const;
+const order = ["taksirin", "llnx", "llian.dev", "llian.me"] as const;
 
-type PresentationKey = keyof typeof presentations;
+function ProjectVisual({ project }: { project: Project }) {
+  return (
+    <div className={styles.projectVisual}>
+      {project.image ? (
+        <img
+          src={project.image.src}
+          width={project.image.width}
+          height={project.image.height}
+          alt={project.image.alt}
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <span className="font-serif" aria-hidden="true">{project.name}</span>
+      )}
+    </div>
+  );
+}
 
 function ProjectPanel({ project }: { project: Project }) {
-  const presentation = presentations[project.name as PresentationKey];
-
   const content = (
     <>
-      <div className={styles.projectVisual}>
-        <span className="font-serif">{presentation.display}</span>
-      </div>
+      <ProjectVisual project={project} />
       <div className={styles.projectCopy}>
         <div className={styles.projectNameLine}>
           <h3>{project.name}</h3>
@@ -87,15 +83,13 @@ function ProjectPanel({ project }: { project: Project }) {
 
 export function ProjectCards({ projects }: { projects: readonly Project[] }) {
   const ordered = [...projects].sort(
-    (a, b) =>
-      presentations[a.name as PresentationKey].order -
-      presentations[b.name as PresentationKey].order,
+    (a, b) => order.indexOf(a.name as (typeof order)[number]) - order.indexOf(b.name as (typeof order)[number]),
   );
 
   return (
-    <div className={styles.projects}>
+    <div className={styles.ruled}>
       {ordered.map((project, index) => (
-        <article className={`${styles.projectCard} rv`} key={project.name} style={stagger(index + 1)}>
+        <article className={`${styles.row} rv`} key={project.name} style={stagger(index + 1)}>
           <ProjectPanel project={project} />
         </article>
       ))}

@@ -54,6 +54,14 @@ export const taksirinCaseStudy = {
       kind: "live",
     },
   ],
+  hero: {
+    src: "/projects/taksirin/board.png",
+    width: 1600,
+    height: 900,
+    alt: "The Taksirin order board with seven columns from New to Complete, each holding order cards with customer, item, value, and status",
+    caption:
+      "The seven-stage order board, rendered for this case study with sample data: new, quoted, deposit, production, QC, shipping, and complete.",
+  },
   overview: [
     "Custom apparel, printing, furniture, souvenir, signage, and invitation businesses often answer the same pricing questions over and over through WhatsApp.",
     "Once an order arrives, details can easily get lost across chats, notebooks, and photo galleries. Taksirin brings quotes, orders, payments, production, and customer updates into one flow without making customers create an account.",
@@ -123,6 +131,24 @@ export const taksirinCaseStudy = {
     "Prisma 7",
     "Vitest",
     "Playwright",
+  ],
+  gallery: [
+    {
+      src: "/projects/taksirin/quote.png",
+      width: 1600,
+      height: 900,
+      alt: "A public Taksirin offer page for DTF-printed shirts with material and print-area options, a quantity tier table, and a live price summary",
+      caption:
+        "A public offer page with quantity tiers, per-unit options, a setup fee, and a prompt showing the next price break. Rendered with sample data.",
+    },
+    {
+      src: "/projects/taksirin/tracking.png",
+      width: 1600,
+      height: 900,
+      alt: "A Taksirin tracking page showing an order in production, its tracking code, payment status, a seven-step progress bar, and a timeline",
+      caption:
+        "Account-free tracking: a code opens the current stage, payment status, and vendor notes. Rendered with sample data.",
+    },
   ],
   note: {
     label: "Not shipped yet",

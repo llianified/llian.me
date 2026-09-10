@@ -12,6 +12,7 @@ import {
   uiCopy,
   type Entry,
 } from "@/lib/content";
+import { ArrowIcon } from "./icons";
 import { PortfolioFooter } from "./portfolio-footer";
 import { ProjectCards } from "./project-cards";
 import { Reveal, stagger } from "./reveal";
@@ -91,7 +92,7 @@ function Section({
     <Reveal
       as="section"
       id={id}
-      className={styles.contentSection}
+      className={`${styles.contentSection} ${styles.bleedTop}`}
       aria-labelledby={`${id}-title`}
       delay={delay}
     >
@@ -113,9 +114,9 @@ function Section({
 
 function Timeline({ entries }: { entries: readonly Entry[] }) {
   return (
-    <ul className={styles.timeline}>
+    <ul className={`${styles.ruled} ${styles.timeline}`}>
       {entries.map((entry, index) => (
-        <li key={`${entry.co}-${entry.date}`} className="rv" style={stagger(index + 2)}>
+        <li key={`${entry.co}-${entry.date}`} className={`${styles.row} rv`} style={stagger(index + 2)}>
           <div className={styles.timelineIdentity}>
             {entry.href ? (
               <a href={entry.href} {...externalProps}>{entry.co}</a>
@@ -134,9 +135,9 @@ function Timeline({ entries }: { entries: readonly Entry[] }) {
 function TechnicalStack() {
   return (
     <Section id="stack" title={uiCopy.technologies} sub={uiCopy.technologiesDescription}>
-      <dl className={styles.stackList}>
+      <dl className={styles.ruled}>
         {technologyGroups.map((group, index) => (
-          <div className={`${styles.stackRow} rv`} key={group.label} style={stagger(index + 2)}>
+          <div className={`${styles.row} ${styles.stackRow} rv`} key={group.label} style={stagger(index + 2)}>
             <dt>{group.label}</dt>
             <dd>{group.items.join(" · ")}</dd>
           </div>
@@ -150,10 +151,10 @@ function Contributions() {
   const section = content.contributions;
   return (
     <Section id="contributions" title={section.title} sub={section.sub}>
-      <div className={styles.contributionGrid}>
+      <div className={styles.ruled}>
         {section.entries.map((entry, index) => (
           <article
-            className={`${styles.contribution} rv`}
+            className={`${styles.row} ${styles.contribution} rv`}
             key={`${entry.co}-${entry.date}`}
             style={stagger(index + 2)}
           >
@@ -173,14 +174,43 @@ function Capabilities() {
   const section = content.capabilities;
   return (
     <Section id="capabilities" title={section.title} sub={section.sub}>
-      <div className={styles.capabilityList}>
+      <div className={styles.ruled}>
         {section.items.map((item, index) => (
-          <article className={`${styles.capability} rv`} key={item.title} style={stagger(index + 2)}>
+          <article className={`${styles.row} ${styles.capability} rv`} key={item.title} style={stagger(index + 2)}>
             <h3>{item.title}</h3>
             <p>{item.description}</p>
           </article>
         ))}
       </div>
+    </Section>
+  );
+}
+
+const contactLinks = [
+  { label: "Email", href: contacts.email, external: false },
+  { label: "WhatsApp", href: contacts.whatsapp, external: true },
+  { label: "GitHub", href: contacts.github, external: true },
+  { label: "X / Twitter", href: contacts.twitter, external: true },
+  { label: "Instagram", href: contacts.instagram, external: true },
+  { label: "CV", href: site.cvHref, external: true },
+] as const;
+
+function Contact() {
+  return (
+    <Section id="contact" title={uiCopy.contact} sub={uiCopy.idea}>
+      <h3 className={`${styles.contactLead} font-serif rv`} style={stagger(2)}>
+        {uiCopy.connect}
+      </h3>
+      <ul className={`${styles.contactLinks} rv`} style={stagger(3)} aria-label={uiCopy.social}>
+        {contactLinks.map((link) => (
+          <li key={link.label}>
+            <a href={link.href} {...(link.external ? externalProps : {})}>
+              <span>{link.label}</span>
+              <ArrowIcon />
+            </a>
+          </li>
+        ))}
+      </ul>
     </Section>
   );
 }
@@ -211,12 +241,14 @@ export function Portfolio() {
 
         <Capabilities />
 
-        <Section id="education" title={content.education.title}>
+        <Section id="education" title={content.education.title} sub={content.education.sub}>
           <Timeline entries={content.education.entries} />
         </Section>
 
-        <PortfolioFooter />
+        <Contact />
       </main>
+
+      <PortfolioFooter />
     </div>
   );
 }

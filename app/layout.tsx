@@ -49,8 +49,8 @@ export const metadata: Metadata = {
     noimageindex: true,
   },
   icons: {
-    icon: { url: "/favicon-light.png", type: "image/png" },
-    apple: "/avatar.png",
+    icon: { url: "/favicon-light.png", type: "image/png", sizes: "512x512" },
+    apple: { url: "/apple-icon.png", type: "image/png", sizes: "512x512" },
   },
 };
 

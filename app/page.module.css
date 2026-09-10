@@ -1,11 +1,40 @@
+/* Editorial ruled system.
+
+   Three kinds of rule:
+   - full-bleed rules (`.bleed*`) mark page-level boundaries: header, each
+     section start, footer. They run edge to edge on every viewport.
+   - row rules inside lists span the content column on desktop and go
+     full-bleed on mobile, where the gutter is narrow enough that a list
+     reads as one continuous native surface.
+   - one vertical hairline separates the bio from the inline contacts. */
+
 .page {
   --header-height: 64px;
+  --gutter: 30px;
+  --label-column: 216px;
+  --column-gap: 56px;
   position: relative;
   width: min(100%, 980px);
   min-height: 100vh;
   margin-inline: auto;
-  padding: 0 30px 64px;
+  padding-inline: var(--gutter);
 }
+
+/* Full-bleed rule helpers: the element must be `position: relative`. */
+.bleedTop::before,
+.bleedBottom::after {
+  position: absolute;
+  left: 50%;
+  width: 100vw;
+  height: 1px;
+  content: "";
+  background: var(--line);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.bleedTop::before { top: 0; }
+.bleedBottom::after { bottom: 0; }
 
 /* Header ---------------------------------------------------------------- */
 
@@ -25,29 +54,40 @@
   justify-content: space-between;
   gap: 24px;
   height: var(--header-height);
-  margin-inline: -14px;
-  padding-inline: 14px;
-  background: color-mix(in srgb, var(--background) 86%, transparent);
+}
+
+/* The frosted surface has to cover the full viewport width, not just the
+   content column, so it lives on a pseudo-element behind the header. */
+.siteHeader::before {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  content: "";
+  background: color-mix(in srgb, var(--background) 88%, transparent);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  transition: background-color var(--duration-fast) ease;
+  transform: translateX(-50%);
 }
 
 .siteHeader::after {
   position: absolute;
-  right: 50%;
   bottom: 0;
+  left: 50%;
   width: 100vw;
   height: 1px;
   content: "";
-  background: transparent;
-  transform: translateX(50%);
-  transition: background-color var(--duration-fast) ease;
+  background: var(--line);
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity var(--duration-fast) ease;
   pointer-events: none;
 }
 
 .siteHeader[data-scrolled]::after {
-  background: var(--line);
+  opacity: 1;
 }
 
 .brand {
@@ -113,12 +153,11 @@
 /* Hero ------------------------------------------------------------------ */
 
 .hero {
-  padding-top: 40px;
+  padding-block: 48px 64px;
 }
 
 .heroName {
   max-width: 14ch;
-  margin-top: 0;
   font-size: clamp(38px, 6.2vw, 64px);
   font-weight: 400;
   line-height: .98;
@@ -235,16 +274,15 @@
 
 .main {
   width: 100%;
-  margin-top: 80px;
 }
 
-.main,
 .main [id] {
-  scroll-margin-top: calc(var(--header-height) + 20px);
+  scroll-margin-top: var(--header-height);
 }
 
-.contentSection + .contentSection {
-  margin-top: 72px;
+.contentSection {
+  position: relative;
+  padding-block: 40px 64px;
 }
 
 .sectionHeader {
@@ -274,12 +312,20 @@
   min-width: 0;
 }
 
-/* Timeline -------------------------------------------------------------- */
+/* Ruled lists: shared row treatment ------------------------------------- */
 
-.timeline {
+.ruled {
   list-style: none;
   border-top: 1px solid var(--line);
 }
+
+.row {
+  position: relative;
+  min-width: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Timeline -------------------------------------------------------------- */
 
 .timeline li {
   display: flex;
@@ -287,7 +333,6 @@
   align-items: flex-start;
   gap: 4px;
   padding-block: 16px;
-  border-bottom: 1px solid var(--line);
 }
 
 .timelineIdentity {
@@ -302,12 +347,14 @@
 .timelineIdentity strong,
 .timelineIdentity a {
   width: fit-content;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
 }
 
 .timelineIdentity a:hover {
   text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
 }
 
 .timelineIdentity span {
@@ -316,7 +363,7 @@
 }
 
 .timeline time {
-  color: var(--faint);
+  color: var(--muted);
   font-size: 14px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -324,35 +371,13 @@
 
 /* Projects -------------------------------------------------------------- */
 
-.projects {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-
-.projectCard {
-  min-width: 0;
-}
-
 .projectPanel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  padding-block: 22px 26px;
   color: var(--foreground);
   text-decoration: none;
-  box-shadow: inset 0 0 0 4px var(--background), 0 0 0 1px var(--surface);
-  transition:
-    transform 420ms var(--ease-out),
-    border-color 240ms ease,
-    background-color var(--duration-fast) ease;
-}
-
-.projectPanel:focus-visible {
-  border-color: var(--muted);
 }
 
 .projectVisual {
@@ -360,20 +385,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 176px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
   color: var(--foreground);
 }
 
+.projectVisual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  transition: transform 700ms var(--ease-out);
+}
+
 .projectVisual > span {
-  font-size: 38px;
+  font-size: 40px;
   letter-spacing: -.045em;
-  transition: transform 560ms var(--ease-out);
+  transition: transform 700ms var(--ease-out);
 }
 
 .projectCopy {
-  flex: 1;
-  padding: 16px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .projectNameLine {
@@ -385,7 +423,7 @@
 
 .projectNameLine h3 {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .projectMeta {
@@ -397,16 +435,16 @@
 .liveBadge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .liveBadge i {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--signal);
 }
 
 .projectArrow {
@@ -416,12 +454,8 @@
   transition: transform 320ms var(--ease-out), color var(--duration-fast) ease;
 }
 
-.projectCopy {
-  display: flex;
-  flex-direction: column;
-}
-
 .projectCopy > p {
+  max-width: 52ch;
   margin-top: 8px;
   color: var(--muted);
   font-size: 14px;
@@ -434,7 +468,7 @@
   justify-content: space-between;
   gap: 12px;
   margin-top: auto;
-  padding-top: 16px;
+  padding-top: 18px;
   font-size: 12px;
 }
 
@@ -443,7 +477,7 @@
   flex-wrap: wrap;
   gap: 4px 12px;
   list-style: none;
-  color: var(--faint);
+  color: var(--muted);
 }
 
 .projectKind {
@@ -454,13 +488,9 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .projectPanel:hover {
-    border-color: var(--muted);
-    transform: translateY(-2px);
-  }
-
+  .projectPanel:hover .projectVisual img,
   .projectPanel:hover .projectVisual > span {
-    transform: scale(1.05);
+    transform: scale(1.025);
   }
 
   .projectPanel:hover .projectArrow {
@@ -475,20 +505,12 @@
 
 /* Contributions --------------------------------------------------------- */
 
-.contributionGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  border-top: 1px solid var(--line);
-}
-
 .contribution {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 20px;
-  min-width: 0;
-  padding-block: 17px;
-  border-bottom: 1px solid var(--line);
+  padding-block: 16px;
 }
 
 .contribution h3 {
@@ -498,22 +520,23 @@
 
 .contribution h3 a {
   text-decoration: none;
-  text-underline-offset: 4px;
 }
 
 .contribution h3 a:hover {
   text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
 }
 
 .contribution div p {
-  margin-top: 4px;
+  margin-top: 3px;
   color: var(--muted);
   font-size: 14px;
 }
 
 .contribution time {
   flex: 0 0 auto;
-  color: var(--faint);
+  color: var(--muted);
   font-size: 14px;
   font-variant-numeric: tabular-nums;
   text-align: right;
@@ -528,23 +551,18 @@
 
 /* Stack ----------------------------------------------------------------- */
 
-.stackList {
-  border-top: 1px solid var(--line);
-}
-
 .stackRow {
   display: grid;
   grid-template-columns: 136px minmax(0, 1fr);
   gap: 18px;
-  padding-block: 13px;
-  border-bottom: 1px solid var(--line);
+  padding-block: 14px;
   font-size: 14px;
   line-height: 1.6;
 }
 
 .stackRow dt {
   color: var(--foreground);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .stackRow dd {
@@ -553,21 +571,16 @@
 
 /* Capabilities ---------------------------------------------------------- */
 
-.capabilityList {
-  border-top: 1px solid var(--line);
-}
-
 .capability {
   display: grid;
   grid-template-columns: 168px minmax(0, 1fr);
   gap: 24px;
-  padding-block: 17px;
-  border-bottom: 1px solid var(--line);
+  padding-block: 18px;
 }
 
 .capability h3 {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5;
 }
 
@@ -577,24 +590,63 @@
   line-height: 1.65;
 }
 
+/* Contact --------------------------------------------------------------- */
+
+.contactLead {
+  max-width: 16ch;
+  font-size: clamp(32px, 4.4vw, 44px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -.03em;
+}
+
+.contactLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 26px;
+  list-style: none;
+}
+
+.contactLinks a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-block: 4px;
+  color: var(--foreground);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.contactLinks a span {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--muted);
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--duration-fast) ease;
+}
+
+.contactLinks a svg {
+  width: 13px;
+  height: 13px;
+  color: var(--muted);
+  transition: transform 280ms var(--ease-out), color var(--duration-fast) ease;
+}
+
+.contactLinks a:hover span {
+  text-decoration-color: var(--foreground);
+}
+
+.contactLinks a:hover svg {
+  color: var(--foreground);
+  transform: translate(1px, -1px);
+}
+
 /* Footer ---------------------------------------------------------------- */
 
 .footer {
   position: relative;
-  margin-top: 88px;
-  padding-top: 26px;
-}
-
-.footer::before {
-  position: absolute;
-  top: 0;
-  right: 50%;
-  width: 100vw;
-  height: 1px;
-  content: "";
-  background: var(--line);
-  transform: translateX(50%);
-  pointer-events: none;
+  padding-block: 26px 40px;
 }
 
 .footerMeta {
@@ -602,13 +654,14 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  color: var(--foreground);
-  font-size: 14px;
-  line-height: 1.5;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .footerMeta strong {
-  font-weight: 650;
+  color: var(--foreground);
+  font-weight: 500;
 }
 
 .footerLocation {
@@ -627,7 +680,7 @@
   }
 
   .hero {
-    padding-top: 56px;
+    padding-block: 64px 80px;
   }
 
   .timeline li {
@@ -639,6 +692,12 @@
 
   .timeline time {
     text-align: right;
+  }
+
+  .projectPanel {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    align-items: stretch;
+    gap: 32px;
   }
 }
 
@@ -653,35 +712,24 @@
     padding-left: 24px;
     border-left: 1px solid var(--line);
   }
-
-  .projects {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (min-width: 1024px) {
   .hero {
-    padding-top: 72px;
-  }
-
-  .main {
-    margin-top: 104px;
+    padding-block: 80px 96px;
   }
 
   .contentSection {
     display: grid;
-    grid-template-columns: 216px minmax(0, 1fr);
+    grid-template-columns: var(--label-column) minmax(0, 1fr);
     align-items: start;
-    gap: 24px 56px;
-  }
-
-  .contentSection + .contentSection {
-    margin-top: 96px;
+    gap: 0 var(--column-gap);
+    padding-block: 44px 80px;
   }
 
   .sectionHeader {
     position: sticky;
-    top: calc(var(--header-height) + 24px);
+    top: calc(var(--header-height) + 44px);
     margin-bottom: 0;
   }
 
@@ -689,20 +737,15 @@
     max-width: 24ch;
   }
 
-  .footer {
-    margin-top: 112px;
+  .projectPanel {
+    grid-template-columns: 300px minmax(0, 1fr);
   }
 }
 
 @media (max-width: 720px) {
   .page {
     --header-height: 56px;
-    padding: 0 18px 40px;
-  }
-
-  .siteHeader {
-    margin-inline: -6px;
-    padding-inline: 6px;
+    --gutter: 20px;
   }
 
   .brand {
@@ -710,7 +753,7 @@
   }
 
   .hero {
-    padding-top: 28px;
+    padding-block: 32px 48px;
   }
 
   .heroGrid {
@@ -731,12 +774,8 @@
     content: none;
   }
 
-  .main {
-    margin-top: 56px;
-  }
-
-  .contentSection + .contentSection {
-    margin-top: 52px;
+  .contentSection {
+    padding-block: 32px 48px;
   }
 
   .sectionHeader {
@@ -747,38 +786,39 @@
     font-size: 20px;
   }
 
-  .projectVisual {
-    height: min(48vw, 188px);
-  }
-
-  :is(.timeline, .contributionGrid, .stackList, .capabilityList) {
+  /* Row rules go edge to edge on narrow screens. */
+  .ruled {
     position: relative;
     border-top: 0;
   }
 
-  :is(.timeline, .contributionGrid, .stackList, .capabilityList)::before,
-  :is(.timeline li, .contribution, .stackRow, .capability)::after {
+  .ruled::before,
+  .row::after {
     position: absolute;
-    right: 50%;
+    left: 50%;
     width: 100vw;
     height: 1px;
     content: "";
     background: var(--line);
-    transform: translateX(50%);
+    transform: translateX(-50%);
     pointer-events: none;
   }
 
-  :is(.timeline, .contributionGrid, .stackList, .capabilityList)::before {
-    top: 0;
-  }
+  .ruled::before { top: 0; }
 
-  :is(.timeline li, .contribution, .stackRow, .capability) {
-    position: relative;
+  .row {
     border-bottom: 0;
   }
 
-  :is(.timeline li, .contribution, .stackRow, .capability)::after {
-    bottom: 0;
+  .row::after { bottom: 0; }
+
+  .projectPanel {
+    gap: 16px;
+    padding-block: 20px 24px;
+  }
+
+  .projectVisual > span {
+    font-size: 34px;
   }
 
   .stackRow,
@@ -790,7 +830,7 @@
   .contribution {
     align-items: flex-start;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
     padding-block: 15px;
   }
 
@@ -798,8 +838,13 @@
     text-align: left;
   }
 
+  .contactLinks {
+    gap: 6px 18px;
+    margin-top: 22px;
+  }
+
   .footer {
-    margin-top: 60px;
+    padding-block: 22px 32px;
   }
 }
 
@@ -807,6 +852,7 @@
   .footerMeta {
     align-items: flex-start;
     flex-direction: column;
+    gap: 6px;
   }
 
   .footerLocation {

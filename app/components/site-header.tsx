@@ -14,6 +14,7 @@ const sections = [
   { id: "stack", label: "Stack" },
   { id: "capabilities", label: "How I work" },
   { id: "education", label: "Education" },
+  { id: "contact", label: "Contact" },
 ] as const;
 
 const lastSectionId = sections[sections.length - 1].id;
@@ -40,7 +41,7 @@ export function SiteHeader() {
 
     // The final section is too short to ever reach the active band, so the
     // footer being fully in view is what marks it active.
-    const footer = document.getElementById("contact");
+    const footer = document.getElementById("site-footer");
     const footerObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) setActive(lastSectionId);
@@ -85,11 +86,8 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className={styles.headerControls} aria-label="Display settings">
+        <div className={styles.headerControls}>
           <ThemeToggle />
-          <span className={styles.shortcutHint} aria-hidden="true">
-            press T
-          </span>
         </div>
       </header>
     </>
