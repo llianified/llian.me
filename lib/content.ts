@@ -207,9 +207,9 @@ const projects: Project[] = [
     stack: ["Python", "Textual", "ccxt", "Solana"],
     image: {
       src: "/projects/llnx/tui-overview.png",
-      width: 1800,
-      height: 1187,
-      alt: "The llnx terminal interface showing live status, trade logs, and settings",
+      width: 1600,
+      height: 1000,
+      alt: "The llnx terminal interface showing paper-trading status, per-poll trade logs, and market settings",
     },
     detailHref: "/projects/llnx",
     action: {
@@ -225,9 +225,9 @@ const projects: Project[] = [
     stack: ["Next.js", "Tailwind CSS", "pdf-lib", "Cloudflare"],
     image: {
       src: "/projects/llian-dev/overview.png",
-      width: 1200,
-      height: 630,
-      alt: "The llian.dev banner: small tools for real tasks, no account, no upload, no noise",
+      width: 1600,
+      height: 900,
+      alt: "The llian.dev home page: small tools for real tasks, no account, no upload, no noise, with six tool categories",
     },
     detailHref: "/projects/llian-dev",
     action: { label: "Visit", href: "https://llian.dev", kind: "live" },
