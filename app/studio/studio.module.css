@@ -64,10 +64,10 @@
 }
 
 .iconTile span {
-  font-size: 330px;
+  font-size: 372px;
   line-height: 1;
   letter-spacing: -.06em;
-  transform: translateY(-4%);
+  transform: translateY(-3%);
 }
 
 /* App shell (taksirin, llian.dev) --------------------------------------- */

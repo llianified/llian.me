@@ -94,7 +94,7 @@ const columns = [
   {
     label: "Shipping",
     cards: [
-      { who: "Gilang Ramadhan", what: "Hoodie sablon · 6 pcs", price: "Rp 1.020.000", tag: "JNE · CJR2201" },
+      { who: "Gilang Ramadhan", what: "Hoodie sablon · 6 pcs", price: "Rp 1.020.000", tag: "Via JNE" },
       { who: "Pesantren Nurul Iman", what: "Kaos kegiatan · 150 pcs", price: "Rp 7.500.000", tag: "Pickup today" },
     ],
   },
@@ -115,7 +115,7 @@ function TaksirinBoard({ theme }: { theme: string }) {
       <div className={s.pageHead}>
         <div>
           <h1>Orders</h1>
-          <p>24 active · Rp 48.250.000 open · 7 stages</p>
+          <p>17 active · Rp 75.921.000 open · 7 stages</p>
         </div>
         <div className={s.search}><i />Search customer, item, or code</div>
       </div>

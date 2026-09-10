@@ -15,7 +15,7 @@ Clone homepage portfolio Vite lama di [llian.vercel.app](https://llian.vercel.ap
 - `app/components/portfolio.tsx` — UI serta interaksi homepage
 - `app/components/icons.tsx` — ikon SVG/glyph lokal
 - `app/page.module.css` — sistem visual dan responsive behavior
-- `public/` — avatar, favicon, CV, dan font sumber dari situs lama
+- `public/` — favicon dan apple icon (monogram serif "ll"), CV, gambar proyek, dan font untuk kartu Open Graph
 
 Homepage dimulai dalam bahasa Indonesia. Tombol ID/EN mengganti seluruh copy dengan transisi blur. Role berganti tiap tiga detik, teknologi bergerak dalam marquee, dan jam mengikuti `Asia/Jakarta`.
 

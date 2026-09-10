@@ -5,11 +5,19 @@ export type Entry = {
   href?: string;
 };
 
+export type ProjectThumbnail = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+};
+
 export type Project = {
   name: string;
   badge: "live" | null;
   desc: string;
   stack: readonly string[];
+  image?: ProjectThumbnail;
   detailHref: string | null;
   action: {
     label: string;
@@ -179,6 +187,12 @@ const projects: Project[] = [
     badge: "live",
     desc: "An order and production system for custom businesses, from the first quote to final delivery.",
     stack: ["Next.js", "PostgreSQL", "Prisma", "Playwright"],
+    image: {
+      src: "/projects/taksirin/board.png",
+      width: 1600,
+      height: 900,
+      alt: "The Taksirin order board with seven production stages",
+    },
     detailHref: "/projects/taksirin",
     action: {
       label: "Visit",
@@ -191,6 +205,12 @@ const projects: Project[] = [
     badge: null,
     desc: "A Python crypto trading bot with paper, sandbox, and live modes, plus a TUI and built-in risk controls.",
     stack: ["Python", "Textual", "ccxt", "Solana"],
+    image: {
+      src: "/projects/llnx/tui-overview.png",
+      width: 1800,
+      height: 1187,
+      alt: "The llnx terminal interface showing live status, trade logs, and settings",
+    },
     detailHref: "/projects/llnx",
     action: {
       label: "GitHub",
@@ -203,6 +223,12 @@ const projects: Project[] = [
     badge: "live",
     desc: "A local-first collection of browser tools and practical technical notes.",
     stack: ["Next.js", "Tailwind CSS", "pdf-lib", "Cloudflare"],
+    image: {
+      src: "/projects/llian-dev/overview.png",
+      width: 1200,
+      height: 630,
+      alt: "The llian.dev banner: small tools for real tasks, no account, no upload, no noise",
+    },
     detailHref: "/projects/llian-dev",
     action: { label: "Visit", href: "https://llian.dev", kind: "live" },
   },

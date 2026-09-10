@@ -5,7 +5,7 @@ import styles from "../page.module.css";
 
 export function PortfolioFooter() {
   return (
-    <Reveal as="footer" id="contact" className={styles.footer}>
+    <Reveal as="footer" id="site-footer" className={`${styles.footer} ${styles.bleedTop}`}>
       <div className={styles.footerMeta}>
         <div className="rv" style={stagger(0)}>
           <p>{content.footer.creditPrefix} <strong>{content.footer.creditName}</strong></p>
