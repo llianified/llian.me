@@ -257,6 +257,35 @@
 
   .section { margin-top: 44px; }
 
+  .section > h2,
+  .flow li,
+  .footer {
+    position: relative;
+    border-width: 0;
+  }
+
+  .section > h2::after,
+  .flow li::after,
+  .footer::before {
+    position: absolute;
+    right: 50%;
+    width: 100vw;
+    height: 1px;
+    content: "";
+    background: var(--line);
+    transform: translateX(50%);
+    pointer-events: none;
+  }
+
+  .section > h2::after,
+  .flow li::after {
+    bottom: 0;
+  }
+
+  .footer::before {
+    top: 0;
+  }
+
   .featureList { grid-template-columns: 1fr; }
 
   .footer {
