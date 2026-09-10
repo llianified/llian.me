@@ -3,6 +3,14 @@
 import { useEffect, useState } from "react";
 import { MoonIcon, SunIcon } from "./icons";
 
+type Theme = "light" | "dark";
+
+type ViewTransitionDocument = Document & {
+  startViewTransition?: (update: () => void) => {
+    ready: Promise<void>;
+  };
+};
+
 function updateBrowserTheme() {
   const light = document.documentElement.dataset.theme === "light";
   document
@@ -14,14 +22,33 @@ function updateBrowserTheme() {
   return light;
 }
 
+function applyTheme(theme: Theme, onApplied: (isLight: boolean) => void) {
+  const root = document.documentElement;
+  const update = () => {
+    root.dataset.theme = theme;
+    onApplied(updateBrowserTheme());
+  };
+  const startViewTransition = (document as ViewTransitionDocument)
+    .startViewTransition;
+
+  if (!startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    update();
+    return;
+  }
+
+  root.dataset.themeTransitioning = "";
+  const transition = startViewTransition.call(document, update);
+  const finishSetup = () => delete root.dataset.themeTransitioning;
+  void transition.ready.then(finishSetup, finishSetup);
+}
+
 export function ThemeToggle() {
   const [isLight, setIsLight] = useState(true);
 
   function toggleTheme() {
-    const theme =
+    const theme: Theme =
       document.documentElement.dataset.theme === "light" ? "dark" : "light";
-    document.documentElement.dataset.theme = theme;
-    setIsLight(updateBrowserTheme());
+    applyTheme(theme, setIsLight);
     try {
       localStorage.setItem("llian-theme", theme);
     } catch {
@@ -34,9 +61,7 @@ export function ThemeToggle() {
 
     const sync = (event: StorageEvent) => {
       if (event.key === "llian-theme" || event.key === null) {
-        document.documentElement.dataset.theme =
-          event.newValue === "dark" ? "dark" : "light";
-        setIsLight(updateBrowserTheme());
+        applyTheme(event.newValue === "dark" ? "dark" : "light", setIsLight);
       }
     };
 
