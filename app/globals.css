@@ -8,6 +8,7 @@
   --inverse-bg: #f3f3f3;
   --inverse-text: #1b1b1b;
   --inverse-muted: #303030;
+  --status-live: #78b98a;
   --font-sans: var(--inter-font), Arial, sans-serif;
   --font-serif: var(--instrument-serif-font), Georgia, serif;
   --radius: 18px;
@@ -32,6 +33,7 @@
   --inverse-bg: #1b1b1b;
   --inverse-text: #f3f3f3;
   --inverse-muted: #e2e2e2;
+  --status-live: #2f7d4d;
 }
 *,
 *::before,
