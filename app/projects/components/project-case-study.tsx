@@ -1,9 +1,11 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import type {
   ProjectAction,
   ProjectCaseStudy as ProjectCaseStudyData,
 } from "@/lib/project-case-studies";
 import { ArrowIcon, BackIcon, GitHubIcon } from "@/app/components/icons";
+import { Reveal, stagger } from "@/app/components/reveal";
 import { ThemeToggle } from "@/app/components/theme-toggle";
 import styles from "../project.module.css";
 
@@ -16,15 +18,23 @@ function ActionLink({ action }: { action: ProjectAction }) {
   );
 }
 
-function SectionIntro({ title }: { title: string }) {
-  return <h2><span aria-hidden="true"># </span>{title}</h2>;
+function Section({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <Reveal as="section" className={styles.section}>
+      <h2 className="rv" style={stagger(0)}>
+        <span aria-hidden="true"># </span>
+        {title}
+      </h2>
+      {children}
+    </Reveal>
+  );
 }
 
 function FeatureList({ items }: { items: ProjectCaseStudyData["features"] }) {
   return (
     <div className={styles.featureList}>
-      {items.map((item) => (
-        <article className={styles.feature} key={item.title}>
+      {items.map((item, index) => (
+        <article className={`${styles.feature} rv`} key={item.title} style={stagger(index + 1)}>
           <h3>{item.title}</h3>
           <p>{item.body}</p>
         </article>
@@ -37,70 +47,74 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
   return (
     <div className={styles.shell}>
       <main id="main-content" tabIndex={-1} className={styles.page}>
-        <nav className={styles.backNav} aria-label="Case study navigation">
+        <nav className={`${styles.backNav} rv-load`} style={stagger(0)} aria-label="Case study navigation">
           <Link href="/#projects"><BackIcon /> Back to projects</Link>
           <ThemeToggle />
         </nav>
 
         <article>
           <header className={styles.header}>
-            <p className={styles.eyebrow}>{project.category} · {project.eyebrow}</p>
-            <h1 className="font-serif"><span aria-hidden="true"># </span>{project.title}</h1>
-            <p className={styles.subtitle}>{project.subtitle}</p>
-            <p className={styles.summary}>{project.summary}</p>
-            <div className={styles.actions}>
+            <p className={`${styles.eyebrow} rv-load`} style={stagger(1)}>
+              {project.category} · {project.eyebrow}
+            </p>
+            <h1 className="font-serif rv-load" style={stagger(2)}>
+              <span aria-hidden="true"># </span>{project.title}
+            </h1>
+            <p className={`${styles.subtitle} rv-load`} style={stagger(3)}>{project.subtitle}</p>
+            <p className={`${styles.summary} rv-load`} style={stagger(4)}>{project.summary}</p>
+            <div className={`${styles.actions} rv-load`} style={stagger(5)}>
               {project.actions.map((action) => <ActionLink action={action} key={action.href} />)}
             </div>
           </header>
 
-          <section className={styles.section}>
-            <SectionIntro title="Overview" />
-            <div className={styles.prose}>
+          <Section title="Overview">
+            <div className={`${styles.prose} rv`} style={stagger(1)}>
               {project.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
-          </section>
+          </Section>
 
           {project.flow && (
-            <section className={styles.section}>
-              <SectionIntro title="How it works" />
+            <Section title="How it works">
               <ol className={styles.flow}>
                 {project.flow.map((step, index) => (
-                  <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><p>{step}</p></li>
+                  <li key={step} className="rv" style={stagger(index + 1)}>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <p>{step}</p>
+                  </li>
                 ))}
               </ol>
-            </section>
+            </Section>
           )}
 
-          <section className={styles.section}>
-            <SectionIntro title="What I built" />
+          <Section title="What I built">
             <FeatureList items={project.features} />
-          </section>
+          </Section>
 
-          <section className={styles.section}>
-            <SectionIntro title="Behind the build" />
+          <Section title="Behind the build">
             <FeatureList items={project.decisions} />
-          </section>
+          </Section>
 
-          <section className={styles.section}>
-            <SectionIntro title="Stack" />
-            <ul className={styles.stack}>
+          <Section title="Stack">
+            <ul className={`${styles.stack} rv`} style={stagger(1)}>
               {project.stack.map((item) => <li key={item}>{item}</li>)}
             </ul>
-          </section>
+          </Section>
 
           {project.note && (
-            <aside className={styles.note}>
-              <p className={styles.noteLabel}>{project.note.label}</p>
-              <p>{project.note.body}</p>
-            </aside>
+            <Reveal as="aside" className={styles.note}>
+              <div className="rv" style={stagger(0)}>
+                <p className={styles.noteLabel}>{project.note.label}</p>
+                <p>{project.note.body}</p>
+              </div>
+            </Reveal>
           )}
 
-          <footer className={styles.footer}>
-            <Link href="/#projects"><BackIcon /> Back to projects</Link>
-            <div className={styles.actions}>
+          <Reveal as="footer" className={styles.footer}>
+            <Link href="/#projects" className="rv" style={stagger(0)}><BackIcon /> Back to projects</Link>
+            <div className={`${styles.actions} rv`} style={stagger(1)}>
               {project.actions.map((action) => <ActionLink action={action} key={action.href} />)}
             </div>
-          </footer>
+          </Reveal>
         </article>
       </main>
     </div>

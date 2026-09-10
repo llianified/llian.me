@@ -7,7 +7,6 @@
 
 .page {
   width: 100%;
-  animation: article-in 420ms ease-out both;
 }
 
 .backNav {
@@ -26,18 +25,24 @@
   gap: 5px;
   color: var(--muted);
   text-decoration: none;
+  transition: color var(--duration-fast) ease;
 }
 
 .backNav a:hover,
 .footer > a:hover {
   color: var(--foreground);
-  text-decoration: underline;
 }
 
 .backNav svg,
 .footer > a svg {
   width: 14px;
   height: 14px;
+  transition: transform 280ms var(--ease-out);
+}
+
+.backNav a:hover svg,
+.footer > a:hover svg {
+  transform: translateX(-3px);
 }
 
 .header {
@@ -50,17 +55,22 @@
 }
 
 .header h1 {
-  margin-top: 12px;
-  font-size: clamp(38px, 5vw, 58px);
+  margin-top: 14px;
+  font-size: clamp(40px, 5.6vw, 64px);
   font-weight: 400;
-  line-height: 1.05;
+  line-height: 1;
   letter-spacing: -.035em;
 }
 
+.header h1 > span {
+  color: var(--muted);
+}
+
 .subtitle {
-  margin-top: 18px;
-  font-size: 17px;
+  margin-top: 20px;
+  font-size: 18px;
   line-height: 1.5;
+  letter-spacing: -.01em;
 }
 
 .summary {
@@ -97,6 +107,11 @@
 .action svg {
   width: 13px;
   height: 13px;
+  transition: transform 280ms var(--ease-out);
+}
+
+.action:hover svg {
+  transform: translate(1px, -1px);
 }
 
 .section { margin-top: 54px; }
@@ -156,6 +171,12 @@
   background: var(--surface);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .feature:hover {
+    border-color: var(--muted);
+  }
+}
+
 .feature h3 {
   font-size: 14px;
   font-weight: 600;
@@ -210,11 +231,6 @@
   margin-top: 64px;
   padding-top: 22px;
   border-top: 1px solid var(--line);
-}
-
-@keyframes article-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 1199px) {

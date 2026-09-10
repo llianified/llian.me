@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { Project } from "@/lib/content";
 import styles from "../page.module.css";
+import { ArrowIcon } from "./icons";
+import { stagger } from "./reveal";
 
 const presentations = {
   taksirin: {
@@ -34,11 +36,14 @@ function ProjectPanel({ project }: { project: Project }) {
       <div className={styles.projectCopy}>
         <div className={styles.projectNameLine}>
           <h3>{project.name}</h3>
-          {project.badge && (
-            <span className={styles.liveBadge}>
-              <i aria-hidden="true" />Live
-            </span>
-          )}
+          <span className={styles.projectMeta}>
+            {project.badge && (
+              <span className={styles.liveBadge}>
+                <i aria-hidden="true" />Live
+              </span>
+            )}
+            <ArrowIcon className={styles.projectArrow} />
+          </span>
         </div>
         <p>{project.desc}</p>
       </div>
@@ -79,8 +84,8 @@ export function ProjectCards({ projects }: { projects: readonly Project[] }) {
 
   return (
     <div className={styles.projects}>
-      {ordered.map((project) => (
-        <article className={styles.projectCard} key={project.name}>
+      {ordered.map((project, index) => (
+        <article className={`${styles.projectCard} rv`} key={project.name} style={stagger(index + 1)}>
           <ProjectPanel project={project} />
         </article>
       ))}

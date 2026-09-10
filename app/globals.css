@@ -9,7 +9,10 @@
   --accent: var(--muted);
   --ease-out: cubic-bezier(.22, 1, .36, 1);
   --duration-fast: 180ms;
-  --duration-reveal: 520ms;
+  --duration-reveal: 560ms;
+  --motion-y: 14px;
+  --motion-stagger: 60ms;
+  --motion-load-stagger: 80ms;
   --font-sans: var(--google-sans-flex), Arial, sans-serif;
   --font-serif: var(--instrument-serif), Georgia, serif;
 }
@@ -174,6 +177,44 @@ html[lang="en"] .skip-link [lang="id"] { display: none; }
 }
 
 .theme-toggle svg { display: none; }
+
+/* Motion system: `.rv-load` runs once on page load, `.rv` waits for a
+   `[data-reveal]` ancestor to enter the viewport. `--i` staggers siblings.
+   Both stay invisible only when JS is running and motion is allowed. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js] .rv-load {
+    animation: rise var(--duration-reveal) var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * var(--motion-load-stagger));
+  }
+
+  html[data-js] [data-reveal] .rv {
+    opacity: 0;
+    transform: translateY(var(--motion-y));
+    transition:
+      opacity var(--duration-reveal) var(--ease-out),
+      transform var(--duration-reveal) var(--ease-out);
+    transition-delay: calc(var(--motion-delay, 0ms) + min(var(--i, 0), 8) * var(--motion-stagger));
+  }
+
+  html[data-js] [data-reveal][data-inview] .rv {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(var(--motion-y)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --duration-reveal: 460ms;
+    --motion-y: 8px;
+    --motion-stagger: 36ms;
+    --motion-load-stagger: 60ms;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

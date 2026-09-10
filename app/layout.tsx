@@ -48,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{document.documentElement.dataset.theme=localStorage.getItem("llian-theme")==="dark"?"dark":"light"}catch{}`,
+            __html: `document.documentElement.dataset.js="";try{document.documentElement.dataset.theme=localStorage.getItem("llian-theme")==="dark"?"dark":"light"}catch{}`,
           }}
         />
       </head>
