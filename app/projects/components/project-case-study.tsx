@@ -38,7 +38,7 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
     <div className={styles.shell}>
       <main id="main-content" tabIndex={-1} className={styles.page}>
         <nav className={styles.backNav} aria-label="Navigasi studi kasus">
-          <Link href="/#projects"><BackIcon /> Kembali ke proyek</Link>
+          <Link href="/#projects"><BackIcon /> Balik ke proyek</Link>
           <ThemeToggle />
         </nav>
 
@@ -54,7 +54,7 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
           </header>
 
           <section className={styles.section}>
-            <SectionIntro title="Overview" />
+            <SectionIntro title="Sekilas proyek" />
             <div className={styles.prose}>
               {project.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
@@ -72,12 +72,12 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
           )}
 
           <section className={styles.section}>
-            <SectionIntro title="Yang dibangun" />
+            <SectionIntro title="Yang saya bangun" />
             <FeatureList items={project.features} />
           </section>
 
           <section className={styles.section}>
-            <SectionIntro title="Keputusan teknis" />
+            <SectionIntro title="Pilihan di balik layar" />
             <FeatureList items={project.decisions} />
           </section>
 
@@ -96,7 +96,7 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
           )}
 
           <footer className={styles.footer}>
-            <Link href="/#projects"><BackIcon /> Kembali ke proyek</Link>
+            <Link href="/#projects"><BackIcon /> Balik ke proyek</Link>
             <div className={styles.actions}>
               {project.actions.map((action) => <ActionLink action={action} key={action.href} />)}
             </div>
