@@ -1,11 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Google_Sans_Flex, Instrument_Serif } from "next/font/google";
 import { site, uiCopy } from "@/lib/content";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--inter-font",
+const googleSans = Google_Sans_Flex({
+  variable: "--google-sans-flex",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -19,28 +26,29 @@ export const metadata: Metadata = {
     nosnippet: true,
     noimageindex: true,
   },
-  icons: { icon: { url: "/favicon-dark.png", type: "image/png" } },
+  icons: { icon: { url: "/favicon-light.png", type: "image/png" } },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#131211",
-  colorScheme: "dark light",
+  themeColor: "#fdfdfc",
+  colorScheme: "light dark",
   width: "device-width",
   initialScale: 1,
+  userScalable: true,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="id"
-      data-theme="dark"
+      data-theme="light"
       suppressHydrationWarning
-      className={`bg-background ${inter.variable}`}
+      className={`bg-background ${googleSans.variable} ${instrumentSerif.variable}`}
     >
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{document.documentElement.dataset.theme=localStorage.getItem("llian-theme")==="light"?"light":"dark"}catch{}`,
+            __html: `try{document.documentElement.dataset.theme=localStorage.getItem("llian-theme")==="dark"?"dark":"light"}catch{}`,
           }}
         />
       </head>

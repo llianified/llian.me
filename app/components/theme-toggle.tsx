@@ -13,7 +13,7 @@ function updateBrowserTheme() {
   const light = document.documentElement.dataset.theme === "light";
   document
     .querySelector('meta[name="theme-color"]')
-    ?.setAttribute("content", light ? "#f3f3f3" : "#111111");
+    ?.setAttribute("content", light ? "#fdfdfc" : "#11110f");
   document
     .querySelector('link[rel="icon"]')
     ?.setAttribute("href", light ? "/favicon-light.png" : "/favicon-dark.png");
@@ -21,20 +21,7 @@ function updateBrowserTheme() {
 }
 
 export function ThemeToggle({ language = "id" }: { language?: Language }) {
-  const [isLight, setIsLight] = useState(false);
-
-  useEffect(() => {
-    setIsLight(updateBrowserTheme());
-    const sync = (event: StorageEvent) => {
-      if (event.key === "llian-theme" || event.key === null) {
-        document.documentElement.dataset.theme =
-          event.newValue === "light" ? "light" : "dark";
-        setIsLight(updateBrowserTheme());
-      }
-    };
-    window.addEventListener("storage", sync);
-    return () => window.removeEventListener("storage", sync);
-  }, []);
+  const [isLight, setIsLight] = useState(true);
 
   function toggleTheme() {
     const theme =
@@ -48,6 +35,39 @@ export function ThemeToggle({ language = "id" }: { language?: Language }) {
     }
   }
 
+  useEffect(() => {
+    setIsLight(updateBrowserTheme());
+
+    const sync = (event: StorageEvent) => {
+      if (event.key === "llian-theme" || event.key === null) {
+        document.documentElement.dataset.theme =
+          event.newValue === "dark" ? "dark" : "light";
+        setIsLight(updateBrowserTheme());
+      }
+    };
+
+    const shortcut = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (
+        event.key.toLowerCase() !== "t" ||
+        event.repeat ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.altKey ||
+        target?.isContentEditable ||
+        target?.matches("input, textarea, select")
+      ) return;
+      toggleTheme();
+    };
+
+    window.addEventListener("storage", sync);
+    window.addEventListener("keydown", shortcut);
+    return () => {
+      window.removeEventListener("storage", sync);
+      window.removeEventListener("keydown", shortcut);
+    };
+  }, []);
+
   const label = labels[language][isLight ? "dark" : "light"];
   return (
     <button
@@ -55,7 +75,8 @@ export function ThemeToggle({ language = "id" }: { language?: Language }) {
       className="theme-toggle"
       onClick={toggleTheme}
       aria-label={label}
-      title={label}
+      aria-pressed={!isLight}
+      title={`${label} (T)`}
     >
       <SunIcon className="sun-icon" />
       <MoonIcon className="moon-icon" />
