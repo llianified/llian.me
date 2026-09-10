@@ -104,18 +104,9 @@
   padding-top: 40px;
 }
 
-.avatar {
-  display: block;
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-  object-fit: cover;
-  background: var(--surface);
-}
-
 .heroName {
   max-width: 14ch;
-  margin-top: 26px;
+  margin-top: 0;
   font-size: clamp(38px, 6.2vw, 64px);
   font-weight: 400;
   line-height: .98;
@@ -618,16 +609,6 @@
     padding-top: 28px;
   }
 
-  .avatar {
-    width: 52px;
-    height: 52px;
-    border-radius: 10px;
-  }
-
-  .heroName {
-    margin-top: 22px;
-  }
-
   .heroGrid {
     gap: 24px;
     margin-top: 28px;
@@ -680,11 +661,6 @@
 }
 
 @media (max-width: 390px) {
-  .avatar {
-    width: 46px;
-    height: 46px;
-  }
-
   .footerMeta {
     align-items: flex-start;
     flex-direction: column;
