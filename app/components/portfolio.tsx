@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "../page.module.css";
 import {
@@ -14,8 +13,7 @@ import {
   type Entry,
   type Language,
 } from "@/lib/content";
-import { FileIcon } from "./icons";
-import { PortfolioFooter, SocialRail } from "./portfolio-footer";
+import { PortfolioFooter } from "./portfolio-footer";
 import { ProjectCards } from "./project-cards";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -85,29 +83,6 @@ function InlineContacts({ language }: LocalizedProps) {
   );
 }
 
-function FeaturedProject({
-  href,
-  image,
-  display,
-  title,
-}: {
-  href: string;
-  title: string;
-} & ({ image: string; display?: never } | { image?: never; display: string })) {
-  return (
-    <Link className={styles.featuredProject} href={href}>
-      <span className={styles.featuredImage}>
-        {image ? (
-          <Image src={image} alt="" fill sizes="280px" unoptimized />
-        ) : (
-          <span className="font-serif" aria-hidden="true">{display}</span>
-        )}
-      </span>
-      <span>{title}</span>
-    </Link>
-  );
-}
-
 function Profile({ language }: LocalizedProps) {
   const [roleIndex, setRoleIndex] = useState(0);
   const bio = content[language].bio;
@@ -162,26 +137,6 @@ function Profile({ language }: LocalizedProps) {
       </p>
 
       <InlineContacts language={language} />
-
-      <section className={styles.recent} aria-labelledby="recent-title">
-        <h2 id="recent-title">
-          <span aria-hidden="true"># </span>
-          {language === "id" ? "Baru dikirim" : "Recently shipped"}
-        </h2>
-        <FeaturedProject
-          href="/projects/llnx"
-          display="llnx"
-          title="llnx — crypto execution system"
-        />
-        <FeaturedProject
-          href="/projects/llian-dev"
-          image="/projects/llian-dev/overview.png"
-          title="llian.dev — local-first web tools"
-        />
-        <a className={styles.allProjects} href="#projects">
-          {language === "id" ? "semua proyek" : "all projects"} →
-        </a>
-      </section>
     </aside>
   );
 }
@@ -230,11 +185,6 @@ function Contributions({ language }: LocalizedProps) {
             <p>{entry.date}</p>
             <h3>{entry.href ? <a href={entry.href} {...externalProps}>{entry.co}</a> : entry.co}</h3>
             <p>{entry.role}</p>
-            {entry.href && (
-              <a className={styles.readLink} href={entry.href} {...externalProps}>
-                <FileIcon /> {language === "id" ? "lihat kontribusi" : "view contribution"}
-              </a>
-            )}
           </article>
         ))}
       </div>
@@ -256,7 +206,6 @@ export function Portfolio() {
 
   return (
     <div lang={language} className={styles.page}>
-      <SocialRail language={language} />
       <FloatingControls language={language} onChange={setLanguage} />
       <Profile language={language} />
 
@@ -287,9 +236,6 @@ export function Portfolio() {
               </span>
             ))}
           </p>
-          <a className={styles.resumeLink} href={site.cvHref} {...externalProps}>
-            <FileIcon /> {ui.cv}
-          </a>
         </section>
 
         <PortfolioFooter language={language} />
