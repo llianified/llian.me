@@ -1,13 +1,17 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import type {
   ProjectAction,
   ProjectCaseStudy as ProjectCaseStudyData,
 } from "@/lib/project-case-studies";
 import { ArrowIcon, BackIcon, GitHubIcon } from "@/app/components/icons";
-import { Reveal, stagger } from "@/app/components/reveal";
+import { Reveal } from "@/app/components/reveal";
 import { ThemeToggle } from "@/app/components/theme-toggle";
 import styles from "../project.module.css";
+
+function stagger(index: number): CSSProperties {
+  return { "--i": index } as CSSProperties;
+}
 
 function ActionLink({ action }: { action: ProjectAction }) {
   return (
