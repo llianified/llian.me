@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Project } from "@/lib/content";
 import styles from "../page.module.css";
 import { ArrowIcon } from "./icons";
-import { stagger } from "./reveal";
+import { stagger } from "./motion";
 
 const order = ["taksirin", "llnx", "llian.dev", "llian.me"] as const;
 

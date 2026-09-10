@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Google_Sans_Flex, Instrument_Serif } from "next/font/google";
-import Script from "next/script";
 import { site, uiCopy } from "@/lib/content";
 import "./globals.css";
+
+const themeInit =
+  'document.documentElement.dataset.js="";try{document.documentElement.dataset.theme=localStorage.getItem("llian-theme")==="dark"?"dark":"light"}catch{}';
 
 const googleSans = Google_Sans_Flex({
   variable: "--google-sans-flex",
@@ -70,10 +72,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={`bg-background ${googleSans.variable} ${instrumentSerif.variable}`}
     >
+      <head>
+        {/* Runs before first paint so the stored theme applies without a flash. */}
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+      </head>
       <body className="font-sans">
-        <Script id="theme-init" strategy="beforeInteractive">
-          {`document.documentElement.dataset.js="";try{document.documentElement.dataset.theme=localStorage.getItem("llian-theme")==="dark"?"dark":"light"}catch{}`}
-        </Script>
         <a className="skip-link" href="#main-content">
           {uiCopy.skipToContent}
         </a>

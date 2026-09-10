@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import type { CSSProperties } from "react";
-import { content, site } from "@/lib/content";
+import { content } from "@/lib/content";
 import { ArrowIcon, BackIcon } from "./components/icons";
-import { ThemeToggle } from "./components/theme-toggle";
+import { PortfolioFooter } from "./components/portfolio-footer";
+import { stagger } from "./components/motion";
+import { SiteHeader } from "./components/site-header";
+import page from "./page.module.css";
 import styles from "./not-found.module.css";
-
-function stagger(index: number): CSSProperties {
-  return { "--i": index } as CSSProperties;
-}
 
 export const metadata: Metadata = {
   title: "Page not found",
@@ -19,13 +17,8 @@ export default function NotFound() {
   const copy = content.notFound;
 
   return (
-    <div className={styles.shell}>
-      <header className={`${styles.header} rv-load`} style={stagger(0)}>
-        <Link href="/" className={`${styles.brand} font-serif`} aria-label={`${site.name}, back to home`}>
-          {site.shortName}
-        </Link>
-        <ThemeToggle />
-      </header>
+    <div className={`${page.page} ${styles.shell}`}>
+      <SiteHeader back={{ href: "/", label: copy.back }} />
 
       <main id="main-content" tabIndex={-1} className={styles.main}>
         <p className={`${styles.eyebrow} rv-load`} style={stagger(1)}>
@@ -39,13 +32,17 @@ export default function NotFound() {
         </p>
         <nav className={`${styles.actions} rv-load`} style={stagger(4)} aria-label="Recovery links">
           <Link href="/">
-            <BackIcon /> {copy.back}
+            <BackIcon />
+            <span>{copy.back}</span>
           </Link>
           <Link href="/#projects">
-            {copy.projects} <ArrowIcon />
+            <span>{copy.projects}</span>
+            <ArrowIcon />
           </Link>
         </nav>
       </main>
+
+      <PortfolioFooter />
     </div>
   );
 }
