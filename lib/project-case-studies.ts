@@ -21,6 +21,7 @@ export type ProjectFeature = {
 export type ProjectCaseStudy = {
   slug: "taksirin" | "llnx" | "llian-dev";
   eyebrow: string;
+  category: string;
   title: string;
   subtitle: string;
   summary: string;
@@ -41,6 +42,7 @@ export type ProjectCaseStudy = {
 export const taksirinCaseStudy = {
   slug: "taksirin",
   eyebrow: "Project case study · Taksirin",
+  category: "Produk web",
   title: "Garapan",
   subtitle: "Order & produksi OS untuk bisnis custom di Indonesia.",
   summary:
@@ -131,6 +133,7 @@ export const taksirinCaseStudy = {
 export const llnxCaseStudy = {
   slug: "llnx",
   eyebrow: "Project case study · Python 0.3.0",
+  category: "Otomasi Python",
   title: "llnx",
   subtitle: "A crypto bot that places its own orders.",
   summary:
@@ -252,6 +255,7 @@ export const llnxCaseStudy = {
 export const llianDevCaseStudy = {
   slug: "llian-dev",
   eyebrow: "Project case study · Local-first web tools",
+  category: "Peralatan local-first",
   title: "llian.dev",
   subtitle: "Useful things, directly in the browser.",
   summary:

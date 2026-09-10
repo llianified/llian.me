@@ -264,7 +264,7 @@ export function Portfolio() {
 
         <section id="projects" className={styles.contentSection} aria-labelledby="projects-title">
           <SectionTitle id="projects-title">{copy.projects.title}</SectionTitle>
-          <ProjectCards projects={copy.projects.items} language={language} />
+          <ProjectCards projects={copy.projects.items} />
         </section>
 
         <Contributions language={language} />

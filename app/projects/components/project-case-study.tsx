@@ -74,7 +74,7 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
 
         <article>
           <header className={styles.header}>
-            <p className={styles.eyebrow}>{project.eyebrow}</p>
+            <p className={styles.eyebrow}>{project.category} · {project.eyebrow}</p>
             <h1 className="font-serif"><span aria-hidden="true"># </span>{project.title}</h1>
             <p className={styles.subtitle}>{project.subtitle}</p>
             <p className={styles.summary}>{project.summary}</p>
