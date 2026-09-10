@@ -933,49 +933,51 @@ a.entryCompany:hover {
 }
 @media (max-width: 680px) {
   .topbar {
-    min-height: 58px;
-    margin-bottom: 16px;
-    padding: 6px 6px 6px 18px;
+    min-height: 52px;
+    margin-bottom: 14px;
+    padding: 4px 4px 4px 14px;
     border-radius: 999px;
   }
   .main,
   .main [id] {
-    scroll-margin-top: 80px;
+    scroll-margin-top: 72px;
   }
   .wordmark {
     flex-shrink: 0;
-    font-size: 23px;
+    font-size: 22px;
   }
   .controls {
-    gap: 2px;
+    gap: 0;
   }
   .controls > button {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-color: transparent;
   }
   .controls .languageToggle {
-    font-size: 14px;
+    font-size: 13px;
   }
   .controls > .menuToggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     width: auto;
-    padding-inline: 14px;
-    border: 1px solid var(--border);
+    padding-inline: 12px;
+    border: 0;
     background: color-mix(in srgb, var(--text) 6%, var(--surface));
     color: var(--text);
     font-size: 14px;
     font-weight: 500;
-    transition: background-color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
   }
-  .menuToggle:hover,
-  .menuToggle[aria-expanded="true"] {
-    background: var(--border);
-    border-color: var(--text-muted);
+  .menuToggle:hover {
+    background: color-mix(in srgb, var(--text) 12%, var(--surface));
     color: var(--text);
+  }
+  .menuToggle[aria-expanded="true"] {
+    background: var(--text);
+    color: var(--bg);
   }
   .menuChevron {
     width: 7px;
@@ -995,9 +997,9 @@ a.entryCompany:hover {
     flex-direction: column;
     align-items: stretch;
     gap: 2px;
-    padding: 8px;
+    padding: 6px;
     border: 1px solid var(--border);
-    border-radius: 20px;
+    border-radius: 18px;
     background: var(--surface);
     color: var(--text);
     box-shadow: 0 16px 32px color-mix(in srgb, var(--bg) 28%, transparent);
