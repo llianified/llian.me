@@ -1,17 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import { site, uiCopy } from "@/lib/content";
 import "./globals.css";
 
 const inter = Inter({
   variable: "--inter-font",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--instrument-serif-font",
-  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -30,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#111111",
+  themeColor: "#131211",
   colorScheme: "dark light",
   width: "device-width",
   initialScale: 1,
@@ -42,7 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="id"
       data-theme="dark"
       suppressHydrationWarning
-      className={`bg-background ${inter.variable} ${instrumentSerif.variable}`}
+      className={`bg-background ${inter.variable}`}
     >
       <head>
         <script
