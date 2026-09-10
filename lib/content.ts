@@ -60,7 +60,7 @@ export const site = {
   cvHref: "/cv.pdf",
 };
 
-export const roles = ["Full-Stack Developer", "Product Builder"] as const;
+export const roles = ["Full-Stack Developer / Product Builder"] as const;
 
 export const contacts = {
   whatsapp: "https://wa.me/6285199273883",
