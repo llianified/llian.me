@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import styles from "../page.module.css";
 import {
   content,
@@ -11,7 +10,6 @@ import {
   technologies,
   uiCopy,
   type Entry,
-  type Language,
 } from "@/lib/content";
 import { PortfolioFooter } from "./portfolio-footer";
 import { ProjectCards } from "./project-cards";
@@ -19,38 +17,10 @@ import { ThemeToggle } from "./theme-toggle";
 
 const externalProps = { target: "_blank", rel: "noreferrer" } as const;
 
-type LocalizedProps = { language: Language };
-
-function LanguageToggle({
-  language,
-  onChange,
-}: LocalizedProps & { onChange: (language: Language) => void }) {
-  const nextLanguage = language === "id" ? "en" : "id";
-  const label =
-    language === "id" ? "Switch to English" : "Ganti ke Bahasa Indonesia";
-
+function FloatingControls() {
   return (
-    <button
-      type="button"
-      className={styles.languageToggle}
-      lang={language}
-      aria-label={label}
-      title={label}
-      onClick={() => onChange(nextLanguage)}
-    >
-      {language.toUpperCase()}
-    </button>
-  );
-}
-
-function FloatingControls({
-  language,
-  onChange,
-}: LocalizedProps & { onChange: (language: Language) => void }) {
-  return (
-    <div className={styles.floatingControls} aria-label={uiCopy[language].language}>
-      <LanguageToggle language={language} onChange={onChange} />
-      <ThemeToggle language={language} />
+    <div className={styles.floatingControls} aria-label="Display settings">
+      <ThemeToggle />
       <span className={styles.shortcutHint} aria-hidden="true">
         press T
       </span>
@@ -58,66 +28,36 @@ function FloatingControls({
   );
 }
 
-function InlineContacts({ language }: LocalizedProps) {
-  const ui = uiCopy[language];
+function InlineContacts() {
   return (
     <div className={styles.inlineContacts}>
       <p>
-        {language === "id" ? "Mau ngobrol? Kirim" : "Reach me at"}{" "}
-        <a href={contacts.email}>email</a>{" "}
-        {language === "id" ? "atau ajak" : "or"}{" "}
+        Reach me by <a href={contacts.email}>email</a> or hop on{" "}
         <a href={contacts.whatsapp} {...externalProps}>
-          {language === "id" ? "quick call" : "a quick call"}
+          a quick call
         </a>
         .
       </p>
       <p>
-        {language === "id" ? "Saya juga nongkrong di" : "Find me on"}{" "}
-        <a href={contacts.github} {...externalProps}>GitHub</a>,{" "}
-        <a href={contacts.twitter} {...externalProps}>X / Twitter</a>,{" "}
-        <a href={contacts.instagram} {...externalProps}>Instagram</a>, {language === "id" ? "atau intip" : "read"}{" "}
-        <a href={site.cvHref} {...externalProps}>CV</a> {language === "id" ? "dan" : "or see my"}{" "}
-        <a href="#projects">{ui.work.toLowerCase()}</a>.
+        Find me on <a href={contacts.github} {...externalProps}>GitHub</a>,{" "}
+        <a href={contacts.twitter} {...externalProps}>X / Twitter</a>, and{" "}
+        <a href={contacts.instagram} {...externalProps}>Instagram</a>. You can also read my{" "}
+        <a href={site.cvHref} {...externalProps}>CV</a> or browse my{" "}
+        <a href="#projects">work</a>.
       </p>
     </div>
   );
 }
 
-function Profile({ language }: LocalizedProps) {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const bio = content[language].bio;
-  const ui = uiCopy[language];
-
-  useEffect(() => {
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let interval: number | undefined;
-
-    function updateRotation() {
-      window.clearInterval(interval);
-      if (!preference.matches && !document.hidden) {
-        interval = window.setInterval(
-          () => setRoleIndex((index) => (index + 1) % roles.length),
-          4000,
-        );
-      }
-    }
-
-    updateRotation();
-    preference.addEventListener("change", updateRotation);
-    document.addEventListener("visibilitychange", updateRotation);
-    return () => {
-      window.clearInterval(interval);
-      preference.removeEventListener("change", updateRotation);
-      document.removeEventListener("visibilitychange", updateRotation);
-    };
-  }, []);
+function Profile() {
+  const bio = content.bio;
 
   return (
     <aside className={styles.profileColumn} aria-labelledby="profile-name">
       <header className={styles.profileHeader}>
         <Image
           src="/pfp.jpg"
-          alt={`${ui.profileImage} ${site.name}`}
+          alt={`${uiCopy.profileImage} ${site.name}`}
           width={52}
           height={52}
           priority
@@ -126,7 +66,7 @@ function Profile({ language }: LocalizedProps) {
         />
         <div>
           <h1 id="profile-name" className="font-serif">{site.name}</h1>
-          <p key={roleIndex} className={styles.role}>{roles[roleIndex]}</p>
+          <p className={styles.role}>{roles[0]}</p>
         </div>
       </header>
 
@@ -136,7 +76,7 @@ function Profile({ language }: LocalizedProps) {
         {bio.line1Suffix}
       </p>
 
-      <InlineContacts language={language} />
+      <InlineContacts />
     </aside>
   );
 }
@@ -170,8 +110,8 @@ function Timeline({ entries }: { entries: readonly Entry[] }) {
   );
 }
 
-function Contributions({ language }: LocalizedProps) {
-  const section = content[language].contributions;
+function Contributions() {
+  const section = content.contributions;
   return (
     <section id="contributions" className={styles.contentSection} aria-labelledby="contributions-title">
       <SectionTitle id="contributions-title">{section.title}</SectionTitle>
@@ -190,42 +130,31 @@ function Contributions({ language }: LocalizedProps) {
 }
 
 export function Portfolio() {
-  const [language, setLanguage] = useState<Language>("id");
-  const copy = content[language];
-  const ui = uiCopy[language];
-
-  useEffect(() => {
-    document.documentElement.lang = language;
-    return () => {
-      document.documentElement.lang = "id";
-    };
-  }, [language]);
-
   return (
-    <div lang={language} className={styles.page}>
-      <FloatingControls language={language} onChange={setLanguage} />
-      <Profile language={language} />
+    <div className={styles.page}>
+      <FloatingControls />
+      <Profile />
 
       <main id="main-content" tabIndex={-1} className={styles.main}>
         <section id="experience" className={styles.contentSection} aria-labelledby="experience-title">
-          <SectionTitle id="experience-title">{copy.experience.title}</SectionTitle>
-          <Timeline entries={copy.experience.entries} />
+          <SectionTitle id="experience-title">{content.experience.title}</SectionTitle>
+          <Timeline entries={content.experience.entries} />
         </section>
 
         <section id="projects" className={styles.contentSection} aria-labelledby="projects-title">
-          <SectionTitle id="projects-title">{copy.projects.title}</SectionTitle>
-          <ProjectCards projects={copy.projects.items} />
+          <SectionTitle id="projects-title">{content.projects.title}</SectionTitle>
+          <ProjectCards projects={content.projects.items} />
         </section>
 
-        <Contributions language={language} />
+        <Contributions />
 
         <section id="education" className={styles.contentSection} aria-labelledby="education-title">
-          <SectionTitle id="education-title">{copy.education.title}</SectionTitle>
-          <Timeline entries={copy.education.entries} />
+          <SectionTitle id="education-title">{content.education.title}</SectionTitle>
+          <Timeline entries={content.education.entries} />
         </section>
 
         <section id="engineering" className={styles.contentSection} aria-labelledby="engineering-title">
-          <SectionTitle id="engineering-title">{ui.technologies}</SectionTitle>
+          <SectionTitle id="engineering-title">{uiCopy.technologies}</SectionTitle>
           <p className={styles.engineeringLine}>
             {technologies.map((technology, index) => (
               <span key={technology}>
@@ -235,7 +164,7 @@ export function Portfolio() {
           </p>
         </section>
 
-        <PortfolioFooter language={language} />
+        <PortfolioFooter />
       </main>
     </div>
   );

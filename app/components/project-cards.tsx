@@ -50,7 +50,7 @@ function ProjectPanel({ project }: { project: Project }) {
       <Link
         className={styles.projectPanel}
         href={project.detailHref}
-        aria-label={`Buka studi kasus ${project.name}`}
+        aria-label={`Open the ${project.name} case study`}
       >
         {content}
       </Link>
@@ -63,7 +63,7 @@ function ProjectPanel({ project }: { project: Project }) {
       href={project.action.href}
       target="_blank"
       rel="noreferrer"
-      aria-label={`Kunjungi ${project.name}`}
+      aria-label={`Visit ${project.name}`}
     >
       {content}
     </a>

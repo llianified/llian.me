@@ -18,7 +18,7 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: "Yoga Aprilliansyah N — Portfolio",
-  description: `Portofolio ${site.name}, Front-End Developer dari ${site.location}. Berisi proyek, pengalaman, dan sedikit jejak digital.`,
+  description: `${site.name} is a Full-Stack Developer based in ${site.location}, building web products and private Telegram Mini Apps.`,
   robots: {
     index: false,
     follow: false,
@@ -40,7 +40,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="id"
+      lang="en"
       data-theme="light"
       suppressHydrationWarning
       className={`bg-background ${googleSans.variable} ${instrumentSerif.variable}`}
@@ -54,8 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="font-sans">
         <a className="skip-link" href="#main-content">
-          <span lang="id">{uiCopy.id.skipToContent}</span>
-          <span lang="en">{uiCopy.en.skipToContent}</span>
+          {uiCopy.skipToContent}
         </a>
         {children}
       </body>
