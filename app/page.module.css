@@ -97,7 +97,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
+  width: 36px;
   height: 36px;
   border: 1px solid var(--border);
   border-radius: var(--radius-control);
@@ -617,7 +617,7 @@
   display: block;
   overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: var(--radius-control);
+  border-radius: var(--radius-thumbnail);
 }
 .terminalPreview img {
   display: block;
@@ -632,7 +632,7 @@
   display: block;
   overflow: hidden;
   margin-block: 20px 12px;
-  border-radius: var(--radius-control);
+  border-radius: var(--radius-thumbnail);
   border: 1px solid var(--border);
 }
 .toolsPreview img {
@@ -649,7 +649,7 @@
   margin-block: 20px 12px;
   text-align: center;
   border: 1px solid var(--border);
-  border-radius: var(--radius-control);
+  border-radius: var(--radius-thumbnail);
   background: var(--bg);
   color: var(--text);
 }

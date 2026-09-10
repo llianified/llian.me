@@ -126,7 +126,7 @@
 .imageFrame {
   overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-media);
   background: var(--surface);
 }
 .image {
