@@ -28,8 +28,8 @@ export const uiCopy = {
   cv: "View CV",
   basedIn: "Based in",
   localTime: "Local time",
-  technologies: "Technologies & tools",
-  technologiesDescription: "Behind every project.",
+  technologies: "Technical stack",
+  technologiesDescription: "Tools I have hands-on experience using to build and ship products.",
   idea: "Have something in mind?",
   connect: "Let’s connect.",
   selectedWork: "Selected work",
@@ -60,7 +60,7 @@ export const site = {
   cvHref: "/cv.pdf",
 };
 
-export const roles = ["Full-Stack Developer"] as const;
+export const roles = ["Full-Stack Developer / Product Builder"] as const;
 
 export const contacts = {
   whatsapp: "https://wa.me/6285199273883",
@@ -70,29 +70,63 @@ export const contacts = {
   instagram: "https://instagram.com/llianified",
 };
 
-export const technologies = [
-  "React",
-  "TypeScript",
-  "Next.js",
-  "Vite",
-  "Tailwind CSS",
-  "Node.js",
-  "Express.js",
-  "Drizzle ORM",
-  "PostgreSQL",
-  "Vercel",
-  "Figma",
-  "GitHub",
-  "Canva",
+export const technologyGroups = [
+  {
+    label: "Languages",
+    items: ["JavaScript", "TypeScript", "Python", "SQL"],
+  },
+  {
+    label: "Web",
+    items: ["React", "Next.js", "Vite", "Tailwind CSS", "Node.js", "Express.js", "REST APIs"],
+  },
+  {
+    label: "Data",
+    items: ["PostgreSQL", "Drizzle ORM", "Database migrations"],
+  },
+  {
+    label: "Cloud & systems",
+    items: ["AWS EC2", "Vercel", "Railway", "GitHub Actions", "Linux", "Ubuntu", "SSH", "tmux", "screen"],
+  },
+  {
+    label: "Workflow",
+    items: ["Git", "GitHub", "npm", "pnpm", "Environment configuration", "Figma", "Canva"],
+  },
+  {
+    label: "AI-assisted",
+    items: ["Claude Code", "v0", "Gemini CLI", "AI coding agents", "Third-party AI APIs"],
+  },
+] as const;
+
+export const capabilities = [
+  {
+    title: "Full-stack delivery",
+    description:
+      "Building interfaces, integrating APIs, working with PostgreSQL, handling migrations and seed/reset workflows, and shipping to cloud environments.",
+  },
+  {
+    title: "AI-assisted engineering",
+    description:
+      "Using coding agents as engineering tools for implementation, debugging, refactoring, codebase exploration, infrastructure setup, and UI iteration.",
+  },
+  {
+    title: "Product development",
+    description:
+      "Making practical UI/UX and feature decisions around engagement, retention, conversion, subscription pricing, monetization, rewards, referrals, and product experiments—without losing sight of the user experience.",
+  },
+  {
+    title: "Automation & operations",
+    description:
+      "Working with automation, web scraping, Linux servers, remote development over SSH, and persistent command-line environments.",
+  },
 ] as const;
 
 const experience: Entry[] = [
+  { co: "Zenius Store", date: "Mar – Sep 2021", role: "Digital Marketing" },
   {
     co: "Universitas Suryakancana",
     date: "Aug – Nov 2017",
-    role: "Admin Intern",
+    role: "Administrative Intern",
   },
-  { co: "Zenius Store", date: "Mar – Sep 2021", role: "Digital Marketing" },
 ];
 
 const contributions: Entry[] = [
@@ -182,12 +216,14 @@ const projects: Project[] = [
 export const content = {
   bio: {
     line1Prefix: "I’m a",
-    line1LinkLabel: "Full-Stack Developer",
-    line1Suffix: `based in ${site.location}. I’ve also shipped three private Telegram Mini Apps.`,
+    line1LinkLabel: "Full-Stack Developer and Product Builder",
+    line1Suffix: `based in ${site.location}. I build web applications, automation tools, and consumer-facing digital products from interface to deployment.`,
+    detail:
+      "I work across frontend, backend integration, databases, cloud deployment, troubleshooting, and product iteration—with AI coding agents as part of my everyday engineering workflow.",
   },
   experience: {
     title: "Experience",
-    sub: "Where I learned by doing real work.",
+    sub: "Verified professional experience, kept concise.",
     entries: experience,
   },
   education: {
@@ -202,14 +238,19 @@ export const content = {
     ] as Entry[],
   },
   contributions: {
-    title: "Digital Contributions",
-    sub: "Work I’ve done across communities and digital media.",
+    title: "Web3 Contributions",
+    sub: "Community, content, and ambassador contributions—not formal software engineering employment.",
     entries: contributions,
   },
   projects: {
     title: "Projects",
     sub: "A few things I’ve built and am still tinkering with.",
     items: projects,
+  },
+  capabilities: {
+    title: "How I work",
+    sub: "Technical execution with product context.",
+    items: capabilities,
   },
   footer: {
     creditPrefix: "Designed & developed by",
