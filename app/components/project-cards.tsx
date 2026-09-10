@@ -6,7 +6,7 @@ import styles from "../page.module.css";
 const presentations = {
   taksirin: {
     order: 0,
-    display: "Garapan.",
+    display: "taksirin",
   },
   llnx: {
     order: 1,
@@ -14,7 +14,7 @@ const presentations = {
   },
   "llian.dev": {
     order: 2,
-    image: "/projects/llian-dev/overview.png",
+    display: "llian.dev",
   },
   "llian.me": {
     order: 3,

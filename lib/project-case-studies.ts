@@ -43,20 +43,20 @@ export const taksirinCaseStudy = {
   slug: "taksirin",
   eyebrow: "Project case study · Taksirin",
   category: "Produk web",
-  title: "Garapan",
+  title: "taksirin",
   subtitle: "Order & produksi OS untuk bisnis custom di Indonesia.",
   summary:
-    "Garapan adalah produk di project Taksirin: satu alur dari halaman penawaran yang menghitung harga sampai papan produksi dan pelacakan pesanan publik.",
+    "Taksirin menyatukan satu alur dari halaman penawaran yang menghitung harga sampai papan produksi dan pelacakan pesanan publik.",
   actions: [
     {
-      label: "Kunjungi Garapan",
+      label: "Kunjungi Taksirin",
       href: "https://untitled-rouge-psi.vercel.app",
       kind: "live",
     },
   ],
   overview: [
     "Vendor konveksi, sablon, percetakan, furniture, souvenir, signage, dan undangan sering menjawab pertanyaan harga yang sama berulang kali lewat WhatsApp.",
-    "Setelah pesanan masuk, catatannya mudah terpencar di chat, buku, dan galeri foto. Garapan menyatukan penawaran, order, pembayaran, produksi, dan progres yang dilihat pelanggan tanpa akun.",
+    "Setelah pesanan masuk, catatannya mudah terpencar di chat, buku, dan galeri foto. Taksirin menyatukan penawaran, order, pembayaran, produksi, dan progres yang dilihat pelanggan tanpa akun.",
   ],
   flow: [
     "Vendor mengisi produk, opsi, dan harga sekali",
