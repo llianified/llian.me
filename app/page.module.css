@@ -140,6 +140,48 @@
   transform: scaleX(1);
 }
 
+/* Subpage variant: the section nav gives way to a single back link that
+   sits beside the wordmark behind a vertical hairline. */
+.backNav {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  margin-right: auto;
+  padding-left: 16px;
+  border-left: 1px solid var(--line);
+  line-height: 1;
+}
+
+.backNav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: -.005em;
+  text-decoration: none;
+  transition: color var(--duration-fast) ease;
+}
+
+.backNav a:hover {
+  color: var(--foreground);
+}
+
+.backNav svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 280ms var(--ease-out);
+}
+
+.backNav a:hover svg {
+  transform: translateX(-2px);
+}
+
+.brand + .backNav {
+  margin-left: 16px;
+}
+
 .headerControls {
   display: flex;
   align-items: center;

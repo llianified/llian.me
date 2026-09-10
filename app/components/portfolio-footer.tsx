@@ -1,6 +1,7 @@
 import { content, site, uiCopy } from "@/lib/content";
 import { LocalTime } from "./local-time";
-import { Reveal, stagger } from "./reveal";
+import { stagger } from "./motion";
+import { Reveal } from "./reveal";
 import styles from "../page.module.css";
 
 export function PortfolioFooter() {

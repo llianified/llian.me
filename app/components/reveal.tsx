@@ -37,10 +37,6 @@ function getObserver() {
   return observer;
 }
 
-export function stagger(index: number, extra?: CSSProperties): CSSProperties {
-  return { ...extra, "--i": index } as CSSProperties;
-}
-
 export function Reveal({ as = "div", delay, style, children, ...rest }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
 

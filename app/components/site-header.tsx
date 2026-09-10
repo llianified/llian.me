@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/content";
 import styles from "../page.module.css";
-import { stagger } from "./reveal";
+import { BackIcon } from "./icons";
+import { stagger } from "./motion";
 import { ThemeToggle } from "./theme-toggle";
 
 const sections = [
@@ -19,10 +20,30 @@ const sections = [
 
 const lastSectionId = sections[sections.length - 1].id;
 
-export function SiteHeader() {
-  const [active, setActive] = useState<string | null>(null);
+type SiteHeaderProps = {
+  /** Replaces the section nav with a back link on subpages. */
+  back?: { href: string; label: string };
+};
+
+function useScrolled() {
   const [scrolled, setScrolled] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry) setScrolled(!entry.isIntersecting);
+    });
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, []);
+
+  return { scrolled, sentinelRef };
+}
+
+function SectionNav() {
+  const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
     const targets = sections
@@ -50,17 +71,29 @@ export function SiteHeader() {
     );
     if (footer) footerObserver.observe(footer);
 
-    const sentinelObserver = new IntersectionObserver(([entry]) => {
-      if (entry) setScrolled(!entry.isIntersecting);
-    });
-    if (sentinelRef.current) sentinelObserver.observe(sentinelRef.current);
-
     return () => {
       sectionObserver.disconnect();
       footerObserver.disconnect();
-      sentinelObserver.disconnect();
     };
   }, []);
+
+  return (
+    <nav className={styles.nav} aria-label="Sections">
+      {sections.map((section) => (
+        <a
+          key={section.id}
+          href={`#${section.id}`}
+          aria-current={active === section.id ? "location" : undefined}
+        >
+          {section.label}
+        </a>
+      ))}
+    </nav>
+  );
+}
+
+export function SiteHeader({ back }: SiteHeaderProps) {
+  const { scrolled, sentinelRef } = useScrolled();
 
   return (
     <>
@@ -70,21 +103,20 @@ export function SiteHeader() {
         style={stagger(0)}
         data-scrolled={scrolled ? "" : undefined}
       >
-        <Link href="/" className={`${styles.brand} font-serif`} aria-label={`${site.name}, back to top`}>
+        <Link href="/" className={`${styles.brand} font-serif`} aria-label={`${site.name}, back to home`}>
           {site.shortName}
         </Link>
 
-        <nav className={styles.nav} aria-label="Sections">
-          {sections.map((section) => (
-            <a
-              key={section.id}
-              href={`#${section.id}`}
-              aria-current={active === section.id ? "location" : undefined}
-            >
-              {section.label}
-            </a>
-          ))}
-        </nav>
+        {back ? (
+          <nav className={styles.backNav} aria-label="Page navigation">
+            <Link href={back.href}>
+              <BackIcon />
+              <span>{back.label}</span>
+            </Link>
+          </nav>
+        ) : (
+          <SectionNav />
+        )}
 
         <div className={styles.headerControls}>
           <ThemeToggle />
