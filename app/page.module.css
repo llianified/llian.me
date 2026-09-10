@@ -46,27 +46,28 @@
 .controls {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
 }
-.languages {
-  display: flex;
+.languageToggle {
+  display: inline-flex;
   align-items: center;
-  font-size: 14px;
-}
-.languages button {
-  width: var(--control-size);
-  height: var(--control-size);
-  border: none;
+  justify-content: center;
+  width: 40px;
+  height: 36px;
+  border: 1px solid var(--border);
   border-radius: var(--radius-control);
   background: transparent;
   color: var(--text-muted);
-}
-.languages button[aria-pressed="true"] {
-  background: var(--surface);
-  color: var(--text);
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.04em;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    background-color 0.2s;
 }
-.languages button:hover {
+.languageToggle:hover {
+  border-color: var(--text-muted);
   background: var(--surface);
   color: var(--text);
 }
