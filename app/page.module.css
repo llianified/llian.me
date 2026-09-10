@@ -976,8 +976,8 @@ a.entryCompany:hover {
     color: var(--text);
   }
   .menuToggle[aria-expanded="true"] {
-    background: var(--text);
-    color: var(--bg);
+    background: color-mix(in srgb, var(--accent) 24%, var(--surface));
+    color: var(--accent);
   }
   .menuChevron {
     width: 7px;

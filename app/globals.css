@@ -1,18 +1,19 @@
 :root {
   color-scheme: dark;
-  --bg: #111111;
-  --surface: #1b1b1b;
-  --border: #303030;
-  --text: #f3f3f3;
-  --text-muted: #a3a3a3;
-  --inverse-bg: #f3f3f3;
-  --inverse-text: #1b1b1b;
-  --inverse-muted: #303030;
-  --status-live: #78b98a;
-  --font-sans: var(--inter-font), Arial, sans-serif;
-  --font-serif: var(--instrument-serif-font), Georgia, serif;
-  --radius: 18px;
-  --radius-control: 8px;
+  --bg: #131211;
+  --surface: #201f1d;
+  --border: rgb(252 252 252 / 8%);
+  --text: #fcfcfc;
+  --text-muted: #9b9996;
+  --accent: #3487f6;
+  --inverse-bg: var(--text);
+  --inverse-text: var(--bg);
+  --inverse-muted: #55524e;
+  --status-live: var(--accent);
+  --font-sans: var(--inter-font), Roboto, "Open Sans", Arial, sans-serif;
+  --font-serif: var(--font-sans);
+  --radius: 24px;
+  --radius-control: 999px;
   --control-size: 44px;
   --card-padding: 28px;
   --layout-gap: 16px;
@@ -21,19 +22,20 @@
   --page-px: 24px;
   --text-base: 15px;
   --text-sm: 14px;
-  --leading-body: 1.6;
+  --leading-body: 1.5;
 }
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #f3f3f3;
-  --surface: #ffffff;
-  --border: #e2e2e2;
-  --text: #1b1b1b;
-  --text-muted: #686868;
-  --inverse-bg: #1b1b1b;
-  --inverse-text: #f3f3f3;
-  --inverse-muted: #e2e2e2;
-  --status-live: #2f7d4d;
+  --bg: #f4f3f1;
+  --surface: #fcfcfc;
+  --border: rgb(19 18 17 / 10%);
+  --text: #131211;
+  --text-muted: #686662;
+  --accent: #1766db;
+  --inverse-bg: var(--text);
+  --inverse-text: var(--surface);
+  --inverse-muted: #d3d1cd;
+  --status-live: var(--accent);
 }
 *,
 *::before,
@@ -56,7 +58,7 @@ body {
   font-family: var(--font-sans);
   font-size: var(--text-base);
   line-height: var(--leading-body);
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -86,11 +88,11 @@ svg {
   flex-shrink: 0;
 }
 ::selection {
-  color: var(--bg);
-  background: var(--text);
+  color: var(--text);
+  background: var(--accent);
 }
 :focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--accent);
   outline-offset: 5px;
   border-radius: 4px;
 }
