@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ProjectAction, ProjectCaseStudy as ProjectCaseStudyData } from "@/lib/project-case-studies";
+import type {
+  ProjectAction,
+  ProjectCaseStudy as ProjectCaseStudyData,
+} from "@/lib/project-case-studies";
 import { ArrowIcon, BackIcon, GitHubIcon } from "@/app/components/icons";
+import { ThemeToggle } from "@/app/components/theme-toggle";
 import styles from "../project.module.css";
 
 function ActionLink({ action }: { action: ProjectAction }) {
@@ -19,7 +23,11 @@ function ActionLink({ action }: { action: ProjectAction }) {
 }
 
 function SectionIntro({ title }: { title: string }) {
-  return <div className={styles.sectionIntro}><h2 className="font-serif">{title}</h2></div>;
+  return (
+    <div className={styles.sectionIntro}>
+      <h2 className="font-serif">{title}</h2>
+    </div>
+  );
 }
 
 function ProjectFigure({
@@ -31,14 +39,23 @@ function ProjectFigure({
 }) {
   return (
     <figure className={`${styles.figure} ${hero ? styles.heroFigure : ""}`}>
-      <div className={`${styles.imageFrame} ${image.portrait ? styles.portrait : ""}`}>
+      <div
+        className={`${styles.imageFrame} ${image.portrait ? styles.portrait : ""}`}
+      >
         <Image
           className={styles.image}
           src={image.src}
           width={image.width}
           height={image.height}
-          sizes={hero ? "(max-width: 1008px) calc(100vw - 48px), 960px" : image.portrait ? "(max-width: 440px) calc(100vw - 40px), 400px" : "(max-width: 680px) calc(100vw - 40px), (max-width: 1008px) calc(50vw - 36px), 468px"}
+          sizes={
+            hero
+              ? "(max-width: 1008px) calc(100vw - 48px), 960px"
+              : image.portrait
+                ? "(max-width: 440px) calc(100vw - 40px), 400px"
+                : "(max-width: 680px) calc(100vw - 40px), (max-width: 1008px) calc(50vw - 36px), 468px"
+          }
           alt={image.alt}
+          loading={hero ? "eager" : "lazy"}
           unoptimized
         />
       </div>
@@ -60,21 +77,39 @@ function FeatureGrid({ items }: { items: ProjectCaseStudyData["features"] }) {
   );
 }
 
-export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData }) {
+export function ProjectCaseStudy({
+  project,
+}: {
+  project: ProjectCaseStudyData;
+}) {
   return (
     <main id="main-content" tabIndex={-1} className={styles.page}>
-      <nav className={styles.backNav} aria-label="Case study navigation">
-        <Link href="/#projects"><BackIcon />Kembali ke proyek</Link>
-        <Link href="/" className={styles.wordmark}>llian.me</Link>
+      <nav className={styles.backNav} aria-label="Navigasi studi kasus">
+        <Link href="/#projects">
+          <BackIcon />
+          Kembali ke proyek
+        </Link>
+        <div className={styles.navControls}>
+          <Link
+            href="/"
+            className={styles.wordmark}
+            aria-label="llian.me — Beranda"
+          >
+            llian<span>.me</span>
+          </Link>
+          <ThemeToggle />
+        </div>
       </nav>
 
       <header className={styles.header}>
         <p className={styles.eyebrow}>{project.eyebrow}</p>
-        <h1>{project.title}</h1>
+        <h1 className="font-serif">{project.title}</h1>
         <p className={styles.subtitle}>{project.subtitle}</p>
         <p className={styles.summary}>{project.summary}</p>
         <div className={styles.actions}>
-          {project.actions.map((action) => <ActionLink action={action} key={action.href} />)}
+          {project.actions.map((action) => (
+            <ActionLink action={action} key={action.href} />
+          ))}
         </div>
       </header>
 
@@ -83,7 +118,9 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
       <section className={styles.section}>
         <SectionIntro title="Overview" />
         <div className={styles.prose}>
-          {project.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          {project.overview.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
       </section>
 
@@ -92,7 +129,10 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
           <SectionIntro title="Alur produk" />
           <ol className={styles.flow}>
             {project.flow.map((step, index) => (
-              <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><p>{step}</p></li>
+              <li key={step}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <p>{step}</p>
+              </li>
             ))}
           </ol>
         </section>
@@ -111,7 +151,9 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
       <section className={styles.section}>
         <SectionIntro title="Stack" />
         <ul className={styles.stack}>
-          {project.stack.map((item) => <li key={item}>{item}</li>)}
+          {project.stack.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
         </ul>
       </section>
 
@@ -119,7 +161,9 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
         <section className={styles.section}>
           <SectionIntro title="Gallery" />
           <div className={styles.gallery}>
-            {project.gallery.map((image) => <ProjectFigure image={image} key={image.src} />)}
+            {project.gallery.map((image) => (
+              <ProjectFigure image={image} key={image.src} />
+            ))}
           </div>
         </section>
       )}
@@ -132,9 +176,14 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
       )}
 
       <footer className={styles.footer}>
-        <Link href="/#projects"><BackIcon />Kembali ke proyek</Link>
+        <Link href="/#projects">
+          <BackIcon />
+          Kembali ke proyek
+        </Link>
         <div className={styles.actions}>
-          {project.actions.map((action) => <ActionLink action={action} key={action.href} />)}
+          {project.actions.map((action) => (
+            <ActionLink action={action} key={action.href} />
+          ))}
         </div>
       </footer>
     </main>

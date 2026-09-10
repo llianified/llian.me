@@ -1,64 +1,233 @@
 import Image from "next/image";
 import Link from "next/link";
-import { type Language, type Project } from "@/lib/content";
+import { uiCopy, type Language, type Project } from "@/lib/content";
 import { ArrowIcon, CodeIcon } from "./icons";
 import styles from "../page.module.css";
 
-const projectOrder = ["taksirin", "llnx", "llian.dev", "llian.me"];
-const categories = {
-  taksirin: { id: "Produk web", en: "Web product" },
-  llnx: { id: "Otomasi · Python", en: "Automation · Python" },
-  "llian.dev": { id: "Local-first tools", en: "Local-first tools" },
-  "llian.me": { id: "Website personal", en: "Personal website" },
+type Presentation = {
+  order: number;
+  variant: "featured" | "terminal" | "small";
+  category: Record<Language, string>;
+  preview?: { src: string; width: number; height: number };
 };
 
-function ProjectActions({ project, language }: { project: Project; language: Language }) {
+const presentations: Record<string, Presentation | undefined> = {
+  taksirin: {
+    order: 0,
+    variant: "featured",
+    category: { id: "Produk web", en: "Web product" },
+  },
+  llnx: {
+    order: 1,
+    variant: "terminal",
+    category: { id: "Otomasi · Python", en: "Automation · Python" },
+    preview: {
+      src: "/projects/llnx/tui-overview.png",
+      width: 1800,
+      height: 1187,
+    },
+  },
+  "llian.dev": {
+    order: 2,
+    variant: "small",
+    category: { id: "Local-first tools", en: "Local-first tools" },
+    preview: {
+      src: "/projects/llian-dev/overview.png",
+      width: 1200,
+      height: 630,
+    },
+  },
+  "llian.me": {
+    order: 3,
+    variant: "small",
+    category: { id: "Website personal", en: "Personal website" },
+  },
+};
+
+const variantClasses = {
+  featured: styles.featuredProject,
+  terminal: styles.terminalProject,
+  small: styles.smallProject,
+};
+
+type CardProps = { project: Project; language: Language };
+
+function ProjectActions({ project, language }: CardProps) {
+  const label = uiCopy[language].caseStudy;
   return (
     <div className={styles.projectActions}>
-      {project.detailHref && <Link href={project.detailHref} aria-label={`${language === "id" ? "Studi kasus" : "Case study"}: ${project.name}`}>{language === "id" ? "Studi kasus" : "Case study"}<ArrowIcon /></Link>}
-      <a href={project.action.href} target="_blank" rel="noreferrer" aria-label={`${project.action.label} ${project.name}`}>{project.action.label}<ArrowIcon /></a>
+      {project.detailHref && (
+        <Link
+          href={project.detailHref}
+          aria-label={`${label}: ${project.name}`}
+        >
+          {label}
+          <ArrowIcon />
+        </Link>
+      )}
+      <a
+        href={project.action.href}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`${project.action.label} ${project.name}`}
+      >
+        {project.action.label}
+        <ArrowIcon />
+      </a>
     </div>
   );
 }
 
-export function ProjectCards({ projects, language }: { projects: readonly Project[]; language: Language }) {
-  const ordered = [...projects].sort((a, b) => projectOrder.indexOf(a.name) - projectOrder.indexOf(b.name));
+function ProjectCopy({
+  project,
+  featured = false,
+}: {
+  project: Project;
+  featured?: boolean;
+}) {
+  const title = (
+    <>
+      {project.name}
+      {featured && <span> / Garapan</span>}
+    </>
+  );
+  return (
+    <div className={styles.projectCopy}>
+      <h3>
+        {project.detailHref ? (
+          <Link href={project.detailHref}>{title}</Link>
+        ) : (
+          title
+        )}
+      </h3>
+      <p>{project.desc}</p>
+      {featured && (
+        <ul className={styles.projectTags}>
+          <li>Next.js</li>
+          <li>TypeScript</li>
+          <li>PostgreSQL</li>
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function ProjectPreview({
+  project,
+  presentation,
+  language,
+}: CardProps & { presentation?: Presentation }) {
+  if (presentation?.preview) {
+    const image = <Image {...presentation.preview} alt="" unoptimized />;
+    const className =
+      presentation.variant === "terminal"
+        ? styles.terminalPreview
+        : styles.toolsPreview;
+    return project.detailHref ? (
+      <Link
+        href={project.detailHref}
+        className={className}
+        tabIndex={-1}
+        aria-hidden="true"
+      >
+        {image}
+      </Link>
+    ) : (
+      <div className={className} aria-hidden="true">
+        {image}
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.personalPreview} aria-hidden="true">
+      <span className="font-serif">{project.name}</span>
+      {project.name === "llian.me" && (
+        <span>{uiCopy[language].personalDescription}</span>
+      )}
+    </div>
+  );
+}
+
+function FeaturedVisual({ language }: { language: Language }) {
+  const ui = uiCopy[language];
+  return (
+    <div className={styles.featuredVisual}>
+      <span className={styles.featuredEyebrow}>{ui.featuredDescription}</span>
+      <p className="font-serif">Garapan.</p>
+      <ol className={styles.workflow} aria-label={ui.workflow}>
+        {[ui.quote, ui.production, ui.tracking].map((step) => (
+          <li key={step}>{step}</li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+function ProjectCard({ project, language }: CardProps) {
+  const presentation = presentations[project.name];
+  const variant = presentation?.variant ?? "small";
+  return (
+    <article
+      className={`${styles.card} ${styles.project} ${variantClasses[variant]}`}
+    >
+      <div className={styles.projectMeta}>
+        <span>{presentation?.category[language] ?? project.name}</span>
+        {project.badge ? (
+          <span className={styles.badge}>
+            <span aria-hidden="true" />
+            Live
+          </span>
+        ) : (
+          <CodeIcon />
+        )}
+      </div>
+      {variant === "featured" ? (
+        <>
+          <FeaturedVisual language={language} />
+          <ProjectCopy project={project} featured />
+        </>
+      ) : variant === "terminal" ? (
+        <div className={styles.terminalLayout}>
+          <ProjectCopy project={project} />
+          <ProjectPreview
+            project={project}
+            presentation={presentation}
+            language={language}
+          />
+        </div>
+      ) : (
+        <>
+          <ProjectPreview
+            project={project}
+            presentation={presentation}
+            language={language}
+          />
+          <ProjectCopy project={project} />
+        </>
+      )}
+      <ProjectActions project={project} language={language} />
+    </article>
+  );
+}
+
+export function ProjectCards({
+  projects,
+  language,
+}: {
+  projects: readonly Project[];
+  language: Language;
+}) {
+  const ordered = [...projects].sort(
+    (a, b) =>
+      (presentations[a.name]?.order ?? Number.MAX_SAFE_INTEGER) -
+      (presentations[b.name]?.order ?? Number.MAX_SAFE_INTEGER),
+  );
   return (
     <div className={styles.projects}>
-      {ordered.map((project) => {
-        const featured = project.name === "taksirin";
-        const terminal = project.name === "llnx";
-        const tools = project.name === "llian.dev";
-        const category = categories[project.name as keyof typeof categories];
-        return (
-          <article key={project.name} className={[styles.card, styles.project, featured ? styles.featuredProject : terminal ? styles.terminalProject : styles.smallProject].join(" ")}>
-            <div className={styles.projectMeta}><span>{category?.[language]}</span>{project.badge ? <span className={styles.badge}><span aria-hidden="true" />Live</span> : <CodeIcon />}</div>
-            {featured ? (
-              <>
-                <div className={styles.featuredVisual}>
-                  <span className={styles.featuredEyebrow}>{language === "id" ? "Dari penawaran hingga pesanan." : "From first quote to final order."}</span>
-                  <p className="font-serif">Garapan<span>.</span></p>
-                  <div className={styles.workflow} aria-label={language === "id" ? "Alur Garapan" : "Garapan workflow"}>
-                    <span>{language === "id" ? "Penawaran" : "Quote"}</span><span aria-hidden="true">→</span><span>{language === "id" ? "Produksi" : "Production"}</span><span aria-hidden="true">→</span><span>{language === "id" ? "Pelacakan" : "Tracking"}</span>
-                  </div>
-                </div>
-                <div className={styles.projectCopy}><h3><Link href={project.detailHref!}>taksirin <span>/ Garapan</span></Link></h3><p>{project.desc}</p><div className={styles.projectTags}><span>Next.js</span><span>TypeScript</span><span>PostgreSQL</span></div></div>
-              </>
-            ) : terminal ? (
-              <div className={styles.terminalLayout}>
-                <div className={styles.projectCopy}><h3><Link href={project.detailHref!}>{project.name}</Link></h3><p>{project.desc}</p></div>
-                <Link href={project.detailHref!} className={styles.terminalPreview} tabIndex={-1} aria-hidden="true"><Image src="/projects/llnx/tui-overview.png" alt="" width={1800} height={1187} sizes="(max-width: 600px) 300px, 250px" unoptimized /></Link>
-              </div>
-            ) : (
-              <>
-                {tools ? <Link href={project.detailHref!} className={styles.toolsPreview} tabIndex={-1} aria-hidden="true"><Image src="/projects/llian-dev/overview.png" alt="" width={1200} height={630} sizes="(max-width: 600px) 340px, 260px" unoptimized /></Link> : <div className={styles.personalPreview} aria-hidden="true"><span className="font-serif">llian.me</span><span>{language === "id" ? "Ruang kecil saya di internet." : "My little corner of the internet."}</span></div>}
-                <div className={styles.projectCopy}><h3>{project.detailHref ? <Link href={project.detailHref}>{project.name}</Link> : project.name}</h3><p>{project.desc}</p></div>
-              </>
-            )}
-            <ProjectActions project={project} language={language} />
-          </article>
-        );
-      })}
+      {ordered.map((project) => (
+        <ProjectCard key={project.name} project={project} language={language} />
+      ))}
     </div>
   );
 }
