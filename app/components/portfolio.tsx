@@ -63,20 +63,20 @@ function InlineContacts({ language }: LocalizedProps) {
   return (
     <div className={styles.inlineContacts}>
       <p>
-        {language === "id" ? "Hubungi saya lewat" : "Reach me at"}{" "}
+        {language === "id" ? "Mau ngobrol? Kirim" : "Reach me at"}{" "}
         <a href={contacts.email}>email</a>{" "}
-        {language === "id" ? "atau" : "or"}{" "}
+        {language === "id" ? "atau ajak" : "or"}{" "}
         <a href={contacts.whatsapp} {...externalProps}>
-          {language === "id" ? "telepon cepat" : "a quick call"}
+          {language === "id" ? "quick call" : "a quick call"}
         </a>
         .
       </p>
       <p>
-        {language === "id" ? "Temukan saya di" : "Find me on"}{" "}
+        {language === "id" ? "Saya juga nongkrong di" : "Find me on"}{" "}
         <a href={contacts.github} {...externalProps}>GitHub</a>,{" "}
         <a href={contacts.twitter} {...externalProps}>X / Twitter</a>,{" "}
-        <a href={contacts.instagram} {...externalProps}>Instagram</a>, {language === "id" ? "baca" : "read"}{" "}
-        <a href={site.cvHref} {...externalProps}>CV</a>, {language === "id" ? "atau lihat" : "or see my"}{" "}
+        <a href={contacts.instagram} {...externalProps}>Instagram</a>, {language === "id" ? "atau intip" : "read"}{" "}
+        <a href={site.cvHref} {...externalProps}>CV</a> {language === "id" ? "dan" : "or see my"}{" "}
         <a href="#projects">{ui.work.toLowerCase()}</a>.
       </p>
     </div>

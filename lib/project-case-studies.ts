@@ -41,22 +41,22 @@ export type ProjectCaseStudy = {
 
 export const taksirinCaseStudy = {
   slug: "taksirin",
-  eyebrow: "Project case study · Taksirin",
-  category: "Produk web",
+  eyebrow: "Studi kasus · Taksirin",
+  category: "Aplikasi web",
   title: "taksirin",
-  subtitle: "Order & produksi OS untuk bisnis custom di Indonesia.",
+  subtitle: "Satu tempat untuk mengurus order dan produksi bisnis custom.",
   summary:
-    "Taksirin menyatukan satu alur dari halaman penawaran yang menghitung harga sampai papan produksi dan pelacakan pesanan publik.",
+    "Taksirin merapikan alur yang biasanya tercecer—mulai dari hitung harga, masuknya order, proses produksi, sampai pelanggan mengecek progresnya sendiri.",
   actions: [
     {
-      label: "Kunjungi Taksirin",
+      label: "Coba Taksirin",
       href: "https://untitled-rouge-psi.vercel.app",
       kind: "live",
     },
   ],
   overview: [
-    "Vendor konveksi, sablon, percetakan, furniture, souvenir, signage, dan undangan sering menjawab pertanyaan harga yang sama berulang kali lewat WhatsApp.",
-    "Setelah pesanan masuk, catatannya mudah terpencar di chat, buku, dan galeri foto. Taksirin menyatukan penawaran, order, pembayaran, produksi, dan progres yang dilihat pelanggan tanpa akun.",
+    "Bisnis konveksi, sablon, percetakan, furnitur, suvenir, signage, dan undangan sering menjawab pertanyaan harga yang sama berulang kali lewat WhatsApp.",
+    "Begitu pesanan masuk, catatannya gampang tercecer di chat, buku, dan galeri foto. Taksirin menyatukan penawaran, order, pembayaran, produksi, dan progres pelanggan dalam satu alur—tanpa memaksa pelanggan membuat akun.",
   ],
   flow: [
     "Vendor mengisi produk, opsi, dan harga sekali",
@@ -83,8 +83,8 @@ export const taksirinCaseStudy = {
       body: "Kode lacak membuka status, garis waktu, dan catatan vendor untuk pelanggan. Halaman ini sengaja noindex agar progres order tidak masuk mesin pencari.",
     },
     {
-      title: "Customer dan analitik first-party",
-      body: "Customer terkumpul dari permintaan yang masuk, lengkap dengan riwayat dan total nilai order. Event dilihat, dikirim, konversi, dan sumber trafik dicatat tanpa cookie.",
+      title: "Data pelanggan dan analitik first-party",
+      body: "Data pelanggan terkumpul dari permintaan yang masuk, lengkap dengan riwayat dan total nilai order. Aktivitas dilihat, dikirim, konversi, dan sumber trafik dicatat tanpa cookie.",
     },
     {
       title: "Delapan kalkulator publik",
@@ -101,8 +101,8 @@ export const taksirinCaseStudy = {
       body: "Canonical, JSON-LD, sitemap, dan aturan indexability dipisahkan agar halaman penawaran dapat ditemukan tanpa membuat halaman lacak atau konten belum lengkap ikut terindeks.",
     },
     {
-      title: "Auth berada di jalur aplikasi sendiri",
-      body: "Password memakai scrypt; sesi disimpan di PostgreSQL dan dikirim lewat cookie HttpOnly. Tidak ada layanan identitas pihak ketiga di jalur kritis.",
+      title: "Autentikasi tetap di dalam aplikasi",
+      body: "Kata sandi diamankan dengan scrypt, sementara sesi disimpan di PostgreSQL dan dikirim lewat cookie HttpOnly. Tidak ada layanan identitas pihak ketiga di jalur kritis.",
     },
     {
       title: "Billing tetap bisa berjalan tanpa gateway",
@@ -110,7 +110,7 @@ export const taksirinCaseStudy = {
     },
     {
       title: "Alur utama diuji di dua lapis",
-      body: "Dokumentasi project mencatat 61 uji logika murni dengan Vitest dan 10 alur end-to-end dengan Playwright.",
+      body: "Dokumentasi proyek mencatat 61 pengujian logika dengan Vitest dan 10 alur end-to-end dengan Playwright.",
     },
   ],
   stack: [
@@ -125,22 +125,22 @@ export const taksirinCaseStudy = {
     "Playwright",
   ],
   note: {
-    label: "Batas yang didokumentasikan",
-    body: "Email delivery, upload gambar produk, password reset, custom domain otomatis, dan tim multi-user belum dipresentasikan sebagai fitur jadi. Repository project ini juga privat, jadi case study hanya mengarah ke produk live.",
+    label: "Yang belum tersedia",
+    body: "Pengiriman email, unggah gambar produk, reset kata sandi, domain custom otomatis, dan tim multi-user belum saya tampilkan sebagai fitur siap pakai. Repositorinya juga privat, jadi studi kasus ini hanya mengarah ke produk live.",
   },
 } as const satisfies ProjectCaseStudy;
 
 export const llnxCaseStudy = {
   slug: "llnx",
-  eyebrow: "Project case study · Python 0.3.0",
-  category: "Otomasi Python",
+  eyebrow: "Studi kasus · Python 0.3.0",
+  category: "Otomasi dengan Python",
   title: "llnx",
-  subtitle: "A crypto bot that places its own orders.",
+  subtitle: "Bot kripto yang bisa mengeksekusi ordernya sendiri.",
   summary:
-    "Satu execution loop untuk paper, exchange sandbox, dan live trading, dibungkus dalam CLI, menu teks, serta TUI yang tetap terbaca di desktop dan Termux.",
+    "Satu alur eksekusi untuk paper trading, sandbox, dan live trading—dibungkus dalam CLI, menu teks, serta TUI yang tetap nyaman dibaca di desktop maupun Termux.",
   actions: [
     {
-      label: "Lihat di GitHub",
+      label: "Buka di GitHub",
       href: "https://github.com/llianified/llnx",
       kind: "github",
     },
@@ -153,16 +153,16 @@ export const llnxCaseStudy = {
     caption: "TUI desktop: status, log per poll, dan pengaturan tetap berada dalam tiga band yang konsisten.",
   },
   overview: [
-    "llnx mengamati market, menjalankan strategi, menerapkan stop-loss dan take-profit, memeriksa guardrail, lalu meneruskan keputusan ke broker dan venue.",
-    "Mode paper memakai harga nyata dan saldo virtual. Sandbox memakai exchange testnet atau dry run dari quote Jupiter. Mode live mengirim order nyata dan selalu meminta frasa konfirmasi eksplisit sebelum berjalan.",
+    "llnx membaca pasar, menjalankan strategi, memasang stop-loss dan take-profit, mengecek semua pagar pengaman, lalu meneruskan keputusan ke broker dan venue.",
+    "Mode paper memakai harga nyata dengan saldo virtual. Sandbox berjalan di testnet exchange atau dry run dari kuotasi Jupiter. Sementara itu, mode live mengirim order sungguhan dan selalu meminta frasa konfirmasi sebelum mulai.",
   ],
   flow: [
-    "Feed membaca market",
-    "Strategy menghasilkan keputusan",
-    "Risk menerapkan stop-loss dan take-profit",
-    "Guardrails dapat mengecilkan atau memblokir order",
-    "Broker mengirim ke exchange atau Jupiter",
-    "Venue fill, balance, dan hasil percobaan ditulis kembali",
+    "Feed membaca pergerakan pasar",
+    "Strategi menghasilkan keputusan",
+    "Sistem risiko menerapkan stop-loss dan take-profit",
+    "Pagar pengaman mengecilkan atau memblokir order bila perlu",
+    "Broker mengirim order ke exchange atau Jupiter",
+    "Hasil eksekusi, saldo, dan percobaan dicatat kembali",
   ],
   features: [
     {
@@ -179,7 +179,7 @@ export const llnxCaseStudy = {
     },
     {
       title: "CLI sampai TUI Termux",
-      body: "Perintah data, backtest, trade, control, scanner, dan safety check tersedia lewat CLI. TUI mereflow kolom, status, log, dan setting berdasarkan ukuran terminal.",
+      body: "Perintah data, backtest, trading, kontrol, pemindaian, dan pemeriksaan keamanan tersedia lewat CLI. TUI menata ulang kolom, status, log, dan pengaturan sesuai ukuran terminal.",
     },
     {
       title: "CEX dan Solana",
@@ -196,12 +196,12 @@ export const llnxCaseStudy = {
       body: "Order exchange dipoll hingga closed untuk mengambil average fill dan fee. Swap Solana baru dibukukan setelah konfirmasi on-chain; swap yang belum terkonfirmasi bukan trade.",
     },
     {
-      title: "Balance selalu kembali ke venue",
-      body: "Setelah live order maupun kegagalan, bot membaca ulang balance. State lokal tidak diperlakukan sebagai bukti bahwa aset benar-benar berpindah.",
+      title: "Saldo selalu dicek ulang ke venue",
+      body: "Setelah order live ataupun kegagalan, bot membaca ulang saldo. Data lokal tidak dianggap sebagai bukti bahwa aset benar-benar berpindah.",
     },
     {
-      title: "Market order gagal tidak di-retry buta",
-      body: "Error tidak membuktikan venue menolak order. Tick berikutnya membuat keputusan baru dengan harga dan balance segar agar retry tidak menggandakan posisi.",
+      title: "Market order yang gagal tidak dicoba ulang sembarangan",
+      body: "Pesan error belum tentu berarti venue menolak order. Pada tick berikutnya, bot membuat keputusan baru dengan harga dan saldo terbaru agar percobaan ulang tidak menggandakan posisi.",
     },
     {
       title: "Audit trail append-only",
@@ -247,29 +247,29 @@ export const llnxCaseStudy = {
     },
   ],
   note: {
-    label: "Risk note",
-    body: "Project ini dibuat sebagai alat eksekusi dan eksperimen teknis, bukan rekomendasi finansial atau klaim profit. Paper trade lebih dulu; live mode menggunakan uang nyata dan aset kripto dapat kehilangan seluruh nilainya.",
+    label: "Catatan risiko",
+    body: "Proyek ini dibuat untuk eksekusi dan eksperimen teknis, bukan sebagai rekomendasi finansial atau janji cuan. Mulai dari paper trading; mode live memakai uang sungguhan dan aset kripto bisa kehilangan seluruh nilainya.",
   },
 } as const satisfies ProjectCaseStudy;
 
 export const llianDevCaseStudy = {
   slug: "llian-dev",
-  eyebrow: "Project case study · Local-first web tools",
-  category: "Peralatan local-first",
+  eyebrow: "Studi kasus · Perkakas web local-first",
+  category: "Perkakas local-first",
   title: "llian.dev",
-  subtitle: "Useful things, directly in the browser.",
+  subtitle: "Perkakas praktis, langsung dari browser.",
   summary:
-    "Arsip local-first berisi browser tools dan catatan implementasi: buka satu tugas, selesaikan di device yang sama, lalu tutup tab.",
+    "Kumpulan perkakas browser dan catatan implementasi dengan pendekatan local-first: buka, selesaikan pekerjaan di perangkat yang sama, lalu tutup tab. Sesederhana itu.",
   actions: [
     {
-      label: "Kunjungi llian.dev",
+      label: "Coba llian.dev",
       href: "https://llian.dev",
       kind: "live",
     },
   ],
   overview: [
-    "Tool untuk image, PDF, developer work, text, kebutuhan sehari-hari, dan finance berada di route khusus yang statis dan deep-linkable.",
-    "Registry project mencatat 45 dedicated tool routes. Beberapa kebutuhan Indonesia mempunyai halaman sendiri, bukan terjemahan otomatis di balik language switch.",
+    "Perkakas untuk gambar, PDF, kebutuhan developer, teks, aktivitas sehari-hari, dan keuangan punya halaman khusus yang statis serta bisa dibuka lewat tautan langsung.",
+    "Ada 45 halaman perkakas khusus di dalam registry. Beberapa kebutuhan khas Indonesia punya halaman sendiri—bukan sekadar terjemahan otomatis dari tombol bahasa.",
   ],
   features: [
     {
@@ -277,16 +277,16 @@ export const llianDevCaseStudy = {
       body: "File dan input diproses oleh module browser. Image compression, PDF work, formatting, conversion, dan calculation tidak membutuhkan upload file ke server aplikasi.",
     },
     {
-      title: "Enam kelompok tugas",
-      body: "Image, PDF, developer, text, everyday, dan finance membentuk taxonomy serta index page yang tetap kompatibel dengan static export.",
+      title: "Enam kelompok kebutuhan",
+      body: "Gambar, PDF, developer, teks, kebutuhan sehari-hari, dan keuangan disusun dalam kategori serta halaman indeks yang tetap kompatibel dengan static export.",
     },
     {
-      title: "Route khusus, bukan generator halaman kosong",
-      body: "Tool live dibuat sebagai halaman dedicated dengan UI, metadata, penjelasan, dan batas implementasinya sendiri. Registry menghubungkan halaman-halaman itu ke index dan category.",
+      title: "Halaman khusus, bukan cetakan kosong",
+      body: "Setiap perkakas dibuat sebagai halaman utuh dengan antarmuka, metadata, penjelasan, dan batas implementasinya sendiri. Registry menghubungkan semuanya ke halaman indeks dan kategori.",
     },
     {
       title: "Bahasa mengikuti kebutuhan",
-      body: "Tool dengan audience Indonesia—termasuk beberapa kalkulator kerja dan finance—mempunyai route Indonesia sendiri, sementara tool universal tetap tersedia dalam bahasa Inggris.",
+      body: "Perkakas untuk pengguna Indonesia—termasuk beberapa kalkulator kerja dan keuangan—punya halaman khusus berbahasa Indonesia, sementara perkakas universal tetap tersedia dalam bahasa Inggris.",
     },
   ],
   decisions: [
@@ -299,8 +299,8 @@ export const llianDevCaseStudy = {
       body: "Tidak ada identifier, cookie analytics, session funnel, unique visitor, atau returning-user measurement. Worker sempit hanya menerima event penggunaan agregat dan mengecualikan DNT/GPC.",
     },
     {
-      title: "Search intent dan completion dibaca terpisah",
-      body: "Search Console menjelaskan apa yang terjadi sebelum arrival; event agregat menjelaskan tool open dan result sesudahnya. Keduanya dibandingkan per path, tidak di-join per orang.",
+      title: "Niat pencarian dan hasil penggunaan dibaca terpisah",
+      body: "Search Console menunjukkan apa yang terjadi sebelum kunjungan, sedangkan event agregat mencatat perkakas yang dibuka dan hasil sesudahnya. Keduanya dibandingkan per halaman, bukan digabungkan per orang.",
     },
   ],
   stack: [
@@ -314,8 +314,8 @@ export const llianDevCaseStudy = {
     "Cloudflare Workers",
   ],
   note: {
-    label: "Privacy boundary",
-    body: "Analytics agregat llian.dev adalah keputusan project itu sendiri dan tidak dipasang ke portfolio ini. Repository llian.dev privat, sehingga action publik case study hanya menuju situs live.",
+    label: "Batas privasi",
+    body: "Analitik agregat di llian.dev adalah keputusan khusus untuk proyek tersebut dan tidak dipasang di portofolio ini. Repositorinya privat, jadi tautan publik pada studi kasus hanya mengarah ke situs live.",
   },
 } as const satisfies ProjectCaseStudy;
 

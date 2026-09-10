@@ -18,7 +18,7 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: "Yoga Aprilliansyah N — Portfolio",
-  description: `Portfolio ${site.name} — Front-End Developer berbasis di ${site.location}. Proyek, pengalaman, dan kontribusi digital.`,
+  description: `Portofolio ${site.name}, Front-End Developer dari ${site.location}. Berisi proyek, pengalaman, dan sedikit jejak digital.`,
   robots: {
     index: false,
     follow: false,
