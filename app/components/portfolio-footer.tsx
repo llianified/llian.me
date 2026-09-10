@@ -20,7 +20,7 @@ export function PortfolioFooter({ language }: { language: Language }) {
   const ui = uiCopy[language];
   return (
     <footer id="contact" className={styles.footer}>
-      <div className={`${styles.card} ${styles.contactCard}`}>
+      <div className={styles.contactContent}>
         <div className={styles.footerInvitation}>
           <p className={styles.smallLabel}>{ui.stayInTouch}</p>
           <h2 className="font-serif">{ui.hello}</h2>
