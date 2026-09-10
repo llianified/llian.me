@@ -106,19 +106,10 @@
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  transition:
-    color 0.2s,
-    background-color 0.2s;
 }
-.languageToggle:hover {
-  background: color-mix(in srgb, var(--text) 8%, transparent);
-  color: var(--text);
-}
-.languageToggle:focus-visible,
-.languageToggle:active {
-  outline: none;
-  background: var(--accent);
-  color: #fcfcfc;
+.languageToggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 .main {
   display: flex;
