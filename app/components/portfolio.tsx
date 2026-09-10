@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import styles from "../page.module.css";
 import {
   content,
@@ -50,7 +51,19 @@ function InlineContacts() {
 }
 
 function Profile() {
+  const [roleIndex, setRoleIndex] = useState(0);
   const bio = content.bio;
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reducedMotion.matches) return;
+
+    const interval = window.setInterval(() => {
+      setRoleIndex((current) => (current + 1) % roles.length);
+    }, 3200);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   return (
     <aside className={styles.profileColumn} aria-labelledby="profile-name">
