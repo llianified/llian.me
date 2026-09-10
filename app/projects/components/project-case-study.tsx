@@ -37,8 +37,8 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
   return (
     <div className={styles.shell}>
       <main id="main-content" tabIndex={-1} className={styles.page}>
-        <nav className={styles.backNav} aria-label="Navigasi studi kasus">
-          <Link href="/#projects"><BackIcon /> Balik ke proyek</Link>
+        <nav className={styles.backNav} aria-label="Case study navigation">
+          <Link href="/#projects"><BackIcon /> Back to projects</Link>
           <ThemeToggle />
         </nav>
 
@@ -54,7 +54,7 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
           </header>
 
           <section className={styles.section}>
-            <SectionIntro title="Sekilas proyek" />
+            <SectionIntro title="Overview" />
             <div className={styles.prose}>
               {project.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
@@ -62,7 +62,7 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
 
           {project.flow && (
             <section className={styles.section}>
-              <SectionIntro title="Alur produk" />
+              <SectionIntro title="How it works" />
               <ol className={styles.flow}>
                 {project.flow.map((step, index) => (
                   <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><p>{step}</p></li>
@@ -72,12 +72,12 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
           )}
 
           <section className={styles.section}>
-            <SectionIntro title="Yang saya bangun" />
+            <SectionIntro title="What I built" />
             <FeatureList items={project.features} />
           </section>
 
           <section className={styles.section}>
-            <SectionIntro title="Pilihan di balik layar" />
+            <SectionIntro title="Behind the build" />
             <FeatureList items={project.decisions} />
           </section>
 
@@ -96,7 +96,7 @@ export function ProjectCaseStudy({ project }: { project: ProjectCaseStudyData })
           )}
 
           <footer className={styles.footer}>
-            <Link href="/#projects"><BackIcon /> Balik ke proyek</Link>
+            <Link href="/#projects"><BackIcon /> Back to projects</Link>
             <div className={styles.actions}>
               {project.actions.map((action) => <ActionLink action={action} key={action.href} />)}
             </div>

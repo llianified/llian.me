@@ -2,12 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { MoonIcon, SunIcon } from "./icons";
-import type { Language } from "@/lib/content";
-
-const labels = {
-  id: { light: "Aktifkan tema terang", dark: "Aktifkan tema gelap" },
-  en: { light: "Switch to light theme", dark: "Switch to dark theme" },
-};
 
 function updateBrowserTheme() {
   const light = document.documentElement.dataset.theme === "light";
@@ -20,7 +14,7 @@ function updateBrowserTheme() {
   return light;
 }
 
-export function ThemeToggle({ language = "id" }: { language?: Language }) {
+export function ThemeToggle() {
   const [isLight, setIsLight] = useState(true);
 
   function toggleTheme() {
@@ -68,7 +62,7 @@ export function ThemeToggle({ language = "id" }: { language?: Language }) {
     };
   }, []);
 
-  const label = labels[language][isLight ? "dark" : "light"];
+  const label = isLight ? "Switch to dark theme" : "Switch to light theme";
   return (
     <button
       type="button"
