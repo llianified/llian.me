@@ -17,8 +17,8 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Yoga Aprilliansyah N — Portfolio",
-  description: `${site.name} is a Full-Stack Developer based in ${site.location}, building web products and private Telegram Mini Apps.`,
+  title: "Yoga Aprilliansyah N — Full-Stack Developer & Product Builder",
+  description: `${site.name} is a Full-Stack Developer and Product Builder based in ${site.location}, working across frontend, backend, databases, deployment, and product development.`,
   robots: {
     index: false,
     follow: false,

@@ -99,6 +99,14 @@
   text-decoration-color: var(--foreground);
 }
 
+.profileDetail {
+  max-width: 68ch;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 .inlineContacts {
   margin-top: 20px;
   color: var(--muted);
@@ -323,24 +331,51 @@
   font-size: 14px;
 }
 
-.engineeringLine {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px 8px;
-  color: var(--muted);
+.stackList {
+  border-top: 1px solid var(--line);
+}
+
+.stackRow {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 18px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--line);
   font-size: 14px;
   line-height: 1.6;
 }
 
-.engineeringLine span {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+.stackRow dt {
+  color: var(--foreground);
+  font-weight: 600;
 }
 
-.engineeringLine i {
-  color: var(--faint);
-  font-style: normal;
+.stackRow dd {
+  color: var(--muted);
+}
+
+.capabilityList {
+  border-top: 1px solid var(--line);
+}
+
+.capability {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 24px;
+  padding-block: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.capability h3 {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.capability p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .footer {
@@ -478,6 +513,12 @@
 
   .projectCopy {
     min-height: 0;
+  }
+
+  .stackRow,
+  .capability {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 
   .contribution {

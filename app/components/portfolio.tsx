@@ -7,7 +7,7 @@ import {
   contacts,
   roles,
   site,
-  technologies,
+  technologyGroups,
   uiCopy,
   type Entry,
 } from "@/lib/content";
@@ -75,6 +75,7 @@ function Profile() {
         <a href={contacts.github} {...externalProps}>{bio.line1LinkLabel}</a>{" "}
         {bio.line1Suffix}
       </p>
+      <p className={styles.profileDetail}>{bio.detail}</p>
 
       <InlineContacts />
     </aside>
@@ -110,6 +111,23 @@ function Timeline({ entries }: { entries: readonly Entry[] }) {
   );
 }
 
+function TechnicalStack() {
+  return (
+    <section id="stack" className={styles.contentSection} aria-labelledby="stack-title">
+      <SectionTitle id="stack-title">{uiCopy.technologies}</SectionTitle>
+      <p className={styles.sectionSubtitle}>{uiCopy.technologiesDescription}</p>
+      <dl className={styles.stackList}>
+        {technologyGroups.map((group) => (
+          <div className={styles.stackRow} key={group.label}>
+            <dt>{group.label}</dt>
+            <dd>{group.items.join(" · ")}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}
+
 function Contributions() {
   const section = content.contributions;
   return (
@@ -129,6 +147,24 @@ function Contributions() {
   );
 }
 
+function Capabilities() {
+  const section = content.capabilities;
+  return (
+    <section id="capabilities" className={styles.contentSection} aria-labelledby="capabilities-title">
+      <SectionTitle id="capabilities-title">{section.title}</SectionTitle>
+      <p className={styles.sectionSubtitle}>{section.sub}</p>
+      <div className={styles.capabilityList}>
+        {section.items.map((item) => (
+          <article className={styles.capability} key={item.title}>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function Portfolio() {
   return (
     <div className={styles.page}>
@@ -136,32 +172,26 @@ export function Portfolio() {
       <Profile />
 
       <main id="main-content" tabIndex={-1} className={styles.main}>
+        <TechnicalStack />
+
         <section id="experience" className={styles.contentSection} aria-labelledby="experience-title">
           <SectionTitle id="experience-title">{content.experience.title}</SectionTitle>
+          <p className={styles.sectionSubtitle}>{content.experience.sub}</p>
           <Timeline entries={content.experience.entries} />
         </section>
+
+        <Contributions />
 
         <section id="projects" className={styles.contentSection} aria-labelledby="projects-title">
           <SectionTitle id="projects-title">{content.projects.title}</SectionTitle>
           <ProjectCards projects={content.projects.items} />
         </section>
 
-        <Contributions />
+        <Capabilities />
 
         <section id="education" className={styles.contentSection} aria-labelledby="education-title">
           <SectionTitle id="education-title">{content.education.title}</SectionTitle>
           <Timeline entries={content.education.entries} />
-        </section>
-
-        <section id="engineering" className={styles.contentSection} aria-labelledby="engineering-title">
-          <SectionTitle id="engineering-title">{uiCopy.technologies}</SectionTitle>
-          <p className={styles.engineeringLine}>
-            {technologies.map((technology, index) => (
-              <span key={technology}>
-                {technology}{index < technologies.length - 1 && <i aria-hidden="true">·</i>}
-              </span>
-            ))}
-          </p>
         </section>
 
         <PortfolioFooter />
