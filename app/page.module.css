@@ -662,6 +662,36 @@
     height: min(48vw, 188px);
   }
 
+  :is(.timeline, .contributionGrid, .stackList, .capabilityList) {
+    position: relative;
+    border-top: 0;
+  }
+
+  :is(.timeline, .contributionGrid, .stackList, .capabilityList)::before,
+  :is(.timeline li, .contribution, .stackRow, .capability)::after {
+    position: absolute;
+    right: 50%;
+    width: 100vw;
+    height: 1px;
+    content: "";
+    background: var(--line);
+    transform: translateX(50%);
+    pointer-events: none;
+  }
+
+  :is(.timeline, .contributionGrid, .stackList, .capabilityList)::before {
+    top: 0;
+  }
+
+  :is(.timeline li, .contribution, .stackRow, .capability) {
+    position: relative;
+    border-bottom: 0;
+  }
+
+  :is(.timeline li, .contribution, .stackRow, .capability)::after {
+    bottom: 0;
+  }
+
   .stackRow,
   .capability {
     grid-template-columns: 1fr;
