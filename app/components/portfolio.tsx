@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import styles from "../page.module.css";
 import {
   content,
@@ -13,15 +14,8 @@ import {
   type Entry,
   type Language,
 } from "@/lib/content";
-import {
-  ArrowIcon,
-  CodeIcon,
-  FileIcon,
-  GitHubIcon,
-  GlobeIcon,
-} from "./icons";
-import { LocalTime } from "./local-time";
-import { PortfolioFooter } from "./portfolio-footer";
+import { FileIcon } from "./icons";
+import { PortfolioFooter, SocialRail } from "./portfolio-footer";
 import { ProjectCards } from "./project-cards";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -51,105 +45,62 @@ function LanguageToggle({
   );
 }
 
-function Topbar({
+function FloatingControls({
   language,
   onChange,
 }: LocalizedProps & { onChange: (language: Language) => void }) {
-  const ui = uiCopy[language];
-  const [menuOpen, setMenuOpen] = useState(false);
-  const headerRef = useRef<HTMLElement>(null);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-
-    function dismissOutside(event: PointerEvent) {
-      if (!headerRef.current?.contains(event.target as Node)) {
-        setMenuOpen(false);
-      }
-    }
-    function dismissOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setMenuOpen(false);
-        menuButtonRef.current?.focus();
-      }
-    }
-    const desktop = window.matchMedia("(min-width: 681px)");
-    function dismissOnDesktop() {
-      if (desktop.matches) setMenuOpen(false);
-    }
-
-    document.addEventListener("pointerdown", dismissOutside);
-    document.addEventListener("keydown", dismissOnEscape);
-    desktop.addEventListener("change", dismissOnDesktop);
-    return () => {
-      document.removeEventListener("pointerdown", dismissOutside);
-      document.removeEventListener("keydown", dismissOnEscape);
-      desktop.removeEventListener("change", dismissOnDesktop);
-    };
-  }, [menuOpen]);
-
-  function navigateToSection(id: string) {
-    if (!menuOpen) return;
-    setMenuOpen(false);
-    const section = document.getElementById(id);
-    if (section) {
-      section.tabIndex = -1;
-      section.focus({ preventScroll: true });
-    }
-  }
-
   return (
-    <header
-      ref={headerRef}
-      className={styles.topbar}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) {
-          setMenuOpen(false);
-        }
-      }}
-    >
-      <a
-        className={styles.wordmark}
-        href="#main-content"
-        aria-label={`llian.me — ${ui.home}`}
-        onClick={() => navigateToSection("main-content")}
-      >
-        llian<span>.me</span>
-      </a>
-      <div className={styles.controls}>
-        <LanguageToggle language={language} onChange={onChange} />
-        <ThemeToggle language={language} />
-        <button
-          ref={menuButtonRef}
-          type="button"
-          className={styles.menuToggle}
-          aria-expanded={menuOpen}
-          aria-controls="portfolio-navigation"
-          aria-label={language === "id" ? "Menu navigasi" : "Navigation menu"}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          Menu
-          <span className={styles.menuChevron} aria-hidden="true" />
-        </button>
-      </div>
-      <nav
-        id="portfolio-navigation"
-        className={styles.navigation}
-        aria-label={ui.navigation}
-        data-open={menuOpen}
-      >
-        <a href="#projects" onClick={() => navigateToSection("projects")}>
-          {ui.work}<ArrowIcon />
+    <div className={styles.floatingControls} aria-label={uiCopy[language].language}>
+      <LanguageToggle language={language} onChange={onChange} />
+      <ThemeToggle language={language} />
+      <span className={styles.shortcutHint} aria-hidden="true">
+        press T
+      </span>
+    </div>
+  );
+}
+
+function InlineContacts({ language }: LocalizedProps) {
+  const ui = uiCopy[language];
+  return (
+    <div className={styles.inlineContacts}>
+      <p>
+        {language === "id" ? "Hubungi saya lewat" : "Reach me at"}{" "}
+        <a href={contacts.email}>email</a>{" "}
+        {language === "id" ? "atau" : "or"}{" "}
+        <a href={contacts.whatsapp} {...externalProps}>
+          {language === "id" ? "telepon cepat" : "a quick call"}
         </a>
-        <a href="#about" onClick={() => navigateToSection("about")}>
-          {ui.about}<ArrowIcon />
-        </a>
-        <a href="#contact" onClick={() => navigateToSection("contact")}>
-          {ui.contact}<ArrowIcon />
-        </a>
-      </nav>
-    </header>
+        .
+      </p>
+      <p>
+        {language === "id" ? "Temukan saya di" : "Find me on"}{" "}
+        <a href={contacts.github} {...externalProps}>GitHub</a>,{" "}
+        <a href={contacts.twitter} {...externalProps}>X / Twitter</a>,{" "}
+        <a href={contacts.instagram} {...externalProps}>Instagram</a>, {language === "id" ? "baca" : "read"}{" "}
+        <a href={site.cvHref} {...externalProps}>CV</a>, {language === "id" ? "atau lihat" : "or see my"}{" "}
+        <a href="#projects">{ui.work.toLowerCase()}</a>.
+      </p>
+    </div>
+  );
+}
+
+function FeaturedProject({
+  href,
+  image,
+  title,
+}: {
+  href: string;
+  image: string;
+  title: string;
+}) {
+  return (
+    <Link className={styles.featuredProject} href={href}>
+      <span className={styles.featuredImage}>
+        <Image src={image} alt="" fill sizes="280px" unoptimized />
+      </span>
+      <span>{title}</span>
+    </Link>
   );
 }
 
@@ -183,126 +134,106 @@ function Profile({ language }: LocalizedProps) {
   }, []);
 
   return (
-    <section className={styles.profile} aria-labelledby="profile-name">
-      <div className={styles.profileMain}>
-        <div className={styles.profileTop}>
-          <Image
-            src="/pfp.jpg"
-            alt={`${ui.profileImage} ${site.name}`}
-            width={64}
-            height={64}
-            unoptimized
-            loading="eager"
-            className={styles.avatar}
-          />
-          <div className={styles.profileIdentity}>
-            <p className={styles.smallLabel}>{ui.greeting}</p>
-            <h1 id="profile-name" className={`${styles.name} font-sans`}>
-              {site.name}
-            </h1>
-          </div>
+    <aside className={styles.profileColumn} aria-labelledby="profile-name">
+      <header className={styles.profileHeader}>
+        <Image
+          src="/pfp.jpg"
+          alt={`${ui.profileImage} ${site.name}`}
+          width={52}
+          height={52}
+          priority
+          unoptimized
+          className={styles.avatar}
+        />
+        <div>
+          <h1 id="profile-name" className="font-serif">{site.name}</h1>
+          <p key={roleIndex} className={styles.role}>{roles[roleIndex]}</p>
         </div>
-        <div className={styles.profileBody}>
-          <div className={styles.profileByline}>
-            <div className={styles.roleWrap}>
-              <CodeIcon />
-              <p key={roleIndex} className={styles.role}>{roles[roleIndex]}</p>
-            </div>
-            <a href={contacts.github} {...externalProps} className={styles.profileHandle}>
-              <GitHubIcon />
-              @llianified
-            </a>
-          </div>
-          <p className={styles.lead}>
-            {bio.line1Prefix}{" "}
-            <a href={contacts.github} {...externalProps}>{bio.line1LinkLabel}</a>{" "}
-            {bio.line1Suffix}
-          </p>
-        </div>
-        <div className={styles.introActions}>
-          <a className={styles.primaryAction} href="#projects">
-            {ui.explore}<ArrowIcon />
-          </a>
-          <a className={styles.secondaryAction} href={site.cvHref} {...externalProps}>
-            <FileIcon />{ui.cv}
-          </a>
-        </div>
-      </div>
-      <aside className={styles.profileMeta} aria-label={ui.basedIn}>
-        <div className={styles.locationDetails}>
-          <p className={styles.locationLine}><GlobeIcon />{site.location}</p>
-          <p className={styles.localTime}>
-            <span className="sr-only">{ui.localTime}: </span>
-            <LocalTime /> WIB <span className={styles.timezone}>(UTC +7)</span>
-          </p>
-        </div>
-        <div className={styles.quickContact}>
-          <p className={styles.smallLabel}>{ui.idea}</p>
-          <a href={contacts.email}>{ui.connect}<ArrowIcon /></a>
-        </div>
-      </aside>
-    </section>
-  );
-}
-
-function TechnologyStack({ language }: LocalizedProps) {
-  const ui = uiCopy[language];
-  return (
-    <section className={styles.technologySection} aria-labelledby="stack-title">
-      <header className={styles.groupHeading}>
-        <h3 id="stack-title">{ui.technologies}</h3>
-        <p>{ui.technologiesDescription}</p>
       </header>
-      <ul className={styles.technologies}>
-        {technologies.map((technology) => (
-          <li key={technology}>{technology}</li>
-        ))}
-      </ul>
-    </section>
+
+      <p className={styles.bio}>
+        {bio.line1Prefix}{" "}
+        <a href={contacts.github} {...externalProps}>{bio.line1LinkLabel}</a>{" "}
+        {bio.line1Suffix}
+      </p>
+
+      <InlineContacts language={language} />
+
+      <section className={styles.recent} aria-labelledby="recent-title">
+        <h2 id="recent-title">
+          <span aria-hidden="true"># </span>
+          {language === "id" ? "Baru dikirim" : "Recently shipped"}
+        </h2>
+        <FeaturedProject
+          href="/projects/llnx"
+          image="/projects/llnx/tui-overview.png"
+          title="llnx — crypto execution system"
+        />
+        <FeaturedProject
+          href="/projects/llian-dev"
+          image="/projects/llian-dev/overview.png"
+          title="llian.dev — local-first web tools"
+        />
+        <a className={styles.allProjects} href="#projects">
+          {language === "id" ? "semua proyek" : "all projects"} →
+        </a>
+      </section>
+    </aside>
   );
 }
 
-function Entries({ entries }: { entries: readonly Entry[] }) {
+function SectionTitle({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <ul className={styles.entries}>
+    <h2 id={id} className={styles.sectionTitle}>
+      <span aria-hidden="true"># </span>
+      {children}
+    </h2>
+  );
+}
+
+function Timeline({ entries }: { entries: readonly Entry[] }) {
+  return (
+    <ul className={styles.timeline}>
       {entries.map((entry) => (
-        <li className={styles.entry} key={`${entry.co}-${entry.date}`}>
-          <div className={styles.entryLeft}>
+        <li key={`${entry.co}-${entry.date}`}>
+          <span className={styles.timelineMark} aria-hidden="true">
+            {entry.co.slice(0, 1)}
+          </span>
+          <div className={styles.timelineIdentity}>
             {entry.href ? (
-              <a
-                className={styles.entryCompany}
-                href={entry.href}
-                {...externalProps}
-              >
-                {entry.co}
-                <ArrowIcon />
-              </a>
+              <a href={entry.href} {...externalProps}>{entry.co}</a>
             ) : (
-              <span className={styles.entryCompany}>{entry.co}</span>
+              <strong>{entry.co}</strong>
             )}
-            <span className={styles.entryRole}>{entry.role}</span>
+            <span>{entry.role}</span>
           </div>
-          <span className={styles.entryDate}>{entry.date}</span>
+          <time>{entry.date}</time>
         </li>
       ))}
     </ul>
   );
 }
 
-function HistorySection({
-  id,
-  section,
-}: {
-  id: string;
-  section: { title: string; sub: string; entries: readonly Entry[] };
-}) {
+function Contributions({ language }: LocalizedProps) {
+  const section = content[language].contributions;
   return (
-    <section className={styles.historySection} aria-labelledby={id}>
-      <header className={styles.groupHeading}>
-        <h3 id={id}>{section.title}</h3>
-        <p>{section.sub}</p>
-      </header>
-      <Entries entries={section.entries} />
+    <section id="contributions" className={styles.contentSection} aria-labelledby="contributions-title">
+      <SectionTitle id="contributions-title">{section.title}</SectionTitle>
+      <p className={styles.sectionSubtitle}>{section.sub}</p>
+      <div className={styles.contributionGrid}>
+        {section.entries.map((entry) => (
+          <article className={styles.contribution} key={`${entry.co}-${entry.date}`}>
+            <p>{entry.date}</p>
+            <h3>{entry.href ? <a href={entry.href} {...externalProps}>{entry.co}</a> : entry.co}</h3>
+            <p>{entry.role}</p>
+            {entry.href && (
+              <a className={styles.readLink} href={entry.href} {...externalProps}>
+                <FileIcon /> {language === "id" ? "lihat kontribusi" : "view contribution"}
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
     </section>
   );
 }
@@ -321,55 +252,42 @@ export function Portfolio() {
 
   return (
     <div lang={language} className={styles.page}>
-      <Topbar language={language} onChange={setLanguage} />
+      <SocialRail language={language} />
+      <FloatingControls language={language} onChange={setLanguage} />
+      <Profile language={language} />
+
       <main id="main-content" tabIndex={-1} className={styles.main}>
-        <Profile language={language} />
-        <section
-          id="projects"
-          className={styles.section}
-          aria-labelledby="projects-title"
-        >
-          <header className={styles.sectionHeading}>
-            <div>
-              <h2 id="projects-title">
-                {ui.selectedWork}
-                <span className={styles.sectionCount}>
-                  {" "}
-                  ({String(copy.projects.items.length).padStart(2, "0")})
-                </span>
-              </h2>
-              <p>{copy.projects.sub}</p>
-            </div>
-            <a href={contacts.github} {...externalProps}>
-              GitHub
-              <ArrowIcon />
-            </a>
-          </header>
+        <section id="experience" className={styles.contentSection} aria-labelledby="experience-title">
+          <SectionTitle id="experience-title">{copy.experience.title}</SectionTitle>
+          <Timeline entries={copy.experience.entries} />
+        </section>
+
+        <section id="projects" className={styles.contentSection} aria-labelledby="projects-title">
+          <SectionTitle id="projects-title">{copy.projects.title}</SectionTitle>
           <ProjectCards projects={copy.projects.items} language={language} />
         </section>
-        <section
-          id="about"
-          className={styles.section}
-          aria-labelledby="about-title"
-        >
-          <header className={styles.sectionHeading}>
-            <div>
-              <h2 id="about-title">{ui.behindTheWork}</h2>
-              <p>{ui.aboutDescription}</p>
-            </div>
-            <span className={styles.sectionAside}>{ui.learning}</span>
-          </header>
-          <div className={styles.aboutContent}>
-            <TechnologyStack language={language} />
-            <div className={styles.aboutGrid}>
-              <div className={styles.aboutLeft}>
-                <HistorySection id="experience-title" section={copy.experience} />
-                <HistorySection id="education-title" section={copy.education} />
-              </div>
-              <HistorySection id="contributions-title" section={copy.contributions} />
-            </div>
-          </div>
+
+        <Contributions language={language} />
+
+        <section id="education" className={styles.contentSection} aria-labelledby="education-title">
+          <SectionTitle id="education-title">{copy.education.title}</SectionTitle>
+          <Timeline entries={copy.education.entries} />
         </section>
+
+        <section id="engineering" className={styles.contentSection} aria-labelledby="engineering-title">
+          <SectionTitle id="engineering-title">{ui.technologies}</SectionTitle>
+          <p className={styles.engineeringLine}>
+            {technologies.map((technology, index) => (
+              <span key={technology}>
+                {technology}{index < technologies.length - 1 && <i aria-hidden="true">·</i>}
+              </span>
+            ))}
+          </p>
+          <a className={styles.resumeLink} href={site.cvHref} {...externalProps}>
+            <FileIcon /> {ui.cv}
+          </a>
+        </section>
+
         <PortfolioFooter language={language} />
       </main>
     </div>

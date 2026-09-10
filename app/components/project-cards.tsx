@@ -4,103 +4,76 @@ import { uiCopy, type Language, type Project } from "@/lib/content";
 import { ArrowIcon } from "./icons";
 import styles from "../page.module.css";
 
-type Presentation = {
-  order: number;
-  category: Record<Language, string>;
-  preview?: { src: string; width: number; height: number };
-};
-
-const presentations: Record<string, Presentation | undefined> = {
+const presentations = {
   taksirin: {
     order: 0,
     category: { id: "Produk web", en: "Web product" },
+    display: "Garapan.",
+    tags: ["Next.js", "TypeScript", "PostgreSQL"],
   },
   llnx: {
     order: 1,
-    category: { id: "Otomasi · Python", en: "Automation · Python" },
-    preview: { src: "/projects/llnx/tui-overview.png", width: 1800, height: 1187 },
+    category: { id: "Otomasi Python", en: "Python automation" },
+    image: "/projects/llnx/tui-overview.png",
+    tags: ["Python", "Textual", "Jupiter"],
   },
   "llian.dev": {
     order: 2,
-    category: { id: "Local-first tools", en: "Local-first tools" },
-    preview: { src: "/projects/llian-dev/overview.png", width: 1200, height: 630 },
+    category: { id: "Peralatan local-first", en: "Local-first tools" },
+    image: "/projects/llian-dev/overview.png",
+    tags: ["Next.js", "TypeScript", "Cloudflare"],
   },
   "llian.me": {
     order: 3,
     category: { id: "Website personal", en: "Personal website" },
+    display: "llian.me",
+    tags: ["Next.js", "React", "TypeScript"],
   },
-};
+} as const;
 
-type ProjectProps = { project: Project; language: Language };
+type PresentationKey = keyof typeof presentations;
 
-function ProjectActions({ project, language }: ProjectProps) {
-  const label = uiCopy[language].caseStudy;
-  return (
-    <div className={styles.projectActions}>
-      {project.detailHref && (
-        <Link href={project.detailHref} aria-label={`${label}: ${project.name}`}>
-          {label}<ArrowIcon />
-        </Link>
-      )}
-      <a
-        href={project.action.href}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={`${project.action.label} ${project.name}`}
-      >
-        {project.action.label}<ArrowIcon />
-      </a>
-    </div>
-  );
-}
-
-function ProjectPreview({ project }: { project: Project }) {
-  const preview = presentations[project.name]?.preview;
-  return (
-    <div
-      className={`${styles.projectPreview} ${project.name === "taksirin" ? styles.garapanPreview : ""}`}
-      aria-hidden="true"
-    >
-      {preview ? (
-        <Image {...preview} alt="" unoptimized sizes="(min-width: 681px) 152px, 88px" />
-      ) : (
-        <span className="font-sans">{project.name === "taksirin" ? "Garapan." : project.name}</span>
-      )}
-    </div>
-  );
-}
-
-function ProjectRow({ project, language }: ProjectProps) {
-  const presentation = presentations[project.name];
-  const featured = project.name === "taksirin";
+function ProjectCard({ project, language }: { project: Project; language: Language }) {
+  const presentation = presentations[project.name as PresentationKey];
   const ui = uiCopy[language];
-  const title = <>{project.name}{featured && <span> / Garapan</span>}</>;
 
   return (
-    <article className={styles.project}>
-      <ProjectPreview project={project} />
-      <header className={styles.projectHeading}>
-        <div className={styles.projectMeta}>
-          <span>{presentation?.category[language] ?? project.name}</span>
-          {project.badge && <span className={styles.badge}><span aria-hidden="true" />Live</span>}
+    <article className={styles.projectCard}>
+      <div className={styles.projectPanel}>
+        <div className={styles.projectVisual}>
+          {"image" in presentation ? (
+            <Image
+              src={presentation.image}
+              alt=""
+              fill
+              sizes="(max-width: 720px) calc(100vw - 40px), 330px"
+              unoptimized
+            />
+          ) : (
+            <span className="font-serif">{presentation.display}</span>
+          )}
         </div>
-        <h3>
-          {project.detailHref ? <Link href={project.detailHref}>{title}</Link> : title}
-        </h3>
-      </header>
-      <div className={styles.projectBody}>
-        <p className={styles.projectDescription}>{project.desc}</p>
-        {featured && (
-          <div className={styles.projectDetails}>
-            <ol className={styles.workflow} aria-label={ui.workflow}>
-              {[ui.quote, ui.production, ui.tracking].map((step) => <li key={step}>{step}</li>)}
-            </ol>
-            <ul className={styles.projectTags}>
-              {["Next.js", "TypeScript", "PostgreSQL"].map((tag) => <li key={tag}>{tag}</li>)}
-            </ul>
+        <div className={styles.projectCopy}>
+          <div className={styles.projectNameLine}>
+            <h3>{project.detailHref ? <Link href={project.detailHref}>{project.name}</Link> : project.name}</h3>
+            {project.badge && <span className={styles.liveBadge}><i aria-hidden="true" />Live</span>}
           </div>
+          <p>{project.desc}</p>
+        </div>
+      </div>
+      <p className={styles.projectCategory}>{presentation.category[language]}</p>
+      <ul className={styles.projectTags} aria-label={ui.technologies}>
+        {presentation.tags.map((tag) => <li key={tag}>{tag}</li>)}
+      </ul>
+      <div className={styles.projectActions}>
+        {project.detailHref && (
+          <Link href={project.detailHref}>
+            <ArrowIcon /> {ui.caseStudy.toLowerCase()}
+          </Link>
         )}
-        <ProjectActions project={project} language={language} />
+        <a href={project.action.href} target="_blank" rel="noreferrer">
+          <ArrowIcon /> {project.action.label.toLowerCase()}
+        </a>
       </div>
     </article>
   );
@@ -108,12 +81,12 @@ function ProjectRow({ project, language }: ProjectProps) {
 
 export function ProjectCards({ projects, language }: { projects: readonly Project[]; language: Language }) {
   const ordered = [...projects].sort(
-    (a, b) => (presentations[a.name]?.order ?? Number.MAX_SAFE_INTEGER) -
-      (presentations[b.name]?.order ?? Number.MAX_SAFE_INTEGER),
+    (a, b) => presentations[a.name as PresentationKey].order - presentations[b.name as PresentationKey].order,
   );
+
   return (
     <div className={styles.projects}>
-      {ordered.map((project) => <ProjectRow key={project.name} project={project} language={language} />)}
+      {ordered.map((project) => <ProjectCard key={project.name} project={project} language={language} />)}
     </div>
   );
 }

@@ -1,55 +1,53 @@
-import { contacts, content, uiCopy, type Language } from "@/lib/content";
-import {
-  ArrowIcon,
-  GitHubIcon,
-  InstagramIcon,
-  WhatsAppIcon,
-  XIcon,
-} from "./icons";
+import { contacts, content, site, uiCopy, type Language } from "@/lib/content";
+import { LocalTime } from "./local-time";
 import styles from "../page.module.css";
 
-const socialLinks = [
-  { label: "GitHub", href: contacts.github, icon: GitHubIcon },
-  { label: "Instagram", href: contacts.instagram, icon: InstagramIcon },
-  { label: "Twitter / X", href: contacts.twitter, icon: XIcon },
-  { label: "WhatsApp", href: contacts.whatsapp, icon: WhatsAppIcon },
-];
+const railLinks = [
+  { label: "X", href: contacts.twitter },
+  { label: "GitHub", href: contacts.github },
+  { label: "Email", href: contacts.email },
+  { label: "Instagram", href: contacts.instagram },
+  { label: "Quick Call?", href: contacts.whatsapp },
+  { label: "Resume", href: site.cvHref },
+] as const;
+
+export function SocialRail({ language = "id" }: { language?: Language }) {
+  return (
+    <nav className={styles.socialRail} aria-label={uiCopy[language].social}>
+      {railLinks.map((link) => (
+        <a
+          key={link.label}
+          href={link.href}
+          target={link.href.startsWith("http") ? "_blank" : undefined}
+          rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  );
+}
 
 export function PortfolioFooter({ language }: { language: Language }) {
   const copy = content[language].footer;
   const ui = uiCopy[language];
+
   return (
     <footer id="contact" className={styles.footer}>
-      <div className={styles.contactContent}>
-        <div className={styles.footerInvitation}>
-          <p className={styles.smallLabel}>{ui.stayInTouch}</p>
-          <h2 className="font-serif">{ui.hello}</h2>
-          <a className={styles.emailLink} href={contacts.email}>
-            {contacts.email.replace("mailto:", "")}
-            <ArrowIcon />
-          </a>
-        </div>
-        <nav className={styles.socialLinks} aria-label={ui.social}>
-          {socialLinks.map(({ label, href, icon: Icon }) => (
-            <a key={label} href={href} target="_blank" rel="noreferrer">
-              <Icon />
-              <span>{label}</span>
-              <ArrowIcon />
-            </a>
-          ))}
-        </nav>
+      <div className={styles.footerPrompt}>
+        <span aria-hidden="true"># </span>
+        {language === "id" ? "tanya apa saja, saya ada di" : "ask me anything, find me on"}{" "}
+        <a href={contacts.email}>email</a>
       </div>
       <div className={styles.footerMeta}>
         <div>
-          <p>
-            {copy.creditPrefix} <strong>{copy.creditName}</strong>
-          </p>
+          <p>{copy.creditPrefix} <strong>{copy.creditName}</strong></p>
           <p>{copy.copyright}</p>
         </div>
-        <a className={styles.backToTop} href="#main-content">
-          {ui.backToTop}
-          <span aria-hidden="true">↑</span>
-        </a>
+        <div className={styles.footerLocation}>
+          <p>{site.location}</p>
+          <p><span className="sr-only">{ui.localTime}: </span><LocalTime /> WIB</p>
+        </div>
       </div>
     </footer>
   );
