@@ -63,7 +63,7 @@
 }
 .siteHeader::before {
   position: absolute;
-  z-index: 0;
+  z-index: 1;
   top: 0;
   bottom: 0;
   left: 50%;
